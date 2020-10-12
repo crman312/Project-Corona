@@ -80,4 +80,6 @@ body {
   color: #ffff;
   text-align: center;
   background: #000000;
+  right: 0;
+  margin: auto;
 }
