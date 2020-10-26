@@ -27,14 +27,8 @@ namespace myWebApp.Pages
         
     protected void LoginButton_Click(object sender, EventArgs e)
     {
-        // Validate the user against the Membership framework user store
-        if (Membership.ValidateUser(Username.Value, Password.Value))
-        {
-            // Log the user into the site
-            FormsAuthentication.RedirectFromLoginPage(UserName.Value);
-        }
-        // If we reach here, the user's credentials were invalid
-        InvalidCredentialsMessage.Visible = true;
+        Response.Redirect("/admin");
+
     }
         public void LoginCheck(string email, string password)
         {
@@ -49,8 +43,8 @@ namespace myWebApp.Pages
 
                 cmd.CommandText = @"SELECT * FROM employee WHERE email = @email AND password = @password";
 
-                string emailInput = email-text.Value;
-                string passwordInput = password-text.Value;
+                string emailInput = Request.Form["email"];
+                string passwordInput = Request.Form["password"];
 
 
 
