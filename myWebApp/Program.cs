@@ -17,7 +17,7 @@ namespace myWebApp
             CreateHostBuilder(args).Build().Run();
 
 
-            var cs = "Host=localhost;Username=postgres;Password=s$cret;Database=Corona kantoor app";
+            var cs = "Host=localhost;Username=postgres;Password=Minicooper1;Database=Corona kantoor app";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
@@ -28,7 +28,7 @@ namespace myWebApp
             cmd.CommandText = "DROP TABLE IF EXISTS employee";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = "INSERT INTO employee(user_id, password, email) VALUES(2,'jewed', 'ttt@hsd.nl')";
+            cmd.CommandText = "INSERT INTO employee(user_id, password, email) VALUES(2,'jewed','ttt@hsd.nl')";
             cmd.ExecuteNonQuery();
 
             
