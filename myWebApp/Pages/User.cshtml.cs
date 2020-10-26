@@ -10,9 +10,9 @@ namespace myWebApp.Pages
 {
     public class UserModel : PageModel
     {
-        private readonly ILogger<AdminModel> _logger;
+        private readonly ILogger<UserModel> _logger;
 
-        public UserModel(ILogger<AdminModel> logger)
+        public UserModel(ILogger<UserModel> logger)
         {
             _logger = logger;
         }
