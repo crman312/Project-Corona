@@ -17,17 +17,21 @@ namespace myWebApp
             CreateHostBuilder(args).Build().Run();
 
 
-            var cs = "Server=localhost;Port=5432;Database=Corona kantoor app;User Id=postgres;Password=Minicooper1";
+            var cs = "Host=localhost;Username=postgres;Password=s$cret;Database=Corona kantoor app";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT version()";
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = con;
 
-            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.CommandText = "DROP TABLE IF EXISTS employee";
+            cmd.ExecuteNonQuery();
 
-            var version = cmd.ExecuteScalar().ToString();
-            Console.WriteLine($"PostgreSQL version: {version}");
+            cmd.CommandText = "INSERT INTO employee(user_id, password, email) VALUES(2,'jewed', 'ttt@hsd.nl')";
+            cmd.ExecuteNonQuery();
+
+            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
