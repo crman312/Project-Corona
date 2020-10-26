@@ -17,7 +17,7 @@ namespace myWebApp
             CreateHostBuilder(args).Build().Run();
 
 
-            var cs = "Host=localhost;Username=Corona kantoor app;Password=Minicooper1;Database=Corona kantoor app";
+            var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
@@ -25,10 +25,9 @@ namespace myWebApp
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO employee(user_id, password, email) VALUES(2,'jewed','ttt@hsd.nl')";
+            cmd.CommandText = "INSERT INTO employee(user_id, password, email) VALUES(3,'JJ','info@vercate.com')";
             cmd.ExecuteNonQuery();
-
-            
+         
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
