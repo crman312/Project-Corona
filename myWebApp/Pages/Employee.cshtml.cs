@@ -8,11 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace myWebApp.Pages
 {
-    public class UserModel : PageModel
+    public class EmployeeModel : PageModel
     {
-        private readonly ILogger<UserModel> _logger;
+        private readonly ILogger<EmployeeModel> _logger;
 
-        public UserModel(ILogger<UserModel> logger)
+        public EmployeeModel(ILogger<EmployeeModel> logger)
         {
             _logger = logger;
         }
