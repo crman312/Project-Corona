@@ -26,11 +26,11 @@ namespace myWebApp.Pages
 
         
             
-        public void AddLocationButton_Click(object sender, EventArgs e)
+        public void OnPost(object sender, EventArgs e)
         {
 
-//Request.Form["Location"];
-            string locationInput = locationInput.Text;
+
+            string locationInput = Request.Form["Location"];;
             string roomInput = Request.Form["Room"];
             string squaremetersInput = Request.Form["SquareMeters"];
 

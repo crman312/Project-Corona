@@ -34,7 +34,7 @@
                     <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Add workspace</h4>
-                        <form runat="server">
+                        <form method="post" runat="server">
                             <div class="form-group">
                                 <label>Location</label>
                                 <input name="" class="form-control" runat="server" value="Location" id="Location" placeholder="Location" type="text">
@@ -51,7 +51,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <button id="LoginButton" type="submit" onserverclick="AddLocationButton_Click" class="btn btn-dark btn-lg">Save</button>
+                                <button id="LoginButton" type="submit" onserverclick="OnPost" class="btn btn-dark btn-lg">Save</button>
                             </div> <!-- form-group// -->                                                           
                         </form>
                         </article>
