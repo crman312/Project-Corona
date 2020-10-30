@@ -37,7 +37,7 @@
                         <form method="post" runat="server">
                             <div class="form-group">
                                 <label>Location</label>
-                                <input name="Location" class="form-control" runat="server" value="Location" id="Location" placeholder="Location" type="text">
+                                <input name="Location" class="form-control" runat="server" value="@Request.Form["Location"]" id="Location" placeholder="Location" type="text">
                             </div> <!-- form-group// -->
                             <div class="form-group">
                                
@@ -52,8 +52,6 @@
                             
                             <div class="form-group">
                                 <button id="LoginButton" type="submit" onserverclick="OnPost" class="btn btn-dark btn-lg">Save</button>
-                                    <input type="submit">
-
                             </div> <!-- form-group// -->                                                           
                         </form>
                         </article>
