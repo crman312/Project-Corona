@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Npgsql;
+
 
 namespace myWebApp.Pages
 {
@@ -21,5 +23,29 @@ namespace myWebApp.Pages
         {
 
         }
+
+        
+            
+  public static void Main(string[] args)
+        {
+
+
+            string locationInput = Request.Form["Location"];
+            string roomInput = Request.Form["Room"];
+            int squaremetersInput = Request.Form["SquareMeters"];
+
+            var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = "INSERT INTO Workspaces(Location, Room, SquareMeters) VALUES(locationInput, roomInput, squaremetersInput)";
+            cmd.ExecuteNonQuery(); 
+            
+        }
+            
     }
 }
