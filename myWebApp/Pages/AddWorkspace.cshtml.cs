@@ -29,8 +29,8 @@ namespace myWebApp.Pages
         public void AddLocationButton_Click(object sender, EventArgs e)
         {
 
-
-            string locationInput = Request.Form["Location"];
+//Request.Form["Location"];
+            string locationInput = locationInput.Text;
             string roomInput = Request.Form["Room"];
             string squaremetersInput = Request.Form["SquareMeters"];
 
@@ -42,7 +42,7 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES(locationInput, roomInput, squaremetersInput)";
+            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES(locationInput, locationInput, locationInput)";
             cmd.ExecuteNonQuery(); 
                     
         }
