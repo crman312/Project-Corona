@@ -42,7 +42,7 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO Workspaces(Location, Room, SquareMeters) VALUES(locationInput, roomInput, squaremetersInput)";
+            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES('Location', 'Room', 'SquareMeters')";
             cmd.ExecuteNonQuery(); 
                     
         }
