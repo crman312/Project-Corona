@@ -29,21 +29,26 @@ namespace myWebApp.Pages
         public void OnPost(object sender, EventArgs e)
         {
 
-           
-            string locationInput = Request.Form["Location"];;
-            string roomInput = Request.Form["Room"];
-            string squaremetersInput = Request.Form["SquareMeters"];
+        var locationInput = "";
+        var roomInput = "";
+        var squaremetersInput = "";
 
-            var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+        
+   
+        locationInput = Request.Form["Location"];
+        roomInput = Request.Form["Room"];
+        squaremetersInput = Request.Form["SquareMeters"];
 
-            using var con = new NpgsqlConnection(cs);
-            con.Open();
+        var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
 
-            using var cmd = new NpgsqlCommand();
-            cmd.Connection = con;
+        using var con = new NpgsqlConnection(cs);
+        con.Open();
 
-            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES('locationInput', 'locationInput', 1)";
-            cmd.ExecuteNonQuery(); 
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = con;
+
+        cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES( @locationInput, @roomInput, @squaremetersInput)";
+        cmd.ExecuteNonQuery(); 
                     
         }
                     

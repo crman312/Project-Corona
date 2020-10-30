@@ -4,30 +4,6 @@
     ViewData["Title"] = "Admin";
 }
 
-@{
-
-    var locationInput = "";
-    var roomInput = "";
-    var squaremetersInput = "";
-
-    if(IsPost){
-        locationInput = Request.Form["Location"];
-        roomInput = Request.Form["Room"];
-        squaremetersInput = Request.Form["SquareMeters"];
-
-        var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
-
-        using var con = new NpgsqlConnection(cs);
-        con.Open();
-
-        using var cmd = new NpgsqlCommand();
-        cmd.Connection = con;
-
-        cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES( @locationInput, @roomInput, @squaremetersInput)";
-        cmd.ExecuteNonQuery(); 
-    }
-}
-
 <div class="container-fluid">
     <div class="row h-100">
         <div class="col-3 bg-light">
@@ -59,24 +35,26 @@
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Add workspace</h4>
                         <form method="post" runat="server">
-                            <div class="form-group">
-                                <label>Location</label>
-                                <input name="Location" class="form-control" runat="server" value="@Request.Form["Location"]" id="Location" placeholder="Location" type="text">
-                            </div> <!-- form-group// -->
-                            <div class="form-group">
-                               
-                                <label>Room</label>
-                                <input class="form-control" placeholder="Room" value="@Request.Form["Room"]" runat="server" name="Room" id="Room" type="text">
-                            </div>
-                            <div class="form-group">
-            
-                                <label>Number of square meters</label>
-                                <input class="form-control" name="SquareMeters" placeholder="Square Meters" value="@Request.Form["SquareMeters"]" runat="server" id="SquareMeters" type="text">
-                            </div>
-                            
-                            <div class="form-group">
-                                <button id="LoginButton" type="submit" onserverclick="OnPost" class="btn btn-dark btn-lg">Save</button>
-                            </div> <!-- form-group// -->                                                           
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="Location">Location</label>
+                                    <input name="Location" class="form-control" runat="server" value="Location" id="Location" placeholder="Location" type="text">
+                                </div> <!-- form-group// -->
+                                <div class="form-group">
+                                
+                                    <label for="Room">Room</label>
+                                    <input class="form-control" placeholder="Room" value="Room" runat="server" name="Room" id="Room" type="text">
+                                </div>
+                                <div class="form-group">
+                
+                                    <label for="SquareMeters">Number of square meters</label>
+                                    <input class="form-control" name="SquareMeters" placeholder="Square Meters" value="SquareMeters" runat="server" id="SquareMeters" type="text">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <button id="LoginButton" type="submit" onserverclick="OnPost" class="btn btn-dark btn-lg">Save</button>
+                                </div> <!-- form-group// -->    
+                            </fieldset>                                                       
                         </form>
                         </article>
                     </div> <!-- card.// -->
