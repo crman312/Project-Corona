@@ -26,13 +26,13 @@ namespace myWebApp.Pages
 
         
             
-  public static void Main(string[] args)
+        public void AddLocationButton_Click(object sender, EventArgs e)
         {
 
 
             string locationInput = Request.Form["Location"];
             string roomInput = Request.Form["Room"];
-            int squaremetersInput = Request.Form["SquareMeters"];
+            string squaremetersInput = Request.Form["SquareMeters"];
 
             var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
 
@@ -44,8 +44,8 @@ namespace myWebApp.Pages
 
             cmd.CommandText = "INSERT INTO Workspaces(Location, Room, SquareMeters) VALUES(locationInput, roomInput, squaremetersInput)";
             cmd.ExecuteNonQuery(); 
-            
+                    
         }
-            
+                    
     }
 }
