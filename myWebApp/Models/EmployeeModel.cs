@@ -5,14 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using myWebApp.Database;
+using myWebApp.Models;
+using Npgsql;
 
 namespace myWebApp.Models
 {
     public class EmployeeModel
     {
-        public int user_id { get; set; }
-        public string password { get; set; }
-        public string email { get; set; }
-
+        [BindProperty]
+        public string Name { get; set; }
+        [BindProperty]
+        public string Email { get; set; } 
+        [BindProperty]
+        public string Password { get; set; } 
+        [BindProperty]
+        public string Function { get; set; } 
     }
 }

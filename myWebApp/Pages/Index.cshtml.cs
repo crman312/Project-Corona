@@ -34,7 +34,14 @@ namespace myWebApp.Pages
         {
             try
 			{
-                
+                var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+				using var con = new NpgsqlConnection(cs);
+                con.Open();
+		
+                using var cmd = new NpgsqlCommand();
+                cmd.Connection = con;
+
+                cmd.CommandText = @"SELECT * FROM employee WHERE email = @email AND password = @password";
 
                 string emailInput = Request.Form["email"];
                 string passwordInput = Request.Form["password"];
