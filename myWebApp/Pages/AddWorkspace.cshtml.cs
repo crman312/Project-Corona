@@ -30,6 +30,17 @@ namespace myWebApp.Pages
         public void OnPostSubmit(WorkspaceModel workspace)
         {
             this.Info = string.Format("Info: {0} {1} {2}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
+
+            var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES(@workspace.LocationName, @workspace.RoomName, workspace.SquareMeters)";
+            cmd.ExecuteNonQuery(); 
         }
 
 
