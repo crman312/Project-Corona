@@ -31,7 +31,7 @@ namespace myWebApp.Pages
         {
             int availworkspaces = AvailableWorkspaces(workspace.SquareMeters, workspace.Lengthws, workspace.Widthws);
 
-            this.Info = string.Format("Info: {0} {1} {2} {3}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters, workspace.TotalWorkspaces);
+            this.Info = string.Format("Info: {0} {1} {2}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
 
             CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters, availworkspaces);
         }
@@ -44,7 +44,7 @@ namespace myWebApp.Pages
             double squareX = Math.Sqrt(SquareMeters) / X;
             double squareY = Math.Sqrt(SquareMeters) / Y;
 
-            int total = int(squareX) * int(squareY);
+            int total = Convert.ToInt32(squareX) * Convert.ToInt32(squareY);
             return total;
         }
 
