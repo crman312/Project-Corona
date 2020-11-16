@@ -33,7 +33,7 @@ namespace myWebApp.Pages
             CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
         }
 
-        public void CreateWorkspace(string location, string room, int foursquare)
+        public void CreateWorkspace(string location, string room, int squaremeters)
         {
             
 
@@ -49,9 +49,25 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO public.workspaces(public.location, public.room, public.squaremeters) VALUES(@location, @room, @wfoursquare)";
+            /*cmd.CommandText = "INSERT INTO workspaces(location, room, squaremeters) VALUES(@location, @room, @foursquare)";
             cmd.Prepare();
-            cmd.ExecuteNonQuery(); 
+            cmd.ExecuteNonQuery(); */
+
+            private NpgsqlDataAdapter NpAdapter;
+            string insertQuery = "INSERT INTO workspaces(location, room, squaremeters) VALUES(@location, @room, @squaremeters)";
+            NpAdapter.InsertCommand = new NpgsqlCommand(insertQuery, con);
+
+            NpParam = NpAdapter.InsertCommand.Parameters.Add("@location", NpgsqlTypes.NpgsqlDbType.Text);
+            NpParam.SourceColumn = "location";
+            NpParam.SourceVersion = DataRowVersion.Current;
+
+            NpParam = NpAdapter.InsertCommand.Parameters.Add("@room", NpgsqlTypes.NpgsqlDbType.Bigint);
+            NpParam.SourceVersion = DataRowVersion.Current;
+            NpParam.SourceColumn = "room";
+            
+            NpParam = NpAdapter.InsertCommand.Parameters.Add("@squaremeters", NpgsqlTypes.NpgsqlDbType.Bigint);
+            NpParam.SourceVersion = DataRowVersion.Current;
+            NpParam.SourceColumn = "squaremeters";
 
         }
 
