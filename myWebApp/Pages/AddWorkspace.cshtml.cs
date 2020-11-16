@@ -29,7 +29,7 @@ namespace myWebApp.Pages
  
         public void OnPostSubmit(WorkspaceModel workspace)
         {
-            this.Info = string.Format("Info: {0} {1} {3}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
+            this.Info = string.Format("Info: {0} {1} {2}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
         }
 
 
