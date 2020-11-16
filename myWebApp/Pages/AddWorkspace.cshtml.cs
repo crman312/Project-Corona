@@ -40,7 +40,7 @@ namespace myWebApp.Pages
             cmd.Connection = con;
 
             cmd.CommandText = "INSERT INTO workspaces(location, room, squaremeters) VALUES(@workspace.LocationName, @workspace.RoomName, @workspace.SquareMeters)";
-            cmd.ExecuteNonQuery(); 
+            cmd.ExecuteReader(); 
         }
 
 
