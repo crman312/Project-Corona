@@ -50,7 +50,7 @@ namespace myWebApp.Pages
 
         public void CreateWorkspace(string Location, string Room, int Squaremeters, int Availableworkspaces)
         { 
-            var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+            var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
