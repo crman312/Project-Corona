@@ -26,9 +26,9 @@
             <div class="mt-5 w-100"></div>
             <h5 class="font-italic text-left">Manage my reservations</h5>
             <hr>
-
             <a class="" asp-area="" asp-page="/Index">Logout</a>
         </div>
+
         <div class="col">
             <div class="row">
                 <div class="pl-5 col-8">
@@ -41,16 +41,26 @@
                                     <label>Location</label>
                                     <input id="txtLocationName" name="LocationName" class="form-control" type="text">
                                 </div> <!-- form-group// -->
+
                                 <div class="form-group">
-                                
                                     <label>Room</label>
                                     <input id="txtRoomName" name="RoomName" class="form-control" type="text">
                                 </div>
+
                                 <div class="form-group">
-                
                                     <label>Number of square meters</label>
                                     <input id="txtSquareMeters" name="SquareMeters" class="form-control" type="number">
-                                </div>
+                                </div><!-- form-group// -->
+
+                                <div class="form-group">
+                                    <label>Length of 1 workstation</label>
+                                    <input id="txtSquareMeters" name="Lengthws" class="form-control" type="number">
+                                </div><!-- form-group// -->
+
+                                <div class="form-group">
+                                    <label>Width of 1 workstation</label>
+                                    <input id="txtSquareMeters" name="Widthws" class="form-control" type="number">
+                                </div><!-- form-group// -->
                                 
                                 <div class="form-group">
                                     <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>
@@ -60,12 +70,8 @@
                         </form>
                         </article>
                     </div> <!-- card.// -->
-    
                 </div>
-
-               
             </div>
-
         </div>
   </div>
 </div>

@@ -29,63 +29,43 @@ namespace myWebApp.Pages
  
         public void OnPostSubmit(WorkspaceModel workspace)
         {
-            this.Info = string.Format("Info: {0} {1} {2}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
-            CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
+            int availworkspaces = AvailableWorkspaces(workspace.SquareMeters, workspace.Lengthws, workspace.Widthws);
+
+            this.Info = string.Format("Info: {0} {1} {2} {3}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters, workspace.TotalWorkspaces);
+
+            CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters, availworkspaces);
         }
 
-        public void CreateWorkspace(string Location, string Room, int Squaremeters)
+        public int AvailableWorkspaces(int SquareMeters, int x, int y)
         {
-            
+            double X = 1.5 + x;
+            double Y = 1.5 + y;
+
+            double squareX = Math.Sqrt(SquareMeters) / X;
+            double squareY = Math.Sqrt(SquareMeters) / Y;
+
+            int total = int(squareX) * int(squareY);
+            return total;
+        }
+
+        public void CreateWorkspace(string Location, string Room, int Squaremeters, int Availableworkspaces)
+        { 
             var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            
-            
-
-            var sql = "INSERT INTO workspaces(location, room, squaremeters) VALUES(@Location, @Room, @Squaremeters)";
+            var sql = "INSERT INTO workspaces(location, room, squaremeters, availableworkspaces) VALUES(@Location, @Room, @Squaremeters, @Availableworkspaces)";
             using var cmd = new NpgsqlCommand(sql, con);
             cmd.Parameters.AddWithValue("location", Location);
             cmd.Parameters.AddWithValue("room", Room);
             cmd.Parameters.AddWithValue("squaremeters", Squaremeters);
+            cmd.Parameters.AddWithValue("squaremeters", Availableworkspaces);
 
             cmd.Prepare();
 
-
             cmd.ExecuteNonQuery();
-        }
-
-
-       
-  
-
-
-        
-            
-        public void OnPost(object sender, EventArgs e)
-        {
-
-            var locationInput = "";
-            var roomInput = "";
-            var squaremetersInput = "";
-
-            locationInput = Request.Form["Location"];
-            roomInput = Request.Form["Room"];
-            squaremetersInput = Request.Form["SquareMeters"];
-
-            var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
-
-            using var con = new NpgsqlConnection(cs);
-            con.Open();
-
-            using var cmd = new NpgsqlCommand();
-            cmd.Connection = con;
-
-            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES('Washington', 2, 100)"; //@locationInput, @roomInput, @squaremetersInput
-            cmd.ExecuteNonQuery(); 
-                    
-        }
-                    
+            con.Close();   
+        }    
     }
 }

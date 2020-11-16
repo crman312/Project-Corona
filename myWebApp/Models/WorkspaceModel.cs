@@ -13,16 +13,15 @@ namespace myWebApp.Models
 {
     public class WorkspaceModel
     {
-
         [BindProperty]
         public string LocationName { get; set; }
         [BindProperty]
         public string RoomName { get; set; } 
         [BindProperty]
         public int SquareMeters { get; set; } = 1;
-
-       
-  
-
+        [BindProperty]
+        public int Lengthws { get; set; } = 1;
+        [BindProperty]
+        public int Widthws { get; set; } = 1;
     }
 }
