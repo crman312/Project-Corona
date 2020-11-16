@@ -29,8 +29,6 @@ namespace myWebApp.Pages
             
         public void OnPost(object sender, EventArgs e)
         {
-            Database db = new Database();
-        
 
             var locationInput = "";
             var roomInput = "";
@@ -40,7 +38,7 @@ namespace myWebApp.Pages
             roomInput = Request.Form["Room"];
             squaremetersInput = Request.Form["SquareMeters"];
 
-            var cs = db.Connection();
+            var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
@@ -48,7 +46,7 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES( @locationInput, @roomInput, @squaremetersInput)";
+            cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES('Washington', 2, 100)"; //@locationInput, @roomInput, @squaremetersInput
             cmd.ExecuteNonQuery(); 
                     
         }
