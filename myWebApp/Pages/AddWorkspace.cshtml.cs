@@ -49,7 +49,7 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO public.workspaces(location, room, squaremeters) VALUES(@location, @room, @wfoursquare)";
+            cmd.CommandText = "INSERT INTO public.workspaces(public.location, public.room, public.squaremeters) VALUES(@location, @room, @wfoursquare)";
             cmd.Prepare();
             cmd.ExecuteNonQuery(); 
 
