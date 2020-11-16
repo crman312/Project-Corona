@@ -25,6 +25,10 @@ namespace myWebApp.Pages
 
         }
 
+
+  
+
+
         
             
         public void OnPost(object sender, EventArgs e)
@@ -51,5 +55,29 @@ namespace myWebApp.Pages
                     
         }
                     
+    }
+
+    public class AddWorkspaceModel
+    {
+        public string LocationName { get; set; }
+        public string RoomName { get; set; }
+        public string SquareMeters { get; set; }
+
+
+        locationInput = Request.Form["Location"];
+        roomInput = Request.Form["Room"];
+        squaremetersInput = Request.Form["SquareMeters"];
+
+        var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+
+        using var con = new NpgsqlConnection(cs);
+        con.Open();
+
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = con;
+
+        cmd.CommandText = "INSERT INTO workspaces(location, room, squareMeters) VALUES('Washington', 2, 100)"; //@locationInput, @roomInput, @squaremetersInput
+        cmd.ExecuteNonQuery(); 
+
     }
 }

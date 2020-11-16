@@ -1,5 +1,5 @@
 @page
-@model IndexModel
+
 @{
     ViewData["Title"] = "Admin";
 }
@@ -36,9 +36,10 @@
                         <h4 class="card-title mb-4 mt-1">Add workspace</h4>
                         <form method="post" runat="server">
                             <fieldset>
+                                @model MyModel
                                 <div class="form-group">
                                     <label for="Location">Location</label>
-                                    <input name="Location" class="form-control" runat="server" value="Location" id="Location" placeholder="Location" type="text">
+                                    <input asp-for="Mylocation" name="Location" class="form-control" runat="server" value="Location" id="Location" placeholder="Location" type="text">
                                 </div> <!-- form-group// -->
                                 <div class="form-group">
                                 
