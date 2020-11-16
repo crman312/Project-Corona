@@ -30,6 +30,16 @@ namespace myWebApp.Pages
         public void OnPostSubmit(WorkspaceModel workspace)
         {
             this.Info = string.Format("Info: {0} {1} {2}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
+            CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
+        }
+
+        public void CreateWorkspace(string location, string room, int foursquare)
+        {
+            
+
+
+
+
 
             var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
 
@@ -39,12 +49,11 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO workspaces(location, room, squaremeters) VALUES(@workspace.LocationName, @workspace.RoomName, @workspace.SquareMeters)";
+            cmd.CommandText = "INSERT INTO public.workspaces(location, room, squaremeters) VALUES(@location, @room, @wfoursquare)";
             cmd.Prepare();
             cmd.ExecuteNonQuery(); 
+
         }
-
-
 
 
        
