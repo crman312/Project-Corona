@@ -60,7 +60,7 @@ namespace myWebApp.Pages
             cmd.Parameters.AddWithValue("location", Location);
             cmd.Parameters.AddWithValue("room", Room);
             cmd.Parameters.AddWithValue("squaremeters", Squaremeters);
-            cmd.Parameters.AddWithValue("squaremeters", Availableworkspaces);
+            cmd.Parameters.AddWithValue("availableworkspaces", Availableworkspaces);
 
             cmd.Prepare();
 
