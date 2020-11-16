@@ -14,12 +14,12 @@ namespace myWebApp.Pages
 {
     public class AddWorkspaceModel : PageModel
     {
-        /*private readonly ILogger<AddWorkspaceModel> _logger;
+        private readonly ILogger<AddWorkspaceModel> _logger;
 
         public AddWorkspaceModel(ILogger<AddWorkspaceModel> logger)
         {
             _logger = logger;
-        }*/
+        }
 
         public string Info { get; set; }
  
@@ -39,7 +39,7 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "INSERT INTO workspaces(location, room, squaremeters) VALUES(@workspace.LocationName, @workspace.RoomName, @workspace.SquareMeters)";
+            cmd.CommandText = "INSERT INTO workspaces(location, room, squaremeters) VALUES('@workspace.LocationName, @workspace.RoomName, @workspace.SquareMeters')";
             cmd.ExecuteNonQuery(); 
         }
 
