@@ -31,7 +31,7 @@ namespace myWebApp.Pages
         {
             int availworkspaces = AvailableWorkspaces(workspace.SquareMeters, workspace.Lengthws, workspace.Widthws);
 
-            this.Info = string.Format("Info: {0} {1} {2}", workspace.LocationName, workspace.RoomName, workspace.SquareMeters);
+            this.Info = string.Format("Successfully saved, {0} people can work in this room", availworkspaces);
 
             CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters, availworkspaces);
         }
