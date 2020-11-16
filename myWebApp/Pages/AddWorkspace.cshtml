@@ -1,5 +1,6 @@
 @page
-
+@model AddWorkspaceModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Admin";
 }
@@ -34,28 +35,28 @@
                     <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Add workspace</h4>
-                        <form method="post" runat="server">
+                        <form method="post">
                             <fieldset>
-                                @model MyModel
                                 <div class="form-group">
-                                    <label for="Location">Location</label>
-                                    <input asp-for="Mylocation" name="Location" class="form-control" runat="server" value="Location" id="Location" placeholder="Location" type="text">
+                                    <label>Location</label>
+                                    <input id="txtLocationName" name="LocationName" class="form-control" type="text">
                                 </div> <!-- form-group// -->
                                 <div class="form-group">
                                 
-                                    <label for="Room">Room</label>
-                                    <input class="form-control" placeholder="Room" value="Room" runat="server" name="Room" id="Room" type="text">
+                                    <label>Room</label>
+                                    <input id="txtRoomName" name="RoomName" class="form-control" type="text">
                                 </div>
                                 <div class="form-group">
                 
-                                    <label for="SquareMeters">Number of square meters</label>
-                                    <input class="form-control" name="SquareMeters" placeholder="Square Meters" value="SquareMeters" runat="server" id="SquareMeters" type="text">
+                                    <label>Number of square meters</label>
+                                    <input id="txtSquareMeters" name="SquareMeters" class="form-control" type="text">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <button id="AddWorkspace_button" type="submit" onserverclick="OnPost" class="btn btn-dark btn-lg">Save</button>
+                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>
                                 </div> <!-- form-group// -->    
-                            </fieldset>                                                       
+                            </fieldset>    
+                            @Model.Info                                                   
                         </form>
                         </article>
                     </div> <!-- card.// -->
