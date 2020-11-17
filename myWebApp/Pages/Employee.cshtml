@@ -1,5 +1,5 @@
 @page
-@model IndexModel
+@model myWebApp.Models.Reservation
 @{
     ViewData["Title"] = "Employee";
 }
@@ -84,7 +84,7 @@
                                 <td><strong>Openingstijden</strong></td>
                             </tr>
                             <tr>
-                                <td>Maandag</td>
+                                <td>@Html.DisplayFor(model => model.roomid)</td>
                                 <td>09:00-17:00 uur</td>
                             </tr>
                             <tr>

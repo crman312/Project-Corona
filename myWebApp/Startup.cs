@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using myWebApp.Models;
+using myWebApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace myWebApp
 {
@@ -23,6 +26,14 @@ namespace myWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+           // services.AddDbContext<ConnectionstringClass>(options => options.UseSqlite(Configuration.GetConnectionString("ConnectionstringClass")));
+           // services.AddDatabaseDeveloperPageExceptionFilter();
+            //services.AddEntityFrameworkSqlServer();
+
+           
+            services.AddDbContext<ConnectionstringClass>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("ConnectionstringClass")));
+            
 
            
         }

@@ -1,3 +1,6 @@
+using myWebApp.Data;
+using myWebApp.Models;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +32,10 @@ namespace myWebApp
             cmd.ExecuteNonQuery();
 
             
+
+            
         }
+
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
