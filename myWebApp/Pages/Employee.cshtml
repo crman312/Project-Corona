@@ -1,0 +1,126 @@
+@page
+@model myWebApp.Models.Reservation
+@{
+    ViewData["Title"] = "Employee";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-3 bg-light">
+            <h4 class="text-left font-weight-bolder mt-4">Welcome Employee</h4>
+            <div class="row">
+                <div class="mt-5 w-100"></div>
+                <div class="col-9">
+                    <h5 class="font-italic text-left">Notifications</h5>
+                </div>
+
+                <div class="col">
+                    <div class="circle">1</div>
+                </div>
+            </div>
+            <hr>
+            <p class="mt-2 mb-2">Text Notifications</p>
+            <hr>
+
+            <div class="mt-5 w-100"></div>
+            <h5 class="font-italic text-left">Manage my reservations</h5>
+            <hr>
+
+            <a class="" asp-area="" asp-page="/Index">Logout</a>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="pl-5 col-4 border-right">
+                    <h4 class="font-weight-bolder pb-5">Sign up</h4>
+                    <form>
+                        <tr>
+                            <td>Date</td>
+                            
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='date' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            <td>Select location</td>
+                                <div class="form-group">
+                                    <select id='location'/>
+                                        <option>--Select location--</option>
+                                        <option>Location 1</option>
+                                    </select>
+                                </div>
+                                <div class="form group">
+                                    <button type="submit" class="btn btn-dark btn-lg"> Submit</button>
+                                </div>
+                        </tr>
+                    </form>
+                </div>
+                
+                <div class="pl-5 col-4 border-right">
+                    
+                </div>
+
+                
+            </div>
+
+            <div style="height: 100px" class="w-100"></div>
+            
+            
+            <div class="row">
+                <div class="pl-5 col-8">
+                    <h4 class="font-weight-bolder">Opening Hours</h4>
+                        <table style="width: 350px;">
+                            <tr>
+                                <td><strong>Dag</strong></td>
+                                <td><strong>Openingstijden</strong></td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayFor(model => model.roomid)</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Dinsdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Woensdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Donderdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Vrijdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Zaterdag</td>
+                                <td>Gesloten</td>
+                            </tr>
+                            <tr>
+                                <td>Zondag</td>
+                                <td>Gesloten</td>
+                            </tr>
+                        </table>
+                            
+                            
+                            
+                        
+
+                </div>
+
+            <div class="pl-5 col-4">
+                <h4 class="font-weight-bolder">Settings</h4>
+            </div>
+        </div>
+    </div>
