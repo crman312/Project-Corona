@@ -11,15 +11,17 @@ using Npgsql;
 
 namespace myWebApp.Models
 {
-    public class EmployeeModel
+    public class WorkspaceModel
     {
         [BindProperty]
-        public string Name { get; set; }
+        public string LocationName { get; set; }
         [BindProperty]
-        public string Email { get; set; } 
+        public string RoomName { get; set; } 
         [BindProperty]
-        public string Password { get; set; } 
+        public int SquareMeters { get; set; } = 1;
         [BindProperty]
-        public string Function { get; set; } 
+        public int Lengthws { get; set; } = 1;
+        [BindProperty]
+        public int Widthws { get; set; } = 1;
     }
 }

@@ -1,8 +1,8 @@
 @page
-@model AddWorkspaceModel
+@model AddEmployeeModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "Add Workspace";
+    ViewData["Title"] = "Add Employee";
 }
 
 <div class="container-fluid">
@@ -34,33 +34,28 @@
                 <div class="pl-5 col-8">
                     <div class="card mt-2">
                         <article class="card-body">
-                        <h4 class="card-title mb-4 mt-1">Add workspace</h4>
+                        <h4 class="card-title mb-4 mt-1">Add employee</h4>
                         <form method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <label>Location</label>
-                                    <input id="txtLocationName" name="LocationName" class="form-control" type="text">
+                                    <label>Name</label>
+                                    <input id="txtName" name="Name" class="form-control" type="text">
                                 </div> <!-- form-group// -->
 
                                 <div class="form-group">
-                                    <label>Room</label>
-                                    <input id="txtRoomName" name="RoomName" class="form-control" type="text">
+                                    <label>E-mail</label>
+                                    <input id="txtEmail" name="Email" class="form-control" type="email">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Number of square meters</label>
-                                    <input id="txtSquareMeters" name="SquareMeters" class="form-control" type="number">
-                                </div><!-- form-group// -->
+                                    <label>Password</label>
+                                    <input id="txtPassword" name="Password" class="form-control" type="text">
+                                </div> <!-- form-group// -->
 
                                 <div class="form-group">
-                                    <label>Length of 1 workstation</label>
-                                    <input id="txtSquareMeters" name="Lengthws" class="form-control" type="number">
-                                </div><!-- form-group// -->
-
-                                <div class="form-group">
-                                    <label>Width of 1 workstation</label>
-                                    <input id="txtSquareMeters" name="Widthws" class="form-control" type="number">
-                                </div><!-- form-group// -->
+                                    <label>Function</label>
+                                    <input id="txtFunction" name="Function" class="form-control" type="text">
+                                </div> <!-- form-group// -->
                                 
                                 <div class="form-group">
                                     <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>
