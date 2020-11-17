@@ -34,7 +34,7 @@ namespace myWebApp.Pages
         {
             try
 			{
-                var cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+                var cs = Database.Database.Connector();
 				using var con = new NpgsqlConnection(cs);
                 con.Open();
 		
