@@ -29,11 +29,11 @@ namespace myWebApp.Pages
             Tuple<bool, int> log = LoginCheck(login.Email, login.Password);
             if(log.Item1 == true && log.Item2 == 1)
             {
-                return Page();
+                return new RedirectToPageResult("Admin");
             }
             else
             {
-                return Page();
+                return new RedirectToPageResult("Privacy");
             }
           
         }
