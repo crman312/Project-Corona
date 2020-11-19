@@ -13,11 +13,11 @@ using Npgsql;
 
 namespace Project_Corona.Pages
 {
-    public class EmployeeModel : PageModel
+    public class EmployeepageModel : PageModel
     {
-        private readonly ILogger<EmployeeModel> _logger;
+        private readonly ILogger<EmployeepageModel> _logger;
         
-        public EmployeeModel(ILogger<EmployeeModel> logger)
+        public EmployeepageModel(ILogger<EmployeepageModel> logger)
         {
             _logger = logger;
         }
@@ -29,7 +29,7 @@ namespace Project_Corona.Pages
 
         }
         // Create
-        public void OnPostSubmit(EmployeeModel reservation)
+        public void OnPostSubmit(ReservationModel reservation)
         {
             
 

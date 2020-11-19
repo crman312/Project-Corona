@@ -14392,8 +14392,8 @@
   "RootNamespace": "Project_Corona",
   "Documents": [
     {
-      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\Project_Corona\\Pages\\Employee.cshtml",
-      "TargetPath": "Pages\\Employee.cshtml",
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\Project_Corona\\Pages\\Employeepage.cshtml",
+      "TargetPath": "Pages\\Employeepage.cshtml",
       "FileKind": "mvc"
     },
     {
