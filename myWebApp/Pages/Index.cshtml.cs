@@ -35,7 +35,7 @@ namespace myWebApp.Pages
             }
             else if(log.Item1 == true && log.Item2 == 2)
             {
-                return new RedirectToPageResult("Employee");
+                return new RedirectToPageResult("EmployeeIndex");
             }
             else
             {
