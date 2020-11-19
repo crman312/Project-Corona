@@ -27,6 +27,7 @@ namespace myWebApp.Pages
         public IActionResult OnPostSubmit(LoginModel login)
         {
             Tuple<bool, int> log = LoginCheck(login.Email, login.Password);
+
             if(log.Item1 == true && log.Item2 == 1)
             {
                 return new RedirectToPageResult("Admin");
@@ -59,7 +60,7 @@ namespace myWebApp.Pages
                 {
                     if(dRead[1].ToString() == Email && dRead[2].ToString() == Password)
                     {
-                        if(dRead[3].ToString() == "Admin")
+                        if(dRead[3].ToString() == "admin")
                         {
                             employeeFunction = 1;
                         }
