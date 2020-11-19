@@ -24,6 +24,7 @@ namespace myWebApp.Pages
         {
         }
 
+
         public IActionResult OnPostSubmit(LoginModel login)
         {
             Tuple<bool, int> log = LoginCheck(login.Email, login.Password);
@@ -32,9 +33,13 @@ namespace myWebApp.Pages
             {
                 return new RedirectToPageResult("Admin");
             }
+            else if(log.Item1 == true && log.Item2 == 2)
+            {
+                return new RedirectToPageResult("Employee");
+            }
             else
             {
-                return new RedirectToPageResult("Privacy");
+                return null;
             }
           
         }
@@ -60,10 +65,12 @@ namespace myWebApp.Pages
                 {
                     if(dRead[1].ToString() == Email && dRead[2].ToString() == Password)
                     {
-                        if(dRead[3].ToString() == "admin")
+                        if(dRead[3].ToString() == "admin" || dRead[3].ToString() == "Admin")
                         {
                             employeeFunction = 1;
+                            return Tuple.Create(true, employeeFunction);
                         }
+                        employeeFunction = 2;
                         return Tuple.Create(true, employeeFunction);
                     }
                 }
