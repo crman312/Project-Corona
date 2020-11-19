@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using myWebApp.Database;
+using myWebApp.Pages;
 using myWebApp.Models;
 using Npgsql;
 
@@ -26,7 +27,9 @@ namespace myWebApp.Pages
 
         public IActionResult OnPostSubmit(LoginModel login)
         {
-            Tuple<bool, int> log = LoginCheck(login.Email, login.Password);
+            string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
+            Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
+            
 
             if(log.Item1 == true && log.Item2 == 1)
             {
