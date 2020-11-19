@@ -2,8 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Project_Corona</RootNamespace>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
 
-
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="5.0.0" />
+  </ItemGroup>
 
 </Project>

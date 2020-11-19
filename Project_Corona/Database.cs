@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 
-namespace Project_Corona.Pages
+namespace Project_Corona.Database
 {
     public class Database
     {
 
         public static string Connector()
         {
-            string cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
+            string cs = "Host=localhost;Username=postgres;Password=123456;Database=Login";
             return cs;
         }
 
