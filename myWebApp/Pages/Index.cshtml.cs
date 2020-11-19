@@ -24,7 +24,6 @@ namespace myWebApp.Pages
         {
         }
 
-
         public IActionResult OnPostSubmit(LoginModel login)
         {
             Tuple<bool, int> log = LoginCheck(login.Email, login.Password);
@@ -41,7 +40,6 @@ namespace myWebApp.Pages
             {
                 return null;
             }
-          
         }
 
         public Tuple<bool, int> LoginCheck(string Email, string Password)
@@ -58,14 +56,13 @@ namespace myWebApp.Pages
 
             int employeeFunction = 0;
            
-
             while (dRead.Read())
             {
                 for(int i = 0; i < dRead.FieldCount; i++)
                 {
                     if(dRead[1].ToString() == Email && dRead[2].ToString() == Password)
                     {
-                        if(dRead[3].ToString() == "admin" || dRead[3].ToString() == "Admin")
+                        if(dRead[3].ToString() == "admin" || dRead[3].ToString() == "Admin" || dRead[3].ToString() == "ADMIN")
                         {
                             employeeFunction = 1;
                             return Tuple.Create(true, employeeFunction);
