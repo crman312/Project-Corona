@@ -52,7 +52,6 @@ namespace myWebApp.Pages
             }
             return stringbuilder.ToString();
         }
-        
     
         public void CreateEmployee(string Name, string Email, string Password, string Function)
         { 

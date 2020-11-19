@@ -29,7 +29,6 @@ namespace myWebApp.Pages
         {
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
             Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
-            
 
             if(log.Item1 == true && log.Item2 == 1)
             {
