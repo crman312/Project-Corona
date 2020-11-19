@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using myWebApp.Database;
+using myWebApp.Models;
 using Npgsql;
-
 
 namespace myWebApp.Pages
 {
@@ -23,9 +24,50 @@ namespace myWebApp.Pages
         {
         }
 
-        public void OnPostSubmit(LoginModel login)
+        public IActionResult OnPostSubmit(LoginModel login)
         {
+            Tuple<bool, int> log = LoginCheck(login.Email, login.Password);
+            if(log.Item1 == true && log.Item2 == 1)
+            {
+                return Page();
+            }
+            else
+            {
+                return Page();
+            }
+          
+        }
+
+        public Tuple<bool, int> LoginCheck(string Email, string Password)
+        {
+            var cs = Database.Database.Connector();
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "SELECT * FROM employees";
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            NpgsqlDataReader dRead = cmd.ExecuteReader();
+
+            int employeeFunction = 0;
            
+
+            while (dRead.Read())
+            {
+                for(int i = 0; i < dRead.FieldCount; i++)
+                {
+                    if(dRead[1].ToString() == Email && dRead[2].ToString() == Password)
+                    {
+                        if(dRead[3].ToString() == "Admin")
+                        {
+                            employeeFunction = 1;
+                        }
+                        return Tuple.Create(true, employeeFunction);
+                    }
+                }
+            }
+            return Tuple.Create(false, employeeFunction);
         }
     }
 }
