@@ -1,5 +1,8 @@
-@page
-@model EmployeepageModel
+@using Project_Corona.Pages;
+@using Project_Corona.Models;
+@using Project_Corona.Controllers;
+
+@model SelectList
 @{
     ViewData["Title"] = "Employee";
 }
@@ -40,29 +43,31 @@
                 <div class="pl-5 col-4 border-right">
                     
                     <h4 class="font-weight-bolder pb-5"> <img class="img-fluid" src="/Images/Signup.png"/> Sign up</h4>
-                    <form>
-                        <tr>
-                            <td>Date</td>
-                            
-                                <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker1'>
-                                        <input type='date' class="form-control" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
+                    <form method="post">
+                        <fieldset>
+                            <tr>
+                                <td>Date</td>
+                                
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input type='date' class="form-control" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            <td>Select location</td>
-                                <div class="form-group">
-                                    <select id='location'/>
-                                        <option>--Select location--</option>
-                                        <option>Location 1</option>
-                                    </select>
-                                </div>
-                                <div class="form group">
-                                    <button type="submit" class="btn btn-dark btn-lg"> Submit</button>
-                                </div>
-                        </tr>
+                                <td>Select location</td>
+                                    <div class="form-group">
+                                        <select id='location' name="LocationName" asp-items="Model"/>
+                                            <option value="0">--Select location--</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="form group">
+                                        <button type="submit" class="btn btn-dark btn-lg"> Submit</button>
+                                    </div>
+                            </tr>
+                        </fieldset>
                     </form>
                 </div>
                 

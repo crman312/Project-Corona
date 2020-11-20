@@ -56,7 +56,9 @@ namespace Project_Corona.Pages
 
             cmd.ExecuteNonQuery();
             con.Close();   
-        }    
+        }
+
+        
 
     }
 }
