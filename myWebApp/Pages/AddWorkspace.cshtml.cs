@@ -65,7 +65,7 @@ namespace myWebApp.Pages
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
-            con.Close();   
+            con.Close();
         }    
     }
 }
