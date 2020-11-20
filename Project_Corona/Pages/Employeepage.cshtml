@@ -2,7 +2,7 @@
 @using Project_Corona.Models;
 @using Project_Corona.Controllers;
 
-@model SelectList
+@model EmployeepageModel
 @{
     ViewData["Title"] = "Employee";
 }
@@ -58,7 +58,7 @@
                                     </div>
                                 <td>Select location</td>
                                     <div class="form-group">
-                                        <select id='location' name="LocationName" asp-items="Model"/>
+                                        <select id='location' name="LocationName" asp-items="@Model.res"/>
                                             <option value="0">--Select location--</option>
                                             
                                         </select>
