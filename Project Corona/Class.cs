@@ -7,6 +7,5 @@ namespace Project_Corona
 {
 	public class Class
 	{
-		Console.WriteLine('test');
 	}
 }
