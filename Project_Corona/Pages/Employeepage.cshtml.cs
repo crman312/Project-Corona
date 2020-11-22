@@ -26,20 +26,19 @@ namespace Project_Corona.Pages
 
         public void OnGet()
         {
-
+            var rs = PopulateReservations();
+            ViewData["MyString"] = rs;
+        
         }
-        // Create
-        public void OnPostSubmit(ReservationModel reservation)
+        public void  OnPostSubmit(ReservationModel reservation)
         {
-            
-
             this.Info = string.Format("Reservation successfully saved");
 
             CreateReservation(reservation.Reservationid, reservation.Dayid, reservation.Roomid, reservation.Employeeid);
-        }
+        }   
 
-        public void CreateReservation(int Reservationid, DateTime Dayid, int Roomid, int Employeeid)
-        { 
+        public void CreateReservation(int Reservationid, DateTime Dayid, int Roomid, int Employeeid) 
+        {
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
@@ -55,10 +54,41 @@ namespace Project_Corona.Pages
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
-            con.Close();   
+            con.Close();  
         }
 
-        
+        public static List<WorkspaceModel> PopulateReservations()
+        {
+            var cs = Database.Database.Connector();
+            List<WorkspaceModel> res = new List<WorkspaceModel>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select location FROM workspaces";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            res.Add(new WorkspaceModel { LocationName = dr["location"].ToString() });
+                        }
+                    }
+                    
+                    con.Close();
+                }
+            }
+
+
+            return res;
+        }
 
     }
 }
+        // Create
+        
+
+        
+
+    
