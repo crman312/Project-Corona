@@ -48,17 +48,17 @@ namespace myWebApp.Pages
         }
 
         public void OnPostSubmit(EmployeeModel employee){
-            DeleteEmployee(employee.Name);
+            DeleteEmployee(employee.Email);
         }
 
-        public void DeleteEmployee(string Name){
+        public void DeleteEmployee(string Email){
             var cs = Database.Database.Connector();
 			using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "DELETE FROM employees WHERE name = @Name;";
+            var sql = "DELETE FROM employees WHERE email = @Email;";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("Name", Name);
+            cmd.Parameters.AddWithValue("Email", Email);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
