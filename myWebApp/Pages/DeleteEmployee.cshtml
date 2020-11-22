@@ -2,7 +2,7 @@
 @model DeleteEmployeeModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "Add Employee";
+    ViewData["Title"] = "Delete Employee";
 }
 
 <div class="container-fluid">
@@ -35,11 +35,37 @@
                     <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Delete employee</h4>
+                        <div><b>Employee info:</b></div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>name</th>
+                                    <th>email</th>
+                                    <th>function</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var employee in @Model.ShowEmployees())
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(m => employee.EmpName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => employee.EmpEmail)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => employee.EmpFunction)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                             <form method="post">
                                 <fieldset>
                                     <div class="form-group">
                                         <label>Name of employee to be deleted</label>
-                                        <input id="txtEmpName" name="EmployeeName" class="form-control" type="text">
+                                        <input id="txtName" name="Name" class="form-control" type="text">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>

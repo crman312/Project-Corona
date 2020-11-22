@@ -23,30 +23,32 @@ namespace myWebApp.Pages
         }
 
         public string Info { get; set; }
+        
+        public void OnGet(){}
 
-        public void OnGet(){
-            
+        public List<Employee> ShowEmployees()
+        {
+            List<Employee> EmployeeNames = new List<Employee>();
+
             var cs = Database.Database.Connector();
-			using var con = new NpgsqlConnection(cs);
+
+            using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            using var cmd = new NpgsqlCommand();
-            cmd.Connection = con;
+            var sql = "SELECT name, email, function FROM employees";
+            using var cmd = new NpgsqlCommand(sql, con);
 
-            cmd.CommandText = @"SELECT * FROM employees ";
-
-            using var getemployees = cmd.ExecuteReader();
-            
-            DataTable dataTable = new DataTable();
-            dataTable.Load(getemployees);
-            foreach(DataRow row in dataTable){
-                ViewData["employeeName"] = row["Name"];
+            NpgsqlDataReader dRead = cmd.ExecuteReader();
+           
+            while (dRead.Read())
+            {
+                EmployeeNames.Add(new Employee(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString()));
             }
+            return EmployeeNames;
         }
 
         public void OnPostSubmit(EmployeeModel employee){
             DeleteEmployee(employee.Name);
-            this.Info = string.Format("Succesfully deleted employee {0}", employee.Name);
         }
 
         public void DeleteEmployee(string Name){
@@ -54,8 +56,22 @@ namespace myWebApp.Pages
 			using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            using var cmd = new NpgsqlCommand($"DELETE FROM employees WHERE name = {Name}", con);
+            var sql = "DELETE FROM employees WHERE name = @Name;";
+            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("Name", Name);
+            cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
+    }
+
+    public class Employee{
+        public Employee(string name, string email, string function){
+            EmpName = name;
+            EmpEmail = email;
+            EmpFunction= function;
+        }
+        public string EmpName {get; set;}
+        public string EmpEmail {get; set;}
+        public string EmpFunction {get; set;}
     }
 }

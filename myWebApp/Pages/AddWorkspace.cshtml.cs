@@ -66,6 +66,26 @@ namespace myWebApp.Pages
 
             cmd.ExecuteNonQuery();
             con.Close();
-        }    
+        }
+        public List<Workspace> ShowWorkspaces()
+        {
+            List<Workspace> Workspaces = new List<Workspace>();
+
+            var cs = Database.Database.Connector();
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "SELECT location, room, squaremeters, availableworkspaces FROM workspaces";
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            NpgsqlDataReader dRead = cmd.ExecuteReader();
+           
+            while (dRead.Read())
+            {
+                Workspaces.Add(new Workspace(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(),dRead[3].ToString()));
+            }
+            return Workspaces;
+        }
     }
 }
