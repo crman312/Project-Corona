@@ -14,8 +14,14 @@ namespace myWebApp.Models
     public class ReservationModel
     {
         [BindProperty]
-        public string email { get; set; } 
+        public string Email { get; set; } 
         [BindProperty]
         public DateTime Date { get; set; } 
+
+        [BindProperty]
+        public string Location { get; set; }
+
+        [BindProperty]
+        public string Room { get; set; }
     }
 }
