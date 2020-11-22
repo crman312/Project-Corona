@@ -36,7 +36,7 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT location, room, squaremeters, availableworkspaces FROM workspaces";
+            var sql = "SELECT location, room, squaremeters, availableworkspaces FROM workspaces ORDER BY location ASC, room ASC";
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
