@@ -1,8 +1,8 @@
 @page
-@model AddWorkspaceModel
+@model AddReservationModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "Add Workspace";
+    ViewData["Title"] = "Add Reservation";
 }
 
 <div class="container-fluid">
@@ -34,66 +34,58 @@
                 <div class="pl-5 col-8">
                     <div class="card mt-2">
                         <article class="card-body">
-                        <h4 class="card-title mb-4 mt-1">Add workspace</h4>
+                        <h4 class="card-title mb-4 mt-1">Add reservation</h4>
                         <div><b>Workspace info:</b></div>
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th>email</th>
+                                    <th>date</th>
                                     <th>location</th>
                                     <th>room</th>
-                                    <th>squaremeters</th>
-                                    <th>availableworkspaces</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var workspace in @Model.ShowWorkspaces())
+                                @foreach(var reservations in @Model.ShowReservations())
                                 {
-                                    <tr>
+                                  <tr>
                                         <td>
-                                            @Html.DisplayFor(m => workspace.WSlocation)
+                                            @Html.DisplayFor(m => reservations.Email)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(m => workspace.WSroom)
+                                            @Html.DisplayFor(m => reservations.Date)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(m => workspace.WSsquaremeters)
+                                            @Html.DisplayFor(m => reservations.Location)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(m => workspace.WSavailableworkspaces)
+                                            @Html.DisplayFor(m => reservations.Room)
                                         </td>
-                                    </tr>
+                                  </tr>
                                 }
                             </tbody>
                         </table>
                         <form method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <label>Location</label>
-                                    <input id="txtLocationName" name="LocationName" class="form-control" type="text">
+                                    <label>Email</label>
+                                    <input id="txtEmail" name="Email" class="form-control" type="email">
                                 </div> <!-- form-group// -->
 
                                 <div class="form-group">
-                                    <label>Room</label>
-                                    <input id="txtRoomName" name="RoomName" class="form-control" type="text">
+                                    <label>Date</label>
+                                    <input id="txtDate" name="Date" class="form-control" type="date">
                                 </div>
-
                                 <div class="form-group">
-                                    <label>Number of square meters</label>
-                                    <input id="txtSquareMeters" name="SquareMeters" class="form-control" type="number">
-                                </div><!-- form-group// -->
-
+                                    <label>Location</label>
+                                    <input id="txtLocation" name="Location" class="form-control" type="text">
+                                </div><!-- form-group// -->   
                                 <div class="form-group">
-                                    <label>Length of 1 workstation</label>
-                                    <input id="txtSquareMeters" name="Lengthws" class="form-control" type="number">
-                                </div><!-- form-group// -->
-
+                                    <label>Room</label>
+                                    <input id="txtRoom" name="Room" class="form-control" type="text">
+                                </div><!-- form-group// -->                         
                                 <div class="form-group">
-                                    <label>Width of 1 workstation</label>
-                                    <input id="txtSquareMeters" name="Widthws" class="form-control" type="number">
-                                </div><!-- form-group// -->
-                                
-                                <div class="form-group">
-                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>
+                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Submit</button>
                                 </div> <!-- form-group// -->  
                                 @Model.Info  
                             </fieldset>                                               
@@ -105,4 +97,3 @@
         </div>
   </div>
 </div>
-
