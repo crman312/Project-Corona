@@ -1,6 +1,7 @@
 
 @page
 @model EmployeepageModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Employee";
 }
@@ -56,7 +57,17 @@
                                     </div>
                                 <td>Select location</td>
                                     <div class="form-group">
-                                        <h4>@ViewData["MyString"]</h4>
+                                    <select id="locations" name="LocationName">
+                                        @foreach(var reservations in @Model.PopulateReservations())
+                                        {
+                                            
+                                            <tr>
+                                                <td>
+                                                    <option value="0">@Html.DisplayFor(m => reservations.LocationName)</option>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </select>
                                             
                                     </div>
                                     <div class="form group">

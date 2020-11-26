@@ -26,8 +26,7 @@ namespace Project_Corona.Pages
 
         public void OnGet()
         {
-            var rs = PopulateReservations();
-            ViewData["MyString"] = rs;
+            
         
         }
         public void  OnPostSubmit(ReservationModel reservation)
@@ -57,7 +56,7 @@ namespace Project_Corona.Pages
             con.Close();  
         }
 
-        public static List<WorkspaceModel> PopulateReservations()
+        public List<WorkspaceModel> PopulateReservations()
         {
             var cs = Database.Database.Connector();
             List<WorkspaceModel> res = new List<WorkspaceModel>();
