@@ -42,14 +42,19 @@
                 <div class="pl-5 col-4 border-right">
                     
                     <h4 class="font-weight-bolder pb-5"> <img class="img-fluid" src="/Images/Signup.png"/> Sign up</h4>
-                    <form method="post">
+                    <form action="" method="post">
                         <fieldset>
                             <tr>
+                                <td>Email</td>
+                                    <div class="form-group">
+                                        <input id="txtEmail" name="Email" class="form-control" type="email">
+                                    </div>
+
                                 <td>Date</td>
                                 
                                     <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input type='date' class="form-control" />
+                                        <div class='input-group date' id='datetimepicker1' name="Dayid">
+                                            <input type='date' class="form-control" name="Dayid" />
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -57,24 +62,30 @@
                                     </div>
                                 <td>Select location</td>
                                     <div class="form-group">
-                                    <select id="locations" name="LocationName">
-                                        @foreach(var reservations in @Model.PopulateReservations())
-                                        {
-                                            
-                                            <tr>
-                                                <td>
-                                                    <option value="0">@Html.DisplayFor(m => reservations.LocationName)</option>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </select>
-                                            
+                                        <select id="locations" name="Locationid">
+                                            @foreach(var reservations in @Model.PopulateReservations())
+                                            {                                        
+                                                <option value="0">@Html.DisplayFor(m => reservations.LocationName)</option>
+                                            }
+                                        </select>                                       
                                     </div>
+                                <td>Select Room</td>
+                                    <div class="form-group">
+                                        <select id="rooms" name="Roomid">
+                                            @foreach(var reservations in @Model.ShowRoom())
+                                            {
+                                               <option value="0">@Html.DisplayFor(m => reservations.RoomName)</option>
+                                                 
+                                            }
+                                        </select>                                       
+                                    </div>
+
                                     <div class="form group">
-                                        <button type="submit" class="btn btn-dark btn-lg"> Submit</button>
+                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
                                     </div>
                             </tr>
                         </fieldset>
+                        @Model.Info
                     </form>
                 </div>
                 

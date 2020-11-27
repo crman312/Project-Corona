@@ -33,22 +33,23 @@ namespace Project_Corona.Pages
         {
             this.Info = string.Format("Reservation successfully saved");
 
-            CreateReservation(reservation.Reservationid, reservation.Dayid, reservation.Roomid, reservation.Employeeid);
+            CreateReservation(reservation.Reservationid, reservation.Dayid, reservation.Roomid, reservation.Email, reservation.Locationid);
         }   
 
-        public void CreateReservation(int Reservationid, DateTime Dayid, int Roomid, int Employeeid) 
+        public void CreateReservation(int Reservationid, DateTime Dayid, string Roomid, string Email, string Locationid) 
         {
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "INSERT INTO reservation(reservationid, dayid, roomid, employeeid) VALUES(@reservationid, @dayid, @roomid, @employeeid)";
+            var sql = "INSERT INTO reservation(reservationid, dayid, roomid, email, locationid) VALUES(@Reservationid, @Dayid, @Roomid, @Email, @Locationid)";
             using var cmd = new NpgsqlCommand(sql, con);
             cmd.Parameters.AddWithValue("reservationid", Reservationid);
             cmd.Parameters.AddWithValue("dayid", Dayid);
             cmd.Parameters.AddWithValue("roomid", Roomid);
-            cmd.Parameters.AddWithValue("employeeid", Employeeid);
+            cmd.Parameters.AddWithValue("email", Email);
+            cmd.Parameters.AddWithValue("locationid", Locationid);
 
             cmd.Prepare();
 
@@ -82,6 +83,34 @@ namespace Project_Corona.Pages
 
             return res;
         }
+
+        public List<WorkspaceModel> ShowRoom()
+        {
+            var cs = Database.Database.Connector();
+            List<WorkspaceModel> res = new List<WorkspaceModel>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select room FROM workspaces";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            res.Add(new WorkspaceModel { RoomName = dr["room"].ToString() });
+                        }
+                    }
+                    
+                    con.Close();
+                }
+            }
+
+
+            return res;
+        }
+
 
     }
 }

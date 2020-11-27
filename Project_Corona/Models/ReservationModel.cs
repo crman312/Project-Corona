@@ -18,9 +18,11 @@ namespace Project_Corona.Models
         [BindProperty]
         public DateTime Dayid {get; set;}
         [BindProperty]
-        public int Roomid {get; set;}
+        public string Roomid {get; set;}
         [BindProperty]
-        public int Employeeid {get; set;}
+        public string Email {get; set;}
+        [BindProperty]
+        public string Locationid {get; set;}
 
 
     }
