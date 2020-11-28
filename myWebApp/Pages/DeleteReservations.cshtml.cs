@@ -26,29 +26,29 @@ namespace myWebApp.Pages
         
         public void OnGet(){}
 
-        public List<Reservation> ShowReservations()
+        public List<Reservations> ShowReservations()
         {
-            List<Reservation> ReservationList = new List<Reservation>();
+            List<Reservations> Reservations = new List<Reservations>();
 
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT res_email, date, res_location, res_room FROM reservations";
+            var sql = "SELECT res_email, date, res_location, res_room FROM reservations ORDER BY date ASC, res_location ASC";
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
            
             while (dRead.Read())
             {
-                ReservationList.Add(new Reservation(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString()));
+                Reservations.Add(new Reservations(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(), dRead[3].ToString()));
             }
-            return ReservationList;
+            return Reservations;
         }
 
         public void OnPostSubmit(ReservationModel reservation){
-            DeleteReservation(reservation.res_email, reservation.date);
+            DeleteReservation(reservation.Email, reservation.Date);
         }
 
         public void DeleteReservation(string Email, DateTime Date){
@@ -56,22 +56,14 @@ namespace myWebApp.Pages
 			using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "DELETE FROM reservations WHERE res_email = @Email AND date = @Date;";
+            var sql = "DELETE FROM reservations WHERE res_email = @email AND date = @date;";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("Email", Email);
-            cmd.Parameters.AddWithValue("Date", Date);
+            cmd.Parameters.AddWithValue("email", Email);
+            cmd.Parameters.AddWithValue("date", Date);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
     }
 
-    public class Reservation{
-        public Reservation(string email, DateTime date){
-            Email = email;
-            Date = date;
-        }
-        public string Email {get; set;}
-        public string Date {get; set;}
 
-    }
 }
