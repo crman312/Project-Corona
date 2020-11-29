@@ -82,7 +82,7 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT name, email, function, priority FROM employees";
+            var sql = "SELECT name, email, function FROM employees";
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
