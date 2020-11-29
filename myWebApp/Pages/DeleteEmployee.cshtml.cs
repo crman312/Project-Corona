@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,39 +21,57 @@ namespace myWebApp.Pages
         {
             _logger = logger;
         }
-        
-        public void OnGet()
-        {
-            var ss = ShowEmployees();
-            ViewData["MyNumber"] = 42;
-            ViewData["MyString"] = ss;
-        }
 
-        public List<string> ShowEmployees()
+        public string Info { get; set; }
+        
+        public void OnGet(){}
+
+        public List<Employee> ShowEmployees()
         {
-            List<string> EmployeeNames = new List<string>();
+            List<Employee> EmployeeNames = new List<Employee>();
 
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT * FROM employees";
+            var sql = "SELECT name, email, function FROM employees";
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
-
-            int employeeFunction = 0;
            
             while (dRead.Read())
             {
-                for(int i = 0; i < dRead.FieldCount; i++)
-                {
-                    EmployeeNames.Add(dRead[1].ToString());
-                }
+                EmployeeNames.Add(new Employee(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString()));
             }
             return EmployeeNames;
         }
-        
+
+        public void OnPostSubmit(EmployeeModel employee){
+            DeleteEmployee(employee.Email);
+        }
+
+        public void DeleteEmployee(string Email){
+            var cs = Database.Database.Connector();
+			using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "DELETE FROM employees WHERE email = @Email;";
+            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("Email", Email);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    public class Employee{
+        public Employee(string name, string email, string function){
+            EmpName = name;
+            EmpEmail = email;
+            EmpFunction= function;
+        }
+        public string EmpName {get; set;}
+        public string EmpEmail {get; set;}
+        public string EmpFunction {get; set;}
     }
 }
