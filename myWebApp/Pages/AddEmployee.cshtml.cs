@@ -33,7 +33,7 @@ namespace myWebApp.Pages
         {
             this.Info = string.Format("Successfully saved, {0}", employee.Name);
             string emPassword = sha256_hash(employee.Password);
-            CreateEmployee(employee.Name, employee.Email, emPassword, employee.Function);
+            CreateEmployee(employee.Name, employee.Email, emPassword, employee.Function, employee.Priority);
         }
 
         public static string sha256_hash(string valueToEncrypt)
@@ -53,20 +53,20 @@ namespace myWebApp.Pages
             return stringbuilder.ToString();
         }
     
-        public void CreateEmployee(string Name, string Email, string Password, string Function)
+        public void CreateEmployee(string Name, string Email, string Password, string Function, string Priority)
         { 
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "INSERT INTO employees(name, email, password, function) VALUES(@Name, @Email, @Password, @Function)";
+            var sql = "INSERT INTO employees(name, email, password, function, priority) VALUES(@Name, @Email, @Password, @Function, @Priority)";
             using var cmd = new NpgsqlCommand(sql, con);
             cmd.Parameters.AddWithValue("name", Name);
             cmd.Parameters.AddWithValue("email", Email);
             cmd.Parameters.AddWithValue("password", Password);
             cmd.Parameters.AddWithValue("function", Function);
-
+            cmd.Parameters.AddWithValue("priority", Priority);
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
@@ -82,7 +82,7 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT name, email, function FROM employees";
+            var sql = "SELECT name, email, function, priority FROM employees";
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
