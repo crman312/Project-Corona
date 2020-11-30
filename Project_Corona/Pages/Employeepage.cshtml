@@ -65,7 +65,7 @@
                                         <select id="locations" name="Locationid">
                                             @foreach(var reservations in @Model.PopulateReservations())
                                             {                                        
-                                                <option value="0">@Html.DisplayFor(m => reservations.LocationName)</option>
+                                                <option>@Html.DisplayFor(m => reservations.LocationName)</option>
                                             }
                                         </select>                                       
                                     </div>
@@ -74,7 +74,7 @@
                                         <select id="rooms" name="Roomid">
                                             @foreach(var reservations in @Model.ShowRoom())
                                             {
-                                               <option value="0">@Html.DisplayFor(m => reservations.RoomName)</option>
+                                               <option>@Html.DisplayFor(m => reservations.RoomName)</option>
                                                  
                                             }
                                         </select>                                       

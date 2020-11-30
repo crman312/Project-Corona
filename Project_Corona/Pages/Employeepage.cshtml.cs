@@ -113,6 +113,19 @@ namespace Project_Corona.Pages
 
 
     }
+    public class Reservation{
+        
+        [BindProperty]
+        public int Reservationid {get; set;}
+        [BindProperty]
+        public DateTime Dayid {get; set;}
+        [BindProperty]
+        public string Roomid {get; set;}
+        [BindProperty]
+        public string Email {get; set;}
+        [BindProperty]
+        public string Locationid {get; set;}
+    }
 }
         // Create
         
