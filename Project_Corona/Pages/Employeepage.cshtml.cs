@@ -39,6 +39,11 @@ namespace Project_Corona.Pages
             CreateReservation(convdayid, reservation.Roomid, reservation.Email, reservation.Locationid);
         }   
 
+        public void OnPostRemove()
+        {
+            
+        }
+
         public void CreateReservation(DateTime convdayid, string Roomid, string Email, string Locationid) 
         {
 

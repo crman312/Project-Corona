@@ -36,14 +36,20 @@
             <hr>
             @foreach(var reservations in @Model.ShowReservation())
                                 {
-                                    <tr>
-                                        <td><img class="img-fluid" src="/Images/Reservation.png"/>
-                                            @Html.DisplayFor(m => reservations.Dayid)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(m => reservations.Locationid)
-                                        </td>
-                                    </tr>
+                                    <form method="post">
+                                        <div class="form-group">
+                                            <tr>
+                                                <img class="img-fluid" src="/Images/Reservation.png"/>
+                                                <td>
+                                                    @Html.DisplayFor(m => reservations.Dayid)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(m => reservations.Locationid)
+                                                </td>
+                                            </tr>
+                                            <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
+                                        </div>
+                                    </form>
                                     <hr>
                                 }
             <hr>
