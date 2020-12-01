@@ -34,7 +34,19 @@
             <div class="mt-5 w-100"></div>
             <h5 class="font-italic text-left">Manage my reservations</h5>
             <hr>
-
+            @foreach(var reservations in @Model.ShowReservation())
+                                {
+                                    <tr>
+                                        <td><img class="img-fluid" src="/Images/Reservation.png"/>
+                                            @Html.DisplayFor(m => reservations.Dayid)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => reservations.Locationid)
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                }
+            <hr>
             <a class="" asp-area="" asp-page="/Index">Logout</a>
         </div>
         <div class="col">

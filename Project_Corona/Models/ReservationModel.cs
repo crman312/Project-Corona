@@ -13,10 +13,9 @@ namespace Project_Corona.Models
 {
     public class ReservationModel
     {
+        
         [BindProperty]
-        public int Reservationid {get; set;}
-        [BindProperty]
-        public DateTime Dayid {get; set;}
+        public string Dayid {get; set;}
         [BindProperty]
         public string Roomid {get; set;}
         [BindProperty]

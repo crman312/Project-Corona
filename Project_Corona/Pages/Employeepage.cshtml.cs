@@ -23,6 +23,8 @@ namespace Project_Corona.Pages
         }
 
         public string Info { get; set; }
+        
+        
 
         public void OnGet()
         {
@@ -32,21 +34,24 @@ namespace Project_Corona.Pages
         public void  OnPostSubmit(ReservationModel reservation)
         {
             this.Info = string.Format("Reservation successfully saved");
-
-            CreateReservation(reservation.Reservationid, reservation.Dayid, reservation.Roomid, reservation.Email, reservation.Locationid);
+            
+            DateTime convdayid = Convert.ToDateTime(reservation.Dayid);
+            CreateReservation(convdayid, reservation.Roomid, reservation.Email, reservation.Locationid);
         }   
 
-        public void CreateReservation(int Reservationid, DateTime Dayid, string Roomid, string Email, string Locationid) 
+        public void CreateReservation(DateTime convdayid, string Roomid, string Email, string Locationid) 
         {
+
+            
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "INSERT INTO reservation(reservationid, dayid, roomid, email, locationid) VALUES(@Reservationid, @Dayid, @Roomid, @Email, @Locationid)";
+            var sql = "INSERT INTO reservation(dayid, roomid, email, locationid) VALUES(@Dayid, @Roomid, @Email, @Locationid)";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("reservationid", Reservationid);
-            cmd.Parameters.AddWithValue("dayid", Dayid);
+            
+            cmd.Parameters.AddWithValue("dayid", convdayid);
             cmd.Parameters.AddWithValue("roomid", Roomid);
             cmd.Parameters.AddWithValue("email", Email);
             cmd.Parameters.AddWithValue("locationid", Locationid);
@@ -112,19 +117,36 @@ namespace Project_Corona.Pages
         }
 
 
-    }
-    public class Reservation{
-        
-        [BindProperty]
-        public int Reservationid {get; set;}
-        [BindProperty]
-        public DateTime Dayid {get; set;}
-        [BindProperty]
-        public string Roomid {get; set;}
-        [BindProperty]
-        public string Email {get; set;}
-        [BindProperty]
-        public string Locationid {get; set;}
+        public List<ReservationModel> ShowReservation()
+        {
+            var cs = Database.Database.Connector();
+            List<ReservationModel> res = new List<ReservationModel>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select dayid, locationid FROM reservation";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        
+                        while (dr.Read())
+                        {
+                            res.Add(new ReservationModel { Dayid = ((DateTime) dr["dayid"]).ToString("MM/dd/yyyy"), Locationid = dr["locationid"].ToString() });
+                        }
+                    }
+                    
+                    con.Close();
+                }
+            }
+
+
+            return res;
+        }
+
+
+
     }
 }
         // Create
