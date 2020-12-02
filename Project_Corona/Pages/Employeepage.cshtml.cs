@@ -39,10 +39,30 @@ namespace Project_Corona.Pages
             CreateReservation(convdayid, reservation.Roomid, reservation.Email, reservation.Locationid);
         }   
 
-        public void OnPostRemove()
+        public void OnPostRemove(ReservationModel reservation)
         {
             
+            DateTime convdayid = Convert.ToDateTime(reservation.Dayid);
+            DeleteReservation(convdayid, reservation.Locationid);
         }
+
+        public void DeleteReservation(DateTime convdayid, string Locationid)
+        {
+            
+            var cs = Database.Database.Connector();
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "DELETE FROM reservation WHERE locationid = @Locationid AND dayid = @Dayid";
+            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("Locationid", Locationid);
+            cmd.Parameters.AddWithValue("Dayid", convdayid);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+        }
+
 
         public void CreateReservation(DateTime convdayid, string Roomid, string Email, string Locationid) 
         {
@@ -122,6 +142,7 @@ namespace Project_Corona.Pages
         }
 
 
+
         public List<ReservationModel> ShowReservation()
         {
             var cs = Database.Database.Connector();
@@ -138,7 +159,7 @@ namespace Project_Corona.Pages
                         
                         while (dr.Read())
                         {
-                            res.Add(new ReservationModel { Dayid = ((DateTime) dr["dayid"]).ToString("MM/dd/yyyy"), Locationid = dr["locationid"].ToString() });
+                            res.Add(new ReservationModel { Dayid = ((DateTime) dr["dayid"]).ToString("yyyy/MM/dd"), Locationid = dr["locationid"].ToString() });
                         }
                     }
                     

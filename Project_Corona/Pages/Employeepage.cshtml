@@ -35,23 +35,27 @@
             <h5 class="font-italic text-left">Manage my reservations</h5>
             <hr>
             @foreach(var reservations in @Model.ShowReservation())
-                                {
+            {
                                     <form method="post">
-                                        <div class="form-group">
-                                            <tr>
-                                                <img class="img-fluid" src="/Images/Reservation.png"/>
-                                                <td>
-                                                    @Html.DisplayFor(m => reservations.Dayid)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(m => reservations.Locationid)
-                                                </td>
-                                            </tr>
-                                            <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
-                                        </div>
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <tr>
+                                                    <img class="img-fluid" src="/Images/Reservation.png"/>
+                                                    <td>
+                                                        @Html.DisplayFor(m => reservations.Dayid)
+                                                        <input type="hidden" name="Dayid" value="@Html.DisplayFor(m => reservations.Dayid)"/>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(m => reservations.Locationid)
+                                                        <input type="hidden" name="Locationid" value="@Html.DisplayFor(m => reservations.Locationid)"/>
+                                                    </td>
+                                                </tr>
+                                                <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
+                                            </div>
+                                        </fieldset>
                                     </form>
                                     <hr>
-                                }
+            }
             <hr>
             <a class="" asp-area="" asp-page="/Index">Logout</a>
         </div>
