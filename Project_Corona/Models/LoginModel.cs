@@ -11,17 +11,11 @@ using Npgsql;
 
 namespace Project_Corona.Models
 {
-    public class EmployeeModel
+    public class LoginModel
     {
         [BindProperty]
-        public string Name { get; set; }
+        public string Email { get; set; }
         [BindProperty]
-        public string Email { get; set; } 
-        [BindProperty]
-        public string Password { get; set; } 
-        [BindProperty]
-        public string Function { get; set; } 
-        [BindProperty]
-        public string Priority {get; set;}
+        public string Password { get; set; }
     }
 }

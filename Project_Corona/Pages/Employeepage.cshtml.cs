@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Project_Corona.Database;
 using Project_Corona.Models;
+using Project_Corona.Pages;
 using Npgsql;
 
 
@@ -23,7 +24,7 @@ namespace Project_Corona.Pages
         }
 
         public string Info { get; set; }
-        
+
         
 
         public void OnGet()
