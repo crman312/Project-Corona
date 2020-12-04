@@ -34,10 +34,17 @@ namespace Project_Corona.Pages
         }
         public void  OnPostSubmit(ReservationModel reservation)
         {
-            this.Info = string.Format("Reservation successfully saved");
+            
             
             DateTime convdayid = Convert.ToDateTime(reservation.Dayid);
-            CreateReservation(convdayid, reservation.Roomid, reservation.Email, reservation.Locationid);
+            if (CheckReservation(convdayid, reservation.Email) == true) {
+
+                CreateReservation(convdayid, reservation.Roomid, reservation.Email, reservation.Locationid);
+                this.Info = string.Format("Reservation successfully saved");
+            }
+            else if (CheckReservation(convdayid, reservation.Email) == false) {
+                this.Info = string.Format("You entered same date, try different date");
+            }
         }   
 
         public void OnPostRemove(ReservationModel reservation)
@@ -61,6 +68,51 @@ namespace Project_Corona.Pages
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             con.Close();
+
+        }
+
+        public bool CheckReservation(DateTime convdayid, string Email) 
+        {   
+            int AmountDate = 0;
+            var cs = Database.Database.Connector();
+            List<DateTime> res = new List<DateTime>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select dayid FROM reservation WHERE email = '"+ Email+"'";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            res.Add(((DateTime) dr["dayid"]));
+                        }
+                        
+                    }
+                    
+                    
+                }
+            }
+            foreach(DateTime p in res)
+            {
+                if (p == convdayid)
+                {
+                    AmountDate++;
+                    
+                }
+                
+            }
+            if (AmountDate >= 1)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+            
+
 
         }
 
