@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Project_Corona.Database;
@@ -24,31 +26,33 @@ namespace Project_Corona.Pages
         }
 
         public string Info { get; set; }
+        public string userEmail {get; set;}
 
         
-
         public void OnGet()
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             
         
         }
         public void  OnPostSubmit(ReservationModel reservation)
         {
-            
+            userEmail = HttpContext.Session.GetString("useremail");
             
             DateTime convdayid = Convert.ToDateTime(reservation.Dayid);
-            if (CheckReservation(convdayid, reservation.Email) == true) {
+            if (CheckReservation(convdayid, userEmail) == true) {
 
-                CreateReservation(convdayid, reservation.Roomid, reservation.Email, reservation.Locationid);
+                CreateReservation(convdayid, reservation.Roomid, userEmail, reservation.Locationid);
                 this.Info = string.Format("Reservation successfully saved");
             }
-            else if (CheckReservation(convdayid, reservation.Email) == false) {
+            else if (CheckReservation(convdayid, userEmail) == false) {
                 this.Info = string.Format("You entered same date, try different date");
             }
         }   
 
         public void OnPostRemove(ReservationModel reservation)
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             
             DateTime convdayid = Convert.ToDateTime(reservation.Dayid);
             DeleteReservation(convdayid, reservation.Locationid);
@@ -202,7 +206,7 @@ namespace Project_Corona.Pages
             List<ReservationModel> res = new List<ReservationModel>();
             using var con = new NpgsqlConnection(cs);
             {
-                string query = "Select dayid, locationid FROM reservation";
+                string query = "Select dayid, locationid FROM reservation WHERE email = '"+ userEmail+"'";
                 using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
                 {
                     cmd.Connection = con;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -14,6 +16,9 @@ namespace Project_Corona.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+
+        [BindProperty]
+        public string userEmail {get; set;}
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -38,16 +43,19 @@ namespace Project_Corona.Pages
             }
             else if(log.Item1 == true && log.Item2 == 2)
             {
+                HttpContext.Session.SetString("useremail", userEmail);
                 return new RedirectToPageResult("Employeepage");
             }
             else
             {
                 return null;
             }
+
         }
 
         public Tuple<bool, int> LoginCheck(string Email, string Password)
         {
+            userEmail = Email;
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
@@ -64,7 +72,7 @@ namespace Project_Corona.Pages
             {
                 for(int i = 0; i < dRead.FieldCount; i++)
                 {
-                    if(dRead["email"].ToString() == Email && dRead["password"].ToString() == Password)
+                    if(dRead["email"].ToString() == userEmail && dRead["password"].ToString() == Password)
                     {
                         if(dRead["function"].ToString() == "admin" || dRead["function"].ToString() == "Admin" || dRead["function"].ToString() == "ADMIN")
                         {
