@@ -9,6 +9,8 @@ using myWebApp.Database;
 using myWebApp.Pages;
 using myWebApp.Models;
 using myWebApp.Controllers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Npgsql;
 
 namespace myWebApp.Pages
@@ -21,6 +23,9 @@ namespace myWebApp.Pages
         {
             _logger = logger;
         }
+
+        [BindProperty]
+        public string userEmail {get; set;}
 
         public void OnGet()
         {
@@ -38,6 +43,7 @@ namespace myWebApp.Pages
             }
             else if(log.Item1 == true && log.Item2 == 2)
             {
+                HttpContext.Session.SetString("useremail", userEmail);
                 return new RedirectToPageResult("EmployeeIndex");
             }
             else
@@ -48,6 +54,7 @@ namespace myWebApp.Pages
 
         public Tuple<bool, int, string> LoginCheck(string Email, string Password)
         {
+            userEmail = Email;
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);

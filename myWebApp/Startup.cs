@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http.Extensions;
+
+
 
 namespace myWebApp
 {
@@ -23,8 +27,7 @@ namespace myWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-
-           
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +41,9 @@ namespace myWebApp
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseSession();
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 

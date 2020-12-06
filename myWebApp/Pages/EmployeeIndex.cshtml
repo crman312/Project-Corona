@@ -5,4 +5,148 @@
 }
 
 
-<h4 class="text-left font-weight-bolder mt-4">Welcome Employee</h4>
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-3 bg-light">
+            <h4 class="text-left font-weight-bolder mt-4">Welcome @Model.userEmail</h4>
+            <div class="row">
+                <div class="mt-5 w-100"></div>
+                <div class="col-9">
+                    <h5 class="font-italic text-left">Notifications</h5>
+                </div>
+
+                <div class="col">
+                    <div class="circle">1</div>
+                </div>
+            </div>
+            <hr>
+            <p class="mt-2 mb-2">Text Notifications</p>
+            <hr>
+
+            <div class="mt-5 w-100"></div>
+            <h5 class="font-italic text-left">Manage my reservations</h5>
+            <hr>
+            @foreach(var reservations in @Model.ShowReservation())
+            {
+                <form method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <tr>
+                                <img class="img-fluid" src="/Images/Reservation.png"/>
+                                <td>
+                                    @Html.DisplayFor(m => reservations.Date)
+                                    <input type="hidden" name="Date" value="@Html.DisplayFor(m => reservations.Date)"/>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => reservations.Location)
+                                    <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
+                                </td>
+                            </tr>
+                            <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <hr>
+            }
+            <hr>
+            <a class="" asp-area="" asp-page="/Index">Logout</a>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="pl-5 col-4 border-right">
+                    <h4 class="font-weight-bolder pb-5"> <img class="img-fluid" src="/Images/Signup.png"/> Sign up</h4>
+                    <form action="" method="post">
+                        <fieldset>
+                            <tr>
+                                <td>Date</td>
+                                
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1' name="Date">
+                                            <input type='date' class="form-control" name="Date" required/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                <td>Select location</td>
+                                    <div class="form-group">
+                                        <select id="locations" name="Location">
+                                            @foreach(var reservations in @Model.PopulateReservations())
+                                            {                                        
+                                                <option>@Html.DisplayFor(m => reservations.LocationName)</option>
+                                            }
+                                        </select>                                       
+                                    </div>
+                                <td>Select Room</td>
+                                    <div class="form-group">
+                                        <select id="rooms" name="Room">
+                                            @foreach(var reservations in @Model.ShowRoom())
+                                            {
+                                               <option>@Html.DisplayFor(m => reservations.RoomName)</option>
+                                                 
+                                            }
+                                        </select>                                       
+                                    </div>
+
+                                    <div class="form group">
+                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
+                                    </div>
+                            </tr>
+                        </fieldset>
+                        @Model.Info
+                    </form>
+                </div>
+                
+                <div class="pl-5 col-4 border-right">
+                    
+                </div>
+
+                
+            </div>
+
+            <div style="height: 100px" class="w-100"></div>
+            <div class="row">
+                <div class="pl-5 col-8">
+                    <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/OpeningHours.png"/>Opening Hours</h4>
+                        <table style="width: 350px;">
+                            <tr>
+                                <td><strong>Dag</strong></td>
+                                <td><strong>Openingstijden</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Maandag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Dinsdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Woensdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Donderdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Vrijdag</td>
+                                <td>09:00-17:00 uur</td>
+                            </tr>
+                            <tr>
+                                <td>Zaterdag</td>
+                                <td>Gesloten</td>
+                            </tr>
+                            <tr>
+                                <td>Zondag</td>
+                                <td>Gesloten</td>
+                            </tr>
+                        </table>
+
+                </div>
+
+            <div class="pl-5 col-4">
+                <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/Settings.png"/>Settings</h4>
+            </div>
+        </div>
+    </div>
