@@ -16,7 +16,7 @@ namespace myWebApp.Models
         [BindProperty]
         public string Email { get; set; } 
         [BindProperty]
-        public DateTime Date { get; set; } 
+        public string Date { get; set; } 
 
         [BindProperty]
         public string Location { get; set; }

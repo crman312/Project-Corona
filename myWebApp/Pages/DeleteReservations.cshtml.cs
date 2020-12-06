@@ -4,6 +4,8 @@ using System.Linq;
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using myWebApp.Database;
@@ -56,15 +58,8 @@ namespace myWebApp.Pages
         {
             userEmail = HttpContext.Session.GetString("useremail");
             
-            DateTime convdayid = reservation.Date;
-            if (CheckReservation(convdayid, userEmail) == true) {
-
-                CreateReservation(convdayid, reservation.Room, userEmail, reservation.Location);
-                this.Info = string.Format("Reservation successfully saved");
-            }
-            else if (CheckReservation(convdayid,userEmail) == false) {
-                this.Info = string.Format("You entered same date, try different date");
-            }
+            
+            
         }   
 
         public void OnPostRemove(ReservationModel reservation)

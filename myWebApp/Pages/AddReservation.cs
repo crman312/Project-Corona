@@ -29,11 +29,11 @@ namespace myWebApp.Pages
 
         public void OnPostSubmit(ReservationModel reservation)
         {
-
+            DateTime convdayid = Convert.ToDateTime(reservation.Date);
             
             this.Info = string.Format("Sucessfully added the reservation");
 
-            CreateReservation(reservation.Email, reservation.Date, reservation.Location, reservation.Room);
+            CreateReservation(reservation.Email, convdayid, reservation.Location, reservation.Room);
         }
         public void CreateReservation(string Email, DateTime Date, string Location, string Room)
         {
