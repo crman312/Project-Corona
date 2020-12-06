@@ -36,46 +36,47 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT location, room, squaremeters, availableworkspaces FROM workspaces ORDER BY location ASC, room ASC";
+            var sql = "SELECT location, room, squaremeters, availableworkspaces, workspace_id FROM workspaces ORDER BY workspace_id ASC";
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
            
             while (dRead.Read())
             {
-                Workspaces.Add(new Workspace(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(),dRead[3].ToString()));
+                Workspaces.Add(new Workspace(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(),dRead[3].ToString(),Convert.ToInt32(dRead[4])));
             }
             return Workspaces;
         }  
 
         public void OnPostSubmit(WorkspaceModel workspace){
-            DeleteWorkspace(workspace.LocationName, workspace.RoomName);
+            DeleteWorkspace(workspace.Id);
         }
 
-        public void DeleteWorkspace(string locationName, string roomName){
+        public void DeleteWorkspace(int id){
             var cs = Database.Database.Connector();
 			using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "DELETE FROM workspaces WHERE location = @locationname AND room = @roomname;";
+            var sql = "DELETE FROM workspaces WHERE workspace_id = @id;";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("locationname", locationName);
-            cmd.Parameters.AddWithValue("roomname", roomName);
+            cmd.Parameters.AddWithValue("id", id);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
     }
     public class Workspace{
-        public Workspace(string location, string room, string squaremeters, string availableworkspaces){
+        public Workspace(string location, string room, string squaremeters, string availableworkspaces, int id){
             WSlocation = location;
             WSroom = room;
             WSsquaremeters= squaremeters;
             WSavailableworkspaces = availableworkspaces;
+            WSid = id;
         }
         public string WSlocation {get; set;}
         public string WSroom {get; set;}
         public string WSsquaremeters {get; set;}
         public string WSavailableworkspaces {get; set;}
+        public int WSid {get; set;}
     }
 }
       
