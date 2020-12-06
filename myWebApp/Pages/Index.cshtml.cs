@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Pages;
 using myWebApp.Models;
+using myWebApp.Controllers;
 using Npgsql;
 
 namespace myWebApp.Pages
@@ -28,8 +29,9 @@ namespace myWebApp.Pages
         public IActionResult OnPostSubmit(LoginModel login)
         {
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
-            Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
-
+            Tuple<bool, int, string> log = LoginCheck(login.Email, encryptedpassword);
+            string User = log.Item3; // User name to pass to the next page in future
+        
             if(log.Item1 == true && log.Item2 == 1)
             {
                 return new RedirectToPageResult("Admin");
@@ -44,7 +46,7 @@ namespace myWebApp.Pages
             }
         }
 
-        public Tuple<bool, int> LoginCheck(string Email, string Password)
+        public Tuple<bool, int, string> LoginCheck(string Email, string Password)
         {
             var cs = Database.Database.Connector();
 
@@ -57,6 +59,7 @@ namespace myWebApp.Pages
             NpgsqlDataReader dRead = cmd.ExecuteReader();
 
             int employeeFunction = 0;
+            string User = "";
            
             while (dRead.Read())
             {
@@ -67,14 +70,15 @@ namespace myWebApp.Pages
                         if(dRead[3].ToString() == "admin" || dRead[3].ToString() == "Admin" || dRead[3].ToString() == "ADMIN")
                         {
                             employeeFunction = 1;
-                            return Tuple.Create(true, employeeFunction);
+                            User = dRead[0].ToString();
+                            return Tuple.Create(true, employeeFunction, User);
                         }
-                        employeeFunction = 2;
-                        return Tuple.Create(true, employeeFunction);
+                        User = dRead[0].ToString();
+                        return Tuple.Create(true, employeeFunction, User);
                     }
                 }
             }
-            return Tuple.Create(false, employeeFunction);
+            return Tuple.Create(false, employeeFunction, User);
         }
     }
 }
