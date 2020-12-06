@@ -20,6 +20,8 @@ namespace myWebApp.Models
         [BindProperty]
         public string Password { get; set; } 
         [BindProperty]
-        public string Function { get; set; } 
+        public string Function { get; set; }
+        [BindProperty]
+        public string Priority { get; set; } 
     }
 }
