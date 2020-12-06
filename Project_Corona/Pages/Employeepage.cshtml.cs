@@ -46,7 +46,7 @@ namespace Project_Corona.Pages
                 this.Info = string.Format("Reservation successfully saved");
             }
             else if (CheckReservation(convdayid, userEmail) == false) {
-                this.Info = string.Format("You entered same date, try different date");
+                this.Info = string.Format("You entered same date, or reserve before today, try different date");
             }
         }   
 
@@ -78,6 +78,8 @@ namespace Project_Corona.Pages
         public bool CheckReservation(DateTime convdayid, string Email) 
         {   
             int AmountDate = 0;
+            DateTime now = DateTime.Now;
+           
             var cs = Database.Database.Connector();
             List<DateTime> res = new List<DateTime>();
             using var con = new NpgsqlConnection(cs);
@@ -101,7 +103,7 @@ namespace Project_Corona.Pages
             }
             foreach(DateTime p in res)
             {
-                if (p == convdayid)
+                if (p == convdayid || p < now)
                 {
                     AmountDate++;
                     
