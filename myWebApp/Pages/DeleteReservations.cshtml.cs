@@ -119,8 +119,8 @@ namespace myWebApp.Pages
 
             var sql = "DELETE FROM reservations WHERE res_location = @Location AND date = @Date";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("Locationid", Locationid);
-            cmd.Parameters.AddWithValue("Dayid", convdayid);
+            cmd.Parameters.AddWithValue("Location", Locationid);
+            cmd.Parameters.AddWithValue("Date", convdayid);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             con.Close();
