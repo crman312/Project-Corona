@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Npgsql;
 
 
@@ -51,7 +53,7 @@ namespace myWebApp.Pages
         //public void OnPostSubmit(ReservationModel reservation){
           //  DeleteReservation(reservation.Email, reservation.Date);
         //}
-
+        /*
         public void  OnPostSubmit(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
@@ -66,13 +68,13 @@ namespace myWebApp.Pages
                 this.Info = string.Format("You entered same date, try different date");
             }
         }   
-
+        */
         public void OnPostRemove(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
-            DeleteReservation(convdayid, reservation.Location);
+            DeleteReservation(userEmail, convdayid);
         }
 
 public bool CheckReservation(DateTime convdayid, string Email) 
