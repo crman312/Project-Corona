@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Npgsql;
 
 
@@ -33,6 +31,7 @@ namespace myWebApp.Pages
 
         public List<Reservations> ShowReservations()
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             List<Reservations> Reservations = new List<Reservations>();
 
             var cs = Database.Database.Connector();
@@ -40,9 +39,9 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT res_email, date, res_location, res_room FROM reservations ORDER BY date ASC, res_location ASC";
+            var sql = "SELECT res_email, date, res_location, res_room FROM reservations WHERE res_email = @Email ORDER BY date ASC, res_location ASC";
             using var cmd = new NpgsqlCommand(sql, con);
-
+            cmd.Parameters.AddWithValue("Email", userEmail);
             NpgsqlDataReader dRead = cmd.ExecuteReader();
            
             while (dRead.Read())
@@ -52,25 +51,12 @@ namespace myWebApp.Pages
             return Reservations;
         }
 
-        //public void OnPostSubmit(ReservationModel reservation){
-          //  DeleteReservation(reservation.Email, reservation.Date);
-        //}
-        
-        public void  OnPostSubmit(ReservationModel reservation)
-        {
-            userEmail = HttpContext.Session.GetString("useremail");
-            DateTime convdayid = Convert.ToDateTime(reservation.Date);
-            
-            DeleteReservation(reservation.Email, convdayid);
-            
-        }   
-        
         public void OnPostRemove(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
-            DeleteReservation2(convdayid, reservation.Location);
+            DeleteReservation(convdayid, userEmail);
         }
 
         public bool CheckReservation(DateTime convdayid, string Email) 
@@ -99,9 +85,7 @@ namespace myWebApp.Pages
                 if (p == convdayid)
                 {
                     AmountDate++;
-                    
                 }
-                
             }
             if (AmountDate >= 1)
             {
@@ -110,38 +94,21 @@ namespace myWebApp.Pages
             else {return true;}
         }
 
-        public void DeleteReservation2(DateTime convdayid, string Locationid)
+        public void DeleteReservation(DateTime date, string email)
         {
             
             var cs = Database.Database.Connector();
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "DELETE FROM reservations WHERE res_location = @Location AND date = @Date";
+            var sql = "DELETE FROM reservations WHERE res_email = @email AND date = @date";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("Locationid", Locationid);
-            cmd.Parameters.AddWithValue("Dayid", convdayid);
+            cmd.Parameters.AddWithValue("email", email);
+            cmd.Parameters.AddWithValue("date", date);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             con.Close();
 
         }
-    
-
-
-        public void DeleteReservation(string Email, DateTime Date){
-            var cs = Database.Database.Connector();
-			using var con = new NpgsqlConnection(cs);
-            con.Open();
-
-            var sql = "DELETE FROM reservations WHERE res_email = @email AND date = @date;";
-            using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("email", Email);
-            cmd.Parameters.AddWithValue("date", Date);
-            cmd.Prepare();
-            cmd.ExecuteNonQuery();
-        }
     }
-
-
 }

@@ -12,8 +12,6 @@ using myWebApp.Pages;
 using myWebApp.Models;
 using myWebApp.Controllers;
 using Npgsql;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 
 namespace myWebApp.Pages
 {
@@ -28,9 +26,6 @@ namespace myWebApp.Pages
         [BindProperty]
         public string userEmail {get; set;}
 
-        [BindProperty]
-        public string userEmail {get; set;}
-
         public void OnGet()
         {
         }
@@ -39,10 +34,11 @@ namespace myWebApp.Pages
         {
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
             Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
-             // User name to pass to the next page in future
+            // User name to pass to the next page in future
         
             if(log.Item1 == true && log.Item2 == 1)
             {
+                HttpContext.Session.SetString("useremail", userEmail);
                 return new RedirectToPageResult("Admin");
             }
             else if(log.Item1 == true && log.Item2 == 2)
