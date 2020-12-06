@@ -34,12 +34,12 @@
                                                 <tr>
                                                     <img class="img-fluid" src="/Images/Reservation.png"/>
                                                     <td>
-                                                        @Html.DisplayFor(m => reservations.Location)
-                                                        <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
+                                                        @Html.DisplayFor(m => reservations.Date)
+                                                        <input type="hidden" name="Date" value="@Html.DisplayFor(m => reservations.Date)"/>
                                                     </td>
                                                     <td>
-                                                        @Html.DisplayFor(m => reservations.Room)
-                                                        <input type="hidden" name="Room" value="@Html.DisplayFor(m => reservations.Room)"/>
+                                                        @Html.DisplayFor(m => reservations.Location)
+                                                        <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
                                                     </td>
                                                 </tr>
                                                 <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
@@ -48,6 +48,7 @@
                                     </form>
                                     <hr>
             }
+
             <hr>
             <a class="" asp-area="" asp-page="/Index">Logout</a>
         </div>
