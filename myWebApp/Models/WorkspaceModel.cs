@@ -23,5 +23,7 @@ namespace myWebApp.Models
         public int Lengthws { get; set; } = 1;
         [BindProperty]
         public int Widthws { get; set; } = 1;
+        [BindProperty]
+        public int Id {get; set;}
     }
 }

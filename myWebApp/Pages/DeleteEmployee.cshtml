@@ -31,45 +31,46 @@
 
         <div class="col">
             <div class="row">
-                <div class="pl-5 col-8">
+                <div class="pl-5 col-10">
                     <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Delete employee</h4>
-                        <div><b>Employee info:</b></div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>name</th>
-                                    <th>email</th>
-                                    <th>function</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach(var employee in @Model.ShowEmployees())
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(m => employee.EmpName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(m => employee.EmpEmail)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(m => employee.EmpFunction)
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
                             <form method="post">
                                 <fieldset>
-                                    <div class="form-group">
-                                        <label>Email of employee to be deleted</label>
-                                        <input id="txtEmail" name="Email" class="form-control" type="text">
-                                    </div>
-                                    <div class="form-group">
+                                    <div><b>Employee info:</b></div>
+                                    <table class="table table-bordered w-100 table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>name</th>
+                                                <th>email</th>
+                                                <th>function</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach(var employee in @Model.ShowEmployees())
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(m => employee.EmpName)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(m => employee.EmpEmail)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(m => employee.EmpFunction)
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                        <input type="checkbox" id="txtEmail" name="Email" class="form-control" value="@employee.EmpEmail" />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                        <div class="form-group">
                                         <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>
-                                    </div>
+                                        </div>
                                 </fieldset>
                             </form>
                         </article>
