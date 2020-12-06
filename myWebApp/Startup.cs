@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 
 namespace myWebApp
 {
@@ -23,6 +24,8 @@ namespace myWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddSession();
 
            
         }
@@ -44,6 +47,10 @@ namespace myWebApp
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
+
+            app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {
