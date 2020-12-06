@@ -26,7 +26,9 @@ namespace myWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
             services.AddSession();
+
            
         }
 
@@ -50,6 +52,10 @@ namespace myWebApp
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
+
+            app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {

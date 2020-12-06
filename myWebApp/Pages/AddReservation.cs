@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Npgsql;
 
 namespace myWebApp.Pages
@@ -21,6 +23,8 @@ namespace myWebApp.Pages
         }
 
         public string Info { get; set; }
+        public string userEmail { get; set; }
+
 
         public void OnGet()
         {
@@ -34,7 +38,72 @@ namespace myWebApp.Pages
             this.Info = string.Format("Sucessfully added the reservation");
 
             CreateReservation(reservation.Email, convdayid, reservation.Location, reservation.Room);
+            
+            bool check = prioCheck(reservation);
+
+          DateTime convdayid = Convert.ToDateTime(reservation.Date);
+            if(check == false)
+            { 
+              this.Info = string.Format("You do not have the right priority, please try again");
+            }
+
+            else
+            {
+
+              CreateReservation(reservation.Email, convdayid, reservation.Location, reservation.Room);
+              this.Info = string.Format("Sucessfully added the reservation");
+            }
         }
+
+        public bool prioCheck(ReservationModel reservation)
+        {
+          DateTime convdayid = Convert.ToDateTime(reservation.Date);
+          userEmail = HttpContext.Session.GetString("useremail");
+          
+          var cs = Database.Database.Connector(); // start connectie met database
+
+          List<string> pr = new List<string>(); //list creeren
+
+          using var con = new NpgsqlConnection(cs);
+          {
+            string query = "Select priority FROM employees = '"+ userEmail+"'";
+            using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+            {
+              cmd.Connection = con;
+              con.Open();
+              using (NpgsqlDataReader dr = cmd.ExecuteReader())
+              {
+                while (dr.Read())
+                {
+                  pr.Add(((string) dr["priority"]));
+                }
+              }
+              con.Close(); //sluit de connection, maar de list pr bestaat nog
+            }
+          }
+
+          foreach(string priority in pr)
+          {
+            if(priority == "Low") // 2 dagen van te voren
+            {
+              DateTime newdt = convdayid.AddDays(-2);
+              if(newdt <= DateTime.Now){return true;}
+              else{return false;}
+            }
+            else if(priority == "Medium") // 7 dagen van te voren
+            {
+              DateTime newdt = convdayid.AddDays(-7);
+              if(newdt <= DateTime.Now){return true;}
+              else{return false;}
+            }
+            else // high priority kan altijd reserveren
+            {
+              return true;
+            }
+          }
+          return false;
+        }
+
         public void CreateReservation(string Email, DateTime Date, string Location, string Room)
         {
             var cs = Database.Database.Connector();

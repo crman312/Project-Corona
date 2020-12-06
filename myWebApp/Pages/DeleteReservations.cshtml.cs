@@ -17,14 +17,13 @@ namespace myWebApp.Pages
 {
     public class DeleteReservationModel : PageModel
     {
-
         private readonly ILogger<DeleteReservationModel> _logger;
 
         public DeleteReservationModel(ILogger<DeleteReservationModel> logger)
         {
             _logger = logger;
         }
-        public string userEmail {get; set;}
+
         public string Info { get; set; }
         
         public void OnGet(){}

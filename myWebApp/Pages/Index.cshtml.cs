@@ -81,7 +81,8 @@ namespace myWebApp.Pages
                             return Tuple.Create(true, employeeFunction);
                         }
                         User = dRead[0].ToString();
-                        return Tuple.Create(true, employeeFunction);
+                        employeeFunction = 2;
+                        return Tuple.Create(true, employeeFunction, User);
                     }
                 }
             }
