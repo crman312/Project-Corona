@@ -55,7 +55,7 @@ namespace myWebApp.Pages
         //public void OnPostSubmit(ReservationModel reservation){
           //  DeleteReservation(reservation.Email, reservation.Date);
         //}
-        /*
+        
         public void  OnPostSubmit(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
@@ -64,20 +64,16 @@ namespace myWebApp.Pages
             DeleteReservation(reservation.Email, convdayid);
             
         }   
-        */
+        
         public void OnPostRemove(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
-<<<<<<< HEAD
             DeleteReservation2(convdayid, reservation.Location);
-=======
-            DeleteReservation(userEmail, convdayid);
->>>>>>> 7f52c1cceb6d0f67ba7aa49f4c03ffe4fd0a5eff
         }
 
-public bool CheckReservation(DateTime convdayid, string Email) 
+        public bool CheckReservation(DateTime convdayid, string Email) 
         {   
             int AmountDate = 0;
             var cs = Database.Database.Connector();
