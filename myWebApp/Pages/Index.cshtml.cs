@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using myWebApp.Database;
 using myWebApp.Pages;
 using myWebApp.Models;
@@ -21,6 +23,8 @@ namespace myWebApp.Pages
         {
             _logger = logger;
         }
+        [BindProperty]
+        public string userEmail {get; set;}
 
         public void OnGet()
         {
@@ -29,8 +33,8 @@ namespace myWebApp.Pages
         public IActionResult OnPostSubmit(LoginModel login)
         {
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
-            Tuple<bool, int, string> log = LoginCheck(login.Email, encryptedpassword);
-            string User = log.Item3; // User name to pass to the next page in future
+            Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
+             // User name to pass to the next page in future
         
             if(log.Item1 == true && log.Item2 == 1)
             {
@@ -38,6 +42,7 @@ namespace myWebApp.Pages
             }
             else if(log.Item1 == true && log.Item2 == 2)
             {
+                HttpContext.Session.SetString("useremail", userEmail);
                 return new RedirectToPageResult("EmployeeIndex");
             }
             else
@@ -46,8 +51,9 @@ namespace myWebApp.Pages
             }
         }
 
-        public Tuple<bool, int, string> LoginCheck(string Email, string Password)
+        public Tuple<bool, int> LoginCheck(string Email, string Password)
         {
+            userEmail = Email;
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
@@ -71,14 +77,14 @@ namespace myWebApp.Pages
                         {
                             employeeFunction = 1;
                             User = dRead[0].ToString();
-                            return Tuple.Create(true, employeeFunction, User);
+                            return Tuple.Create(true, employeeFunction);
                         }
                         User = dRead[0].ToString();
-                        return Tuple.Create(true, employeeFunction, User);
+                        return Tuple.Create(true, employeeFunction);
                     }
                 }
             }
-            return Tuple.Create(false, employeeFunction, User);
+            return Tuple.Create(false, employeeFunction);
         }
     }
 }
