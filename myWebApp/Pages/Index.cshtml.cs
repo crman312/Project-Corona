@@ -12,6 +12,8 @@ using myWebApp.Pages;
 using myWebApp.Models;
 using myWebApp.Controllers;
 using Npgsql;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace myWebApp.Pages
 {
@@ -23,6 +25,9 @@ namespace myWebApp.Pages
         {
             _logger = logger;
         }
+        [BindProperty]
+        public string userEmail {get; set;}
+
         [BindProperty]
         public string userEmail {get; set;}
 
