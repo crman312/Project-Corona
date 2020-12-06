@@ -29,12 +29,43 @@ namespace myWebApp.Pages
 
         public void OnPostSubmit(ReservationModel reservation)
         {
+          bool check = prioCheck(reservation);
 
-            
-            this.Info = string.Format("Sucessfully added the reservation");
+            if(check == false)
+            { 
+              this.Info = string.Format("You do not have the right priority, please try again");
+            }
 
-            CreateReservation(reservation.Email, reservation.Date, reservation.Location, reservation.Room);
+            else
+            {
+              CreateReservation(reservation.Email, reservation.Date, reservation.Location, reservation.Room);
+              this.Info = string.Format("Sucessfully added the reservation");
+            }
         }
+
+        public bool prioCheck(ReservationModel reservation)
+        {
+         string priority = //functie om priority te pakken uit ergens
+         
+          if(priority == "low") // 2 dagen van te voren
+          {
+            DateTime newdt = reservation.Date.AddDays(-2);
+            if(newdt <= DateTime.Now){return true;}
+            else{return false;}
+          }
+          if(priority == "medium") // 7 dagen van te voren
+          {
+            DateTime newdt = reservation.Date.AddDays(-7);
+            if(newdt <= DateTime.Now){return true;}
+            else{return false;}
+          }
+          else // high priority kan altijd reserveren
+          {
+            return true
+          }
+          
+        }
+
         public void CreateReservation(string Email, DateTime Date, string Location, string Room)
         {
             var cs = Database.Database.Connector();
