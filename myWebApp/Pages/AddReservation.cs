@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
+using myWebApp.Pages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Npgsql;
@@ -35,23 +36,20 @@ namespace myWebApp.Pages
         {
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             
-            this.Info = string.Format("Sucessfully added the reservation");
-
-            CreateReservation(reservation.Email, convdayid, reservation.Location, reservation.Room);
-            
             bool check = prioCheck(reservation);
-
-          DateTime convdayid = Convert.ToDateTime(reservation.Date);
-            if(check == false)
-            { 
-              this.Info = string.Format("You do not have the right priority, please try again");
-            }
-
-            else
-            {
-
+            bool check1 = CheckReservation(convdayid, userEmail);
+            if(check && check1){
               CreateReservation(reservation.Email, convdayid, reservation.Location, reservation.Room);
               this.Info = string.Format("Sucessfully added the reservation");
+            }
+            else{
+              if (check1 == false) {
+              this.Info = string.Format("You entered same date, or tried to reserve in the past, try different date");
+              }
+              if(check == false)
+              { 
+                this.Info = string.Format("You do not have the right priority, please try a later date");
+              }
             }
         }
 
@@ -66,7 +64,7 @@ namespace myWebApp.Pages
 
           using var con = new NpgsqlConnection(cs);
           {
-            string query = "Select priority FROM employees = '"+ userEmail+"'";
+            string query = "Select priority FROM employees WHERE email = '"+ userEmail+"'";
             using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
             {
               cmd.Connection = con;
@@ -87,13 +85,13 @@ namespace myWebApp.Pages
             if(priority == "Low") // 2 dagen van te voren
             {
               DateTime newdt = convdayid.AddDays(-2);
-              if(newdt <= DateTime.Now){return true;}
+              if(newdt > DateTime.Now){return true;}
               else{return false;}
             }
             else if(priority == "Medium") // 7 dagen van te voren
             {
               DateTime newdt = convdayid.AddDays(-7);
-              if(newdt <= DateTime.Now){return true;}
+              if(newdt > DateTime.Now){return true;}
               else{return false;}
             }
             else // high priority kan altijd reserveren
@@ -142,6 +140,49 @@ namespace myWebApp.Pages
                 Reservations.Add(new Reservations(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(),dRead[3].ToString()));
             }
             return Reservations;
+        }
+        public bool CheckReservation(DateTime convdayid, string Email) 
+        {   
+            int AmountDate = 0;
+            DateTime now = DateTime.Now;
+           
+            var cs = Database.Database.Connector();
+            List<DateTime> res = new List<DateTime>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select date FROM reservations WHERE res_email = '"+ Email+"'";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            res.Add(((DateTime) dr["date"]));
+                        }
+                        
+                    }
+                    
+                    
+                }
+            }
+            foreach(DateTime p in res)
+            {
+                if (p == convdayid || p < now)
+                {
+                    AmountDate++;
+                    
+                }
+                
+            }
+            if (AmountDate >= 1)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
         }  
 
         

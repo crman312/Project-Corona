@@ -24,6 +24,7 @@ namespace myWebApp.Pages
             _logger = logger;
         }
 
+        public string userEmail {get; set;}
         public string Info { get; set; }
         
         public void OnGet(){}
