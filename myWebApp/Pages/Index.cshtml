@@ -21,9 +21,8 @@
             
             <div class="form-group">
                 <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark mt-5 btn-lg" onclick="myFunction()">Login</button>
-                </div> <!-- form-group// -->
-                
-               <div class="alert-danger mt-2 mb-2 rounded" role="alert" id="ErrorMessage">@Model.Info</div>
+            </div> <!-- form-group// -->
+            <div class="alert-danger mt-2 mb-2 rounded" role="alert" id="ErrorMessage">@Model.ErrorBox</div>
         </form>
         </article>
     </div> <!-- card.// -->

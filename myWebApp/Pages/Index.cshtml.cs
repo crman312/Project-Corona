@@ -30,7 +30,7 @@ namespace myWebApp.Pages
         {
         }
 
-        public string Info { get; set; }
+        public string ErrorBox { get; set; }
 
         public IActionResult OnPostSubmit(LoginModel login)
         {
@@ -51,8 +51,7 @@ namespace myWebApp.Pages
             }
             else
             {
-                this.Info = string.Format("Wrong email and password combination");
-
+                this.ErrorBox = string.Format("Wrong email and password combination");
                 return null;
             }
         }
