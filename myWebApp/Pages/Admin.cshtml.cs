@@ -27,22 +27,25 @@ namespace myWebApp.Pages
             _logger = logger;
         }
 
-        public void OnPostSubmit(UploadFileModel logoFile)
-        {
+        [BindProperty]
+        public IFormFile UploadedFile { get; set; }
 
-            UploadLogo(logoFile.Logo);
+
+        public void OnPostSubmit()
+        {
+            UploadLogo(UploadedFile);
         }
 
-        public void UploadLogo(IFormFile File)
+        public void UploadLogo(IFormFile file)
         {
             var cs = Database.Database.Connector();
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "INSERT INTO logo(file) VALUES(@File)";
+            var sql = "INSERT INTO logo(file) VALUES(@file)";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("file", File);
+            cmd.Parameters.AddWithValue("file", file);
     
             cmd.Prepare();
 

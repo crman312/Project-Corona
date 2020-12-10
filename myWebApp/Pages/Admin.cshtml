@@ -81,7 +81,7 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Logo</h5>
@@ -93,7 +93,7 @@
             <div class="modal-body">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" name="Logo" class="custom-file-input" id="inputGroupFile01">
+                        <input type="file" asp-for="UploadedFile" name="Logo" class="custom-file-input" id="inputGroupFile01">
                         <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                     </div>     
                 </div>
