@@ -33,7 +33,8 @@ namespace myWebApp.Pages
         {
             this.Info = string.Format("Successfully saved, {0}", employee.Name);
             string emPassword = sha256_hash(employee.Password);
-            CreateEmployee(employee.Name, employee.Email, emPassword, employee.Function, employee.Priority);
+            string employeeFunction = employee.Function.ToLower();
+            CreateEmployee(employee.Name, employee.Email, emPassword, employeeFunction, employee.Priority);
         }
 
         public static string sha256_hash(string valueToEncrypt)
