@@ -78,16 +78,18 @@
                                 <td>Select location</td>
                                     <div class="form-group">
                                         <select id="locations" name="Location">
-                                            @foreach(var reservations in @Model.PopulateReservations())
+                                            <option>---</option>
+                                            @foreach(var reservations in @Model.locations)
                                             {                                        
                                                 <option>@Html.DisplayFor(m => reservations.LocationName)</option>
+                                                
                                             }
                                         </select>                                       
                                     </div>
                                 <td>Select Room</td>
                                     <div class="form-group">
                                         <select id="rooms" name="Room">
-                                            @foreach(var reservations in @Model.ShowRoom())
+                                            @foreach(var reservations in @Model.rooms)
                                             {
                                                <option>@Html.DisplayFor(m => reservations.RoomName)</option>
                                                  
@@ -95,6 +97,32 @@
                                         </select>                                       
                                     </div>
 
+                                    <form>
+    @Html.AntiForgeryToken()
+</form>
+@section scripts{ 
+    <script>
+        $('#locations').on('change', function () {
+            var arr = [];
+        $.ajax({
+                    type: "POST",
+            url: '?handler=ShowRoom',
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: { "loc": $("#locations").val() },
+            dataType:"json"
+        }).done(function (data) {
+            $("#rooms").empty();
+            $.each(data, function (i, item) {
+                $("#rooms").append('<option> ' + item["roomName"] + ' </option>');
+            });
+           
+        });
+    });
+    </script>
+}
+                                   
                                     <div class="form group">
                                         <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
                                     </div>
@@ -161,3 +189,5 @@
             </div>
         </div>
     </div>
+
+

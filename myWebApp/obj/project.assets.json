@@ -7760,7 +7760,7 @@
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.AspNet.Mvc >= 5.2.7",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
-      "Npgsql"
+      "Npgsql >= 5.0.0"
     ]
   },
   "packageFolders": {
@@ -7810,7 +7810,7 @@
           },
           "Npgsql": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[5.0.0, )"
           }
         },
         "imports": [

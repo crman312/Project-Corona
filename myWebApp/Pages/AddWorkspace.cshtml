@@ -46,23 +46,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var workspace in @Model.ShowWorkspaces())
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(m => workspace.WSlocation)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(m => workspace.WSroom)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(m => workspace.WSsquaremeters)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(m => workspace.WSavailableworkspaces)
-                                        </td>
-                                    </tr>
-                                }
+                                
                             </tbody>
                         </table>
                         <form method="post">
