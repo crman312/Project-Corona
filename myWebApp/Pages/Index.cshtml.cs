@@ -30,15 +30,15 @@ namespace myWebApp.Pages
         {
         }
 
+        public string Info { get; set; }
+
         public string ErrorBox { get; set; }
 
         public IActionResult OnPostSubmit(LoginModel login)
         {
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
             Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
-            // User name to pass to the next page in future
             
-
             if(log.Item1 == true && log.Item2 == 1)
             {
                 HttpContext.Session.SetString("useremail", userEmail);

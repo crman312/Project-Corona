@@ -20,10 +20,22 @@
                 <input class="form-control" placeholder="Password" id="txtPassword" name="Password" type="password" required>
             
             <div class="form-group">
-                <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark mt-5 btn-lg" onclick="myFunction()">Login</button>
+                <button type="submit" id="submitBtn" value="Submit" asp-page-handler="Submit" class="btn btn-dark mt-5 btn-lg" onclick="myFunction()">Login</button>
             </div> <!-- form-group// -->
             <div class="alert-danger mt-2 mb-2 rounded" role="alert" id="ErrorMessage">@Model.ErrorBox</div>
         </form>
         </article>
     </div> <!-- card.// -->
 </div>
+
+<script>
+var button = document.getElementById("submitBtn");
+var attempts = 0;
+function pasuser(form) {
+    attempts++;
+    button.style.display = attempts === 3 ? "none" : "block";
+    
+  
+}
+    
+</script>

@@ -10,6 +10,7 @@ using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 
 namespace myWebApp.Pages
@@ -26,12 +27,23 @@ namespace myWebApp.Pages
         {
             _logger = logger;
         }
+        
+        
 
         [BindProperty]
         public IFormFile UploadedFile { get; set; }
 
 
-        public void OnPostSubmit()
+        public async Task OnPostAsync()
+        {
+            var file = @"wwwroot/Images/logo" + UploadedFile.FileName;
+            using (var fileStream = new FileStream(file, FileMode.Create))
+            {
+                await UploadedFile.CopyToAsync(fileStream);
+            }
+        }
+
+        /*public void OnPostSubmit()
         {
             UploadLogo(UploadedFile);
         }
@@ -51,6 +63,6 @@ namespace myWebApp.Pages
 
             cmd.ExecuteNonQuery();
             con.Close();
-        }
+        }*/
     }
 }
