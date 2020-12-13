@@ -2238,6 +2238,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Shared\\MyViewPageLayout.cshtml",
+      "TargetPath": "Pages\\Shared\\MyViewPageLayout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\DeleteReservations.cshtml",
       "TargetPath": "Pages\\DeleteReservations.cshtml",
       "FileKind": "mvc"

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,10 +18,14 @@ namespace myWebApp.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        
+
+        
 
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
+            
         }
         [BindProperty]
         public string userEmail {get; set;}
@@ -30,6 +35,9 @@ namespace myWebApp.Pages
         public void OnGet()
         {
         }
+
+        
+
 
         public IActionResult OnPostSubmit(EmployeeModel login)
         {

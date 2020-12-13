@@ -57,3 +57,9 @@ C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\net
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.csproj.CopyComplete
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.dll
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.pdb
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\package-lock.json
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\package.json
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\MyViewPageLayout.cshtml.g.cs
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.SignalR.Client.Core.dll

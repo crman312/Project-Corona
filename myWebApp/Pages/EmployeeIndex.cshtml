@@ -188,24 +188,7 @@
             <div class="pl-5 col-4">
                 <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/Settings.png"/>Settings</h4>
                 <span id="spnMessage"></span>
-                <script type ="text/javascript">
-                    var source = new EventSource('/api/sse');
-
-                    source.onopen = function (event) {
-                        $("#spnMessage").text("Opened");
-                    };
-
-                    source.onmessage = function (event) {
-                        $("#spnMessage").text($("#spnMessage").text() + " " + event.data + " ");
-
-                    };
-
-                    source.onerror = function (event) {
-                        $("#spnMessage").text($("#spnMessage").text() + "Closed");
-                        source.close();
-                    };
-
-                </script>
+                
             </div>
         </div>
     </div>

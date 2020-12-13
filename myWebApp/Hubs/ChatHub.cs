@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,17 +15,14 @@ using myWebApp.Models;
 using myWebApp.Pages;
 using Npgsql;
 
-namespace myWebApp.Controllers
+namespace myWebApp.Hubs
 {
-    public class HomeController : Controller
+     
+    public class ChatHub : Hub
     {
-        
-
-         
-
-        
-      
+        public async Task SendMessage(string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
     }
-    
-
 }
