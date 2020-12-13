@@ -89,13 +89,13 @@ namespace myWebApp.Pages
             if(priority == "Low") // 2 dagen van te voren
             {
               DateTime newdt = convdayid.AddDays(-2);
-              if(newdt >= DateTime.Now){return true;}
+              if(newdt <= DateTime.Now){return true;}
               else{return false;}
             }
             else if(priority == "Medium") // 7 dagen van te voren
             {
               DateTime newdt = convdayid.AddDays(-7);
-              if(newdt >= DateTime.Now){return true;}
+              if(newdt <= DateTime.Now){return true;}
               else{return false;}
             }
             else // high priority kan altijd reserveren
@@ -111,19 +111,19 @@ namespace myWebApp.Pages
             userEmail = HttpContext.Session.GetString("useremail");
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
-            DeleteReservation(convdayid, reservation.Location);
+            DeleteReservation(convdayid, userEmail);
         }
 
-        public void DeleteReservation(DateTime convdayid, string Location)
+        public void DeleteReservation(DateTime convdayid, string Email)
         {
             
             var cs = Database.Database.Connector();
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "DELETE FROM reservations WHERE res_location = @Location AND date = @Date";
+            var sql = "DELETE FROM reservations WHERE res_email = @Email AND date = @Date";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("Location", Location);
+            cmd.Parameters.AddWithValue("Email", Email);
             cmd.Parameters.AddWithValue("Date", convdayid);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
@@ -135,7 +135,7 @@ namespace myWebApp.Pages
         {   
             int AmountDate = 0;
             DateTime now = DateTime.Now;
-           
+            if(convdayid < now){return false;}
             var cs = Database.Database.Connector();
             List<DateTime> res = new List<DateTime>();
             using var con = new NpgsqlConnection(cs);
@@ -151,10 +151,7 @@ namespace myWebApp.Pages
                         {
                             res.Add(((DateTime) dr["date"]));
                         }
-                        
                     }
-                    
-                    
                 }
             }
             foreach(DateTime p in res)
@@ -162,9 +159,7 @@ namespace myWebApp.Pages
                 if (p == convdayid || p < now)
                 {
                     AmountDate++;
-                    
                 }
-                
             }
             if (AmountDate >= 1)
             {
@@ -173,9 +168,6 @@ namespace myWebApp.Pages
             else{
                 return true;
             }
-            
-
-
         }
 
 
@@ -247,7 +239,6 @@ namespace myWebApp.Pages
                             res.Add(new WorkspaceModel { RoomName = dr["room"].ToString() });
                         }
                     }
-                    
                     con.Close();
                 }
             }
@@ -264,7 +255,7 @@ namespace myWebApp.Pages
             List<ReservationModel> res = new List<ReservationModel>();
             using var con = new NpgsqlConnection(cs);
             {
-                string query = "Select date, res_location FROM reservations WHERE res_email = '"+ userEmail+"'";
+                string query = "Select date, res_location, res_room FROM reservations WHERE res_email = '"+ userEmail+"'";
                 using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
                 {
                     cmd.Connection = con;
@@ -274,7 +265,7 @@ namespace myWebApp.Pages
                         
                         while (dr.Read())
                         {
-                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("yyyy/MM/dd"), Location = dr["res_location"].ToString() });
+                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("yyyy/MM/dd"), Location = dr["res_location"].ToString(), Room = dr["res_room"].ToString()});
                         }
                     }
                     

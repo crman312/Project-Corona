@@ -35,44 +35,47 @@
                     <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Delete Workspace</h4>
-                        <div><b>Workspace info:</b></div>
-                        <form method="post">
-                            <fieldset>
-                                <table class="table table-bordered w-100 table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>location</th>
-                                            <th>room</th>
-                                            <th>availableworkspaces</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach(var workspace in @Model.ShowWorkspaces())
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(m => workspace.WSlocation)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(m => workspace.WSroom)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(m => workspace.WSavailableworkspaces)
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                    <input type="checkbox" id="txtId" name="Id" class="form-control" value="@workspace.WSid">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                                    <div class="form-group">
-                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>
-                                    </div>
-                                </fieldset>
-                            </form>
+                            <div><b>Workspace info:</b></div>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>location</th>
+                                        <th>room</th>
+                                        <th>availableworkspaces</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var workspace in @Model.ShowWorkspaces())
+                                    {
+                                        <form method="post">
+                                            <fieldset>
+                                                <tr>
+                                                    <td>
+                                                        <img class="img-fluid" src="/Images/Reservation.png"/>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(m => workspace.WSlocation)
+                                                        <input type="hidden" name="Location" value="@Html.DisplayFor(m => workspace.WSlocation)"/>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(m => workspace.WSroom)
+                                                        <input type="hidden" name="Room" value="@Html.DisplayFor(m => workspace.WSroom)"/>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(m => workspace.WSavailableworkspaces)
+                                                        <input type="hidden" name="Id" value="@Html.DisplayFor(m => workspace.WSid)"/>
+                                                    </td>
+                                                    <td>
+                                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-sm">X</button>
+                                                    </td>
+                                                </tr>
+                                            </fieldset>
+                                        </form>
+                                    }
+                                </tbody>
+                            </table>
                         </article>
                     </div> <!-- card.// -->
                 </div>

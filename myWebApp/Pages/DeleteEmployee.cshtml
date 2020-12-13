@@ -35,44 +35,51 @@
                     <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Delete employee</h4>
-                            <form method="post">
-                                <fieldset>
-                                    <div><b>Employee info:</b></div>
-                                    <table class="table table-bordered w-100 table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>name</th>
-                                                <th>email</th>
-                                                <th>function</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach(var employee in @Model.ShowEmployees())
-                                            {
+                            <div><b>Employee info:</b></div>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>name</th>
+                                        <th>email</th>
+                                        <th>function</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var employee in @Model.ShowEmployees())
+                                    {
+                                        <form method="post">
+                                            <fieldset>
                                                 <tr>
                                                     <td>
+                                                        <img class="img-fluid" src="/Images/Reservation.png"/>
+                                                    </td>
+                                                    <td>
                                                         @Html.DisplayFor(m => employee.EmpName)
+                                                        <input type="hidden" name="Name" value="@Html.DisplayFor(m => employee.EmpName)"/>
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(m => employee.EmpEmail)
+                                                        <input type="hidden" name="Email" value="@Html.DisplayFor(m => employee.EmpEmail)"/>
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(m => employee.EmpFunction)
+                                                        <input type="hidden" name="Function" value="@Html.DisplayFor(m => employee.EmpFunction)"/>
                                                     </td>
                                                     <td>
-                                                        <div class="form-group">
-                                                        <input type="checkbox" id="txtEmail" name="Email" class="form-control" value="@employee.EmpEmail" />
-                                                        </div>
+                                                        @Html.DisplayFor(m => employee.EmpPriority)
+                                                        <input type="hidden" name="Priority" value="@Html.DisplayFor(m => employee.EmpPriority)"/>
+                                                    </td>
+                                                    <td>
+                                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-sm">X</button>
                                                     </td>
                                                 </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                        <div class="form-group">
-                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Save</button>
-                                        </div>
-                                </fieldset>
-                            </form>
+                                            </fieldset>
+                                        </form>
+                                    }
+                                </tbody>
+                            </table>
                         </article>
                     </div> <!-- card.// -->
                 </div>

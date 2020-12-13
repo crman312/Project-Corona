@@ -82,14 +82,14 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT name, email, function FROM employees";
+            var sql = "SELECT name, email, function, priority FROM employees ORDER BY priority ASC";
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
            
             while (dRead.Read())
             {
-                EmployeeNames.Add(new Employee(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString()));
+                EmployeeNames.Add(new Employee(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(),dRead[3].ToString()));
             }
             return EmployeeNames;
         }
