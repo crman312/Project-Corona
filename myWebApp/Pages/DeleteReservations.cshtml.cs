@@ -4,6 +4,8 @@ using System.Linq;
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using myWebApp.Database;
@@ -22,12 +24,14 @@ namespace myWebApp.Pages
             _logger = logger;
         }
 
+        public string userEmail {get; set;}
         public string Info { get; set; }
         
         public void OnGet(){}
 
         public List<Reservations> ShowReservations()
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             List<Reservations> Reservations = new List<Reservations>();
 
             var cs = Database.Database.Connector();
@@ -35,9 +39,9 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "SELECT res_email, date, res_location, res_room FROM reservations ORDER BY date ASC, res_location ASC";
+            var sql = "SELECT res_email, date, res_location, res_room FROM reservations WHERE res_email = @Email ORDER BY date ASC, res_location ASC";
             using var cmd = new NpgsqlCommand(sql, con);
-
+            cmd.Parameters.AddWithValue("Email", userEmail);
             NpgsqlDataReader dRead = cmd.ExecuteReader();
            
             while (dRead.Read())
@@ -47,23 +51,64 @@ namespace myWebApp.Pages
             return Reservations;
         }
 
-        public void OnPostSubmit(ReservationModel reservation){
-            DeleteReservation(reservation.Email, reservation.Date);
+        public void OnPostRemove(ReservationModel reservation)
+        {
+            userEmail = HttpContext.Session.GetString("useremail");
+            
+            DateTime convdayid = Convert.ToDateTime(reservation.Date);
+            DeleteReservation(convdayid, userEmail);
         }
 
-        public void DeleteReservation(string Email, DateTime Date){
+        public bool CheckReservation(DateTime convdayid, string Email) 
+        {   
+            int AmountDate = 0;
             var cs = Database.Database.Connector();
-			using var con = new NpgsqlConnection(cs);
+            List<DateTime> res = new List<DateTime>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select date FROM reservation WHERE res_email = '"+ Email+"'";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            res.Add(((DateTime) dr["dayid"]));
+                        }   
+                    }   
+                }
+            }
+            foreach(DateTime p in res)
+            {
+                if (p == convdayid)
+                {
+                    AmountDate++;
+                }
+            }
+            if (AmountDate >= 1)
+            {
+                return false;
+            }
+            else {return true;}
+        }
+
+        public void DeleteReservation(DateTime date, string email)
+        {
+            
+            var cs = Database.Database.Connector();
+            using var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = "DELETE FROM reservations WHERE res_email = @email AND date = @date;";
+            var sql = "DELETE FROM reservations WHERE res_email = @email AND date = @date";
             using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("email", Email);
-            cmd.Parameters.AddWithValue("date", Date);
+            cmd.Parameters.AddWithValue("email", email);
+            cmd.Parameters.AddWithValue("date", date);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
+            con.Close();
+
         }
     }
-
-
 }
