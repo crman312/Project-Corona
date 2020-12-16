@@ -28,14 +28,10 @@ namespace myWebApp
         {
             services.AddRazorPages();
             services.AddSession();
-            services.AddCors(options => options.AddPolicy("CorsPolicy", 
-            builder => 
-            {
-                builder.AllowAnyMethod().AllowAnyHeader()
-                        .WithOrigins("http://localhost:5000")
-                        .AllowCredentials();
-            }));
+            
+            services.AddControllersWithViews();
             services.AddSignalR();
+            services.AddMemoryCache();
             
         }
 
@@ -67,9 +63,12 @@ namespace myWebApp
             });
             app.UseCookiePolicy();
 
-            app.UseSignalR(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapHub<ChatHub>("/chathub");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=SpeedListener}/{action=Notifications}/{id?}");
+                endpoints.MapHub<speedalarmhub>("/speedalarmhub");
             });
         }
     }

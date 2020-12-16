@@ -2258,6 +2258,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Notifications.cshtml",
+      "TargetPath": "Pages\\Notifications.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Privacy.cshtml",
       "TargetPath": "Pages\\Privacy.cshtml",
       "FileKind": "mvc"

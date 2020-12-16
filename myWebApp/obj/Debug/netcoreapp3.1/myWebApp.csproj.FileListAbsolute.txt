@@ -63,3 +63,10 @@ C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\net
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Http.Connections.Client.dll
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.SignalR.Client.dll
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\Razor\Pages\Notifications.cshtml.g.cs
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll

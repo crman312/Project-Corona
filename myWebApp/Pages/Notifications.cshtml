@@ -1,0 +1,36 @@
+@page
+@model NotificationsModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<script src="~/lib/signalr.js"></script>
+
+<script type="text/javascript">
+// Start the connection.
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl('/speedalarmhub')
+    .build();
+
+
+    connection.on('ReceiveMessage', function (message) {
+
+                var encodedMsg = message;
+                // Add the message to the page.
+                document.getElementById('output').innerHTML = encodedMsg;
+
+    });
+    // Transport fallback functionality is now built into start.
+    connection.start()
+        .then(function () {
+
+            console.log('connection started');
+            connection.invoke('SendMessage');
+        })
+        .catch(error => {
+            console.error(error.message);
+        });
+</script>
+<p id="output"></p>
+
