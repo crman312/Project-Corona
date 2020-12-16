@@ -15,10 +15,14 @@ var connection = new signalR.HubConnectionBuilder()
 
 
     connection.on('ReceiveMessage', function (message) {
-
+                
                 var encodedMsg = message;
+                
                 // Add the message to the page.
-                document.getElementById('output').innerHTML = encodedMsg;
+                
+                document.getElementById("output").innerHTML = encodedMsg;
+                
+                
 
     });
     // Transport fallback functionality is now built into start.
@@ -32,5 +36,8 @@ var connection = new signalR.HubConnectionBuilder()
             console.error(error.message);
         });
 </script>
-<p id="output"></p>
-
+<tr>
+    <td>New Messages</td>
+    <p id ="output"></p>
+    <td>Old Messages</td>
+</tr>

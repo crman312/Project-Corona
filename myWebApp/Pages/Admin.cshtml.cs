@@ -44,9 +44,9 @@ namespace myWebApp.Pages
 
             var sql = "INSERT INTO notification(bericht, datumnu) VALUES(@Msg, @Date)";
             using var cmd = new NpgsqlCommand(sql, con);
-            
-            cmd.Parameters.AddWithValue("Date", convdayid);
             cmd.Parameters.AddWithValue("Msg", Bericht);
+            cmd.Parameters.AddWithValue("Date", convdayid);
+            
             
 
             cmd.Prepare();
