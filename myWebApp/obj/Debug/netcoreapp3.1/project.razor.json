@@ -2228,6 +2228,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Priorities.cshtml",
+      "TargetPath": "Pages\\Priorities.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\_ViewStart.cshtml",
       "TargetPath": "Pages\\_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -2265,6 +2270,11 @@
     {
       "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Privacy.cshtml",
       "TargetPath": "Pages\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\SignUp.cshtml",
+      "TargetPath": "Pages\\SignUp.cshtml",
       "FileKind": "mvc"
     }
   ],

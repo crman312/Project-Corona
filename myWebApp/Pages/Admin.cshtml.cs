@@ -35,14 +35,6 @@ namespace myWebApp.Pages
         {
         }
         
-        public async Task OnPostAsync()
-        {
-            var file = Path.Combine(_he.ContentRootPath, "Images", Upload.FileName);
-            using (var fileStream = new FileStream(file, FileMode.Create))
-            {
-                await Upload.CopyToAsync(fileStream);
-            }
-        }
     
 
         private readonly ILogger<AdminModel> _logger;
@@ -83,8 +75,6 @@ namespace myWebApp.Pages
 
             
         
-        [BindProperty]
-        public IFormFile UploadedFile { get; set; }
 
 
         public async Task OnPostAsync()

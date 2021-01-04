@@ -70,3 +70,5 @@ C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\net
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\Razor\Pages\Priorities.cshtml.g.cs
+C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\Razor\Pages\SignUp.cshtml.g.cs
