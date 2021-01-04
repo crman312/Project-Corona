@@ -11,6 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
 <script src="~/Scripts/jquery-2.2.3.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
 <script src="/signalr/hubs"></script>
@@ -57,6 +58,7 @@ var connection = new signalR.HubConnectionBuilder()
 </div>
 
 
+
 <div class="container-fluid">
     <div class="row h-100">
         <div class="col-3 bg-light">
@@ -64,6 +66,7 @@ var connection = new signalR.HubConnectionBuilder()
             <div class="row">
                 <div class="mt-5 w-100"></div>
                 <div class="col-9">
+
                     <a asp-page="/Notifications"><h5 class="font-italic text-left">Notifications </h5></a>
                 </div>
                 <div class="col">
@@ -128,11 +131,13 @@ var connection = new signalR.HubConnectionBuilder()
                                 <td>Select location</td>
                                     <div class="form-group">
                                         <select id="locations" name="Location">
+
                                             <option>---</option>
                                             @foreach(var reservations in @Model.locations)
                                             {                                        
                                                 <option>@Html.DisplayFor(m => reservations.LocationName)</option>
                                                 
+
                                             }
                                         </select>                                       
                                     </div>
@@ -141,6 +146,7 @@ var connection = new signalR.HubConnectionBuilder()
                                         <select id="rooms" name="Room">
                                             <option>---</option>
                                             @foreach(var reservations in @Model.rooms)
+
                                             {
                                                <option>@Html.DisplayFor(m => reservations.RoomName)</option>
                                                  
@@ -174,6 +180,7 @@ var connection = new signalR.HubConnectionBuilder()
     </script>
 }
                                    
+
                                     <div class="form group">
                                         <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
                                     </div>
@@ -184,6 +191,7 @@ var connection = new signalR.HubConnectionBuilder()
                 </div>
                 
                 <div class="pl-5 col-4 border-right">
+
                     
                 </div>
 
@@ -191,6 +199,36 @@ var connection = new signalR.HubConnectionBuilder()
             </div>
 
             <div style="height: 70px" class="w-100"></div>
+
+                <h5 class="font-italic text-left">Manage my reservations</h5>
+                @foreach(var reservations in @Model.ShowReservation())
+                {
+                    <form method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <tr>
+                                    <img class="img-fluid" src="/Images/Reservation.png"/>
+                                    <td>
+                                        @Html.DisplayFor(m => reservations.Date)
+                                        <input type="hidden" name="Date" value="@Html.DisplayFor(m => reservations.Date)"/>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => reservations.Location)
+                                        <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(myWebApp => reservations.Room)
+                                        <input type="hidden" name="Roon" value="@Html.DisplayFor(m => reservations.Room)"/>
+                                    </td>
+                                </tr>
+                                <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                }
+                </div>
+            </div>
+
             <div class="row">
                 <div class="pl-5 col-8">
                     <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/OpeningHours.png"/>Opening Hours</h4>
@@ -228,19 +266,11 @@ var connection = new signalR.HubConnectionBuilder()
                                 <td>Gesloten</td>
                             </tr>
                         </table>
-                            
-                            
-                            
-                        
 
                 </div>
-
             <div class="pl-5 col-4">
                 <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/Settings.png"/>Settings</h4>
-                <span id="spnMessage"></span>
-                
             </div>
         </div>
     </div>
-
-
+>

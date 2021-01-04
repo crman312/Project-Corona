@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +10,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using myWebApp.Database;
 using myWebApp.Pages;
 using myWebApp.Models;
+using myWebApp.Controllers;
 using Npgsql;
 
 namespace myWebApp.Pages
@@ -18,35 +18,30 @@ namespace myWebApp.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        
-
-        
 
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-            
         }
         [BindProperty]
         public string userEmail {get; set;}
-
-        
 
         public void OnGet()
         {
         }
 
-        
+        public string Info { get; set; }
 
+        public string ErrorBox { get; set; }
 
-        public IActionResult OnPostSubmit(EmployeeModel login)
+        public IActionResult OnPostSubmit(LoginModel login)
         {
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
-            Tuple<bool, int> log = LoginCheck(login.Email, login.Password);
-             // User name to pass to the next page in future
-        
+            Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
+            
             if(log.Item1 == true && log.Item2 == 1)
             {
+                HttpContext.Session.SetString("useremail", userEmail);
                 return new RedirectToPageResult("Admin");
             }
             else if(log.Item1 == true && log.Item2 == 2)
@@ -56,6 +51,7 @@ namespace myWebApp.Pages
             }
             else
             {
+                this.ErrorBox = string.Format("Wrong email and password combination");
                 return null;
             }
         }
@@ -74,19 +70,21 @@ namespace myWebApp.Pages
             NpgsqlDataReader dRead = cmd.ExecuteReader();
 
             int employeeFunction = 0;
-            
+            string User = "";
            
             while (dRead.Read())
             {
                 for(int i = 0; i < dRead.FieldCount; i++)
                 {
-                    if(dRead["email"].ToString() == userEmail && dRead["password"].ToString() == Password)
+                    if(dRead[1].ToString() == Email && dRead[2].ToString() == Password)
                     {
-                        if(dRead["function"].ToString() == "admin" || dRead["function"].ToString() == "Admin" || dRead["function"].ToString() == "ADMIN")
+                        if(dRead[3].ToString() == "admin")
                         {
                             employeeFunction = 1;
+                            User = dRead[0].ToString();
                             return Tuple.Create(true, employeeFunction);
                         }
+                        User = dRead[0].ToString();
                         employeeFunction = 2;
                         return Tuple.Create(true, employeeFunction);
                     }
