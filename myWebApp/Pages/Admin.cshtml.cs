@@ -10,13 +10,43 @@ using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using System.IO;
-
 
 namespace myWebApp.Pages
 {
     public class AdminModel : PageModel
     {
+        private readonly IWebHostEnvironment _he;
+
+        public AdminModel(IWebHostEnvironment he)
+        {
+            _he = he;
+        }
+
+        [BindProperty]
+        public IFormFile Upload { get; set; }
+
+        public void OnGet()
+        {
+        }
+        
+        public async Task OnPostAsync()
+        {
+            var file = Path.Combine(_he.ContentRootPath, "Images", Upload.FileName);
+            using (var fileStream = new FileStream(file, FileMode.Create))
+            {
+                await Upload.CopyToAsync(fileStream);
+            }
+        }
+    
+
+
+
+
+        
+/*
+
         private readonly ILogger<AdminModel> _logger;
 
         public void OnGet()
@@ -28,8 +58,6 @@ namespace myWebApp.Pages
             _logger = logger;
         }
         
-        
-
         [BindProperty]
         public IFormFile UploadedFile { get; set; }
 
@@ -43,7 +71,7 @@ namespace myWebApp.Pages
             }
         }
 
-        /*public void OnPostSubmit()
+        public void OnPostSubmit()
         {
             UploadLogo(UploadedFile);
         }
