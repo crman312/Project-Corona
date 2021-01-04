@@ -4,6 +4,27 @@
     ViewData["Title"] = "Admin";
 }
 
+
+
+
+<form action="" method="post">
+    <fieldset>
+        <tr>
+            <div class="form-group">
+                <td>Send message</td>
+                <input type="text" id="msg" name="Bericht"/>
+            </div>
+
+            <div class="form group">
+                <button type="submit" id="sendButton"  asp-page-handler="Submit" >Send</button>
+            </div>
+
+        </tr>   
+    </fieldset>
+
+</form>
+
+
 <div class="container-fluid">
     <div class="row h-100">
         <div class="col-3 bg-light">
@@ -68,15 +89,55 @@
                         <a asp-page="/DeleteReservations">Delete reservation</a>
                     </div>
                 </div>
-           
+
                     
                 
 
                 <div class="pl-5 col-4">
                     <h4 class="font-weight-bolder">Settings</h4>
+
+        
+                <div class="pl-5 col-4">
+                    <h4 class="font-weight-bolder">Settings</h4>
+                    <div class="w-100">
+                        <a href="" data-toggle="modal" data-target="#exampleModal">Logo</a>               
+                    </div>
+                    <div class="w-100">               
+                        <a asp-page="/Priorities">Edit Priorities</a>
+                    </div>
+
                 </div>
             </div>
         </div>
   </div>
 </div>
 
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form method="post" enctype="multipart/form-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Logo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" asp-for="Upload" class="custom-file-input" id="file1" name="file1">
+                        <label class="custom-file-label" for="input">Choose file</label>
+                    </div>     
+                </div>
+            </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" id="submit1" value="Upload" asp-page-handler="Upload" type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </form>
+  </div>
+</div>

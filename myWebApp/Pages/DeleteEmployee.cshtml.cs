@@ -35,14 +35,18 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
+
             var sql = "SELECT name, email, function, priority FROM employees ORDER BY priority ASC";
+
             using var cmd = new NpgsqlCommand(sql, con);
 
             NpgsqlDataReader dRead = cmd.ExecuteReader();
            
             while (dRead.Read())
             {
+
                 EmployeeNames.Add(new Employee(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(),dRead[3].ToString()));
+
             }
             return EmployeeNames;
         }
@@ -65,11 +69,13 @@ namespace myWebApp.Pages
     }
 
     public class Employee{
+
         public Employee(string name, string email, string function, string priority){
             EmpName = name;
             EmpEmail = email;
             EmpFunction = function;
             EmpPriority = priority;
+
         }
         public string EmpName {get; set;}
         public string EmpEmail {get; set;}
@@ -77,3 +83,6 @@ namespace myWebApp.Pages
         public string EmpPriority {get; set;}
     }
 }
+
+
+

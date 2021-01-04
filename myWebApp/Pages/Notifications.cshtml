@@ -1,0 +1,73 @@
+@page
+@model NotificationsModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<script src="~/lib/signalr.js"></script>
+
+<script type="text/javascript">
+// Start the connection.
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl('/speedalarmhub')
+    .build();
+
+
+    connection.on('ReceiveMessage', function (message) {
+                
+                var encodedMsg = message;
+                
+                // Add the message to the page.
+                
+                document.getElementById("output").innerHTML = encodedMsg;
+                
+                
+
+    });
+    // Transport fallback functionality is now built into start.
+    connection.start()
+        .then(function () {
+
+            console.log('connection started');
+            connection.invoke('SendMessage');
+        })
+        .catch(error => {
+            console.error(error.message);
+        });
+</script>
+
+
+<div class="container-fluid">
+        <p id ="output"></p>
+        <div class="col-3 bg-light">
+            <h5 class="font-italic text-left">Old Messages</h5>
+            <hr>
+            @foreach(var n in @Model.ShowNotification())
+                    {
+                                                
+                        <tr>
+                            <img class="img-fluid" src="/Images/Reservation.png"/>
+                            <td>
+                                @Html.DisplayFor(m => n.Datenow)
+                                                                
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => n.Bericht)
+                                                                    
+                            </td>
+                        </tr>
+                        <hr>
+                                                            
+                                                        
+                                                    
+                                                
+                                                
+                    }
+            <hr>
+
+                
+        </div>
+    </div>
+</div>
+
