@@ -30,12 +30,15 @@ namespace myWebApp.Pages
         {
         }
 
+        public string Info { get; set; }
+
+        public string ErrorBox { get; set; }
+
         public IActionResult OnPostSubmit(LoginModel login)
         {
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
             Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
-            // User name to pass to the next page in future
-        
+            
             if(log.Item1 == true && log.Item2 == 1)
             {
                 HttpContext.Session.SetString("useremail", userEmail);
@@ -48,6 +51,7 @@ namespace myWebApp.Pages
             }
             else
             {
+                this.ErrorBox = string.Format("Wrong email and password combination");
                 return null;
             }
         }
@@ -74,7 +78,7 @@ namespace myWebApp.Pages
                 {
                     if(dRead[1].ToString() == Email && dRead[2].ToString() == Password)
                     {
-                        if(dRead[3].ToString() == "admin" || dRead[3].ToString() == "Admin" || dRead[3].ToString() == "ADMIN")
+                        if(dRead[3].ToString() == "admin")
                         {
                             employeeFunction = 1;
                             User = dRead[0].ToString();

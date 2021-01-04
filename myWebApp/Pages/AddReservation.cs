@@ -56,6 +56,16 @@ namespace myWebApp.Pages
 
     public bool prioCheck(ReservationModel reservation)
     {
+      int med = 7;
+      int low = 2;
+      bool check = PrioritiesModel.CheckIfExist();
+      if(check)
+      {
+        Tuple<int, int, int> getprio = PrioritiesModel.GetPriorities();
+        med = getprio.Item2;
+        low = getprio.Item3;
+      }
+
       DateTime convdayid = Convert.ToDateTime(reservation.Date);
       userEmail = HttpContext.Session.GetString("useremail");
           
@@ -85,13 +95,13 @@ namespace myWebApp.Pages
       {
         if(priority == "Low") // 2 dagen van te voren
         {
-          DateTime newdt = convdayid.AddDays(-2);
+          DateTime newdt = convdayid.AddDays(-(low));
           if(newdt > DateTime.Now){return true;}
           else{return false;}
         }
         else if(priority == "Medium") // 7 dagen van te voren
         {
-          DateTime newdt = convdayid.AddDays(-7);
+          DateTime newdt = convdayid.AddDays(-(med));
           if(newdt > DateTime.Now){return true;}
           else{return false;}
         }
