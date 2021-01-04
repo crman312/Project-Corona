@@ -36,8 +36,37 @@ var connection = new signalR.HubConnectionBuilder()
             console.error(error.message);
         });
 </script>
-<tr>
-    <td>New Messages</td>
-    <p id ="output"></p>
-    <td>Old Messages</td>
-</tr>
+
+
+<div class="container-fluid">
+        <p id ="output"></p>
+        <div class="col-3 bg-light">
+            <h5 class="font-italic text-left">Old Messages</h5>
+            <hr>
+            @foreach(var n in @Model.ShowNotification())
+                    {
+                                                
+                        <tr>
+                            <img class="img-fluid" src="/Images/Reservation.png"/>
+                            <td>
+                                @Html.DisplayFor(m => n.Datenow)
+                                                                
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => n.Bericht)
+                                                                    
+                            </td>
+                        </tr>
+                                                            
+                                                        
+                                                    
+                                                
+                                                
+                    }
+            <hr>
+
+                
+        </div>
+    </div>
+</div>
+
