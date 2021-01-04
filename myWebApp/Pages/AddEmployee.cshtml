@@ -42,6 +42,7 @@
                                     <th>name</th>
                                     <th>email</th>
                                     <th>function</th>
+                                    <th>Priority</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,6 +57,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(m => employee.EmpFunction)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => employee.EmpPriority)
                                         </td>
                                     </tr>
                                 }

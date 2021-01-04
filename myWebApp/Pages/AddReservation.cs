@@ -34,18 +34,17 @@ namespace myWebApp.Pages
     public void OnPostSubmit(ReservationModel reservation)
     {
       DateTime convdayid = Convert.ToDateTime(reservation.Date);
-            
+      userEmail = HttpContext.Session.GetString("useremail");
+
       bool check = prioCheck(reservation);
       bool check1 = CheckReservation(convdayid, userEmail);
-      if(check && check1)
-      {
-        CreateReservation(reservation.Email, convdayid, reservation.Location, reservation.Room);
+      if(check && check1){
+        CreateReservation(userEmail, convdayid, reservation.Location, reservation.Room);
         this.Info = string.Format("Sucessfully added the reservation");
       }
       else{
-        if (check1 == false) 
-        {
-          this.Info = string.Format("You entered same date, or tried to reserve in the past, try different date");
+        if (check1 == false) {
+        this.Info = string.Format("You entered same date, or tried to reserve in the past, try different date");
         }
         if(check == false)
         { 
@@ -96,13 +95,13 @@ namespace myWebApp.Pages
         if(priority == "Low") // 2 dagen van te voren
         {
           DateTime newdt = convdayid.AddDays(-(low));
-          if(newdt > DateTime.Now){return true;}
+          if(newdt <= DateTime.Now){return true;}
           else{return false;}
         }
         else if(priority == "Medium") // 7 dagen van te voren
         {
           DateTime newdt = convdayid.AddDays(-(med));
-          if(newdt > DateTime.Now){return true;}
+          if(newdt <= DateTime.Now){return true;}
           else{return false;}
         }
         else // high priority kan altijd reserveren
@@ -209,4 +208,6 @@ namespace myWebApp.Pages
     public string Date {get; set;}
     public string Location {get; set;}
     public string Room { get; set; }
+
   }
+
