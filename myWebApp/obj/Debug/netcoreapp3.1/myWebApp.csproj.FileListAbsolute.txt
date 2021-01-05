@@ -827,3 +827,4 @@ C:/Users/wouts/Documents/Github/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/
 /Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/myWebApp.dll
 /Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/myWebApp.pdb
 /Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/Razor/Pages/ChangeName.cshtml.g.cs
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/Razor/Pages/OpeningHours.cshtml.g.cs

@@ -28,21 +28,48 @@ namespace myWebApp.Pages
         [BindProperty]
         public List<WorkspaceModel> locations {get; set;}
         [BindProperty]
-        public List<WorkspaceModel> rooms {get; set;}
-
-        
+        public List<WorkspaceModel> rooms {get; set;}        
 
         public string Info { get; set; }
         public string userEmail {get; set;}
+
+        public string Monday {get; set;}
+        public string Tuesday {get; set;}
+        public string Wednesday {get; set;}
+        public string Thursday {get; set;}
+        public string Friday {get; set;}
+        public string Saturday {get; set;}
+        public string Sunday {get; set;}
     
         public void OnGet()
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            bool Check = OpeningHoursModel.CheckIfExist();
+
+            if(Check)
+            {
+                Tuple<string, string, string, string, string, string, string> hours = OpeningHoursModel.GetOpeningHours();
+                Monday = hours.Item1;
+                Tuesday = hours.Item2;
+                Wednesday = hours.Item3;
+                Thursday = hours.Item4;
+                Friday = hours.Item5;
+                Saturday = hours.Item6;
+                Sunday = hours.Item7;
+            }
             
-            
-        
+            else
+            {
+                Monday = "Closed";
+                Tuesday = "Closed";
+                Wednesday = "Closed";
+                Thursday = "Closed";
+                Friday = "Closed";
+                Saturday = "Closed";
+                Sunday = "Closed";
+            }
         } 
         public void  OnPostSubmit(ReservationModel reservation)
         {
