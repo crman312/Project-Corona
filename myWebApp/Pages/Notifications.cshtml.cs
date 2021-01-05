@@ -38,12 +38,12 @@ namespace myWebApp.Pages
         public List<NotificationModel> ShowNotification()
         {
             
-
+            
             var cs = Database.Database.Connector();
             List<NotificationModel> not = new List<NotificationModel>();
             using var con = new NpgsqlConnection(cs);
             {
-                string query = "Select datumnu, bericht FROM notification ORDER BY datumnu LIMIT 6";
+                string query = "Select datumnu, bericht FROM notification ORDER BY datumnu DESC LIMIT 6";
                 using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
                 {
                     cmd.Connection = con;
@@ -54,7 +54,7 @@ namespace myWebApp.Pages
                         
                         while (dr.Read())
                         {
-                            not.Add(new NotificationModel { Datenow = ((DateTime) dr["datumnu"]).ToString("yyyy/MM/dd"), Bericht = dr["bericht"].ToString() });
+                            not.Add(new NotificationModel { Datenow = ((DateTime) dr["datumnu"]).ToString("yyyy/MM/dd hh:mm:ss"), Bericht = dr["bericht"].ToString() });
                         }
                     }
                     

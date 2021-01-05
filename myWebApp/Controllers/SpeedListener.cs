@@ -81,9 +81,9 @@ namespace myWebApp.Controllers
                         
                         while (dr.Read())
                         {
-                            string Datenow = ((DateTime) dr["datumnu"]).ToString("yyyy/MM/dd");
+                            string Datenow = ((DateTime) dr["datumnu"]).ToString("dd/MM/yyyy hh:mm:ss");
                             string Bericht = dr["bericht"].ToString();
-                            not = ( "Date is: " + Datenow + ", Message: " + Bericht);
+                            not = ( Datenow + ": " + Bericht);
                         }
                     }
                     

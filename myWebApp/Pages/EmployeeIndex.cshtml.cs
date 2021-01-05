@@ -324,7 +324,7 @@ namespace myWebApp.Pages
                         
                         while (dr.Read())
                         {
-                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("yyyy/MM/dd"), Location = dr["res_location"].ToString() });
+                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("dd/MM/yyyy"), Location = dr["res_location"].ToString() });
                         }
                     }
                     

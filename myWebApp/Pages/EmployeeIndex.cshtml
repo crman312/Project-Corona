@@ -26,7 +26,7 @@ var connection = new signalR.HubConnectionBuilder()
     .withUrl('/speedalarmhub')
     .build();
 
-
+    $("#myAlert").hide()
     connection.on('ReceiveMessage', function (message) {
                 
                 var encodedMsg = message;
@@ -34,7 +34,9 @@ var connection = new signalR.HubConnectionBuilder()
                 // Add the message to the page.
                 
                 document.getElementById("output").innerHTML = encodedMsg;
-                
+                $("#myAlert").append("<div class='alert alert-warning' id='myAlert2'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <p id='output'></p> </div>");
+                $("#myAlert").css("display", "");
+                encodedMsg = ""
                 
 
     });
@@ -48,14 +50,32 @@ var connection = new signalR.HubConnectionBuilder()
         .catch(error => {
             console.error(error.message);
         });
+
+        
+
+    function showAlert(){
+        if($("#myAlert").find("div#myAlert2").length==0){
+            $("#myAlert").append("<div class='alert alert-warning' id='myAlert2'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <p id='output'></p> </div>");
+        }
+        $("#myAlert").css("display", "");
+    }
+
+    function hideAlert(){
+        $("#myAlert").hide()
+    }
+
 </script>
 
-<div class=container>
-    <div class="alert alert-warning">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <p id="output"></p>
+
+
+    <div class=container style="display:none;" id="myAlert">
+        <div class="alert alert-warning" id="myAlert2">
+            
+            <button value="hideAlert" onclick="showAlert();" type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> -->
+            <p id="output"></p>
+        </div>
     </div>
-</div>
 
 
 
@@ -130,7 +150,7 @@ var connection = new signalR.HubConnectionBuilder()
                                     </div>
                                 <td>Select location</td>
                                     <div class="form-group">
-                                        <select id="locations" name="Location">
+                                        <select id="locations" name="Location" class="form-control">
 
                                             <option>---</option>
                                             @foreach(var reservations in @Model.locations)
@@ -143,7 +163,7 @@ var connection = new signalR.HubConnectionBuilder()
                                     </div>
                                 <td>Select Room</td>
                                     <div class="form-group">
-                                        <select id="rooms" name="Room">
+                                        <select id="rooms" name="Room" class="form-control">
                                             <option>---</option>
                                             @foreach(var reservations in @Model.rooms)
 
