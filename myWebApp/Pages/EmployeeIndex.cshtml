@@ -154,8 +154,8 @@ var connection = new signalR.HubConnectionBuilder()
                     </form>         
                 </div>
 
-                <div class="pl-5 col-4 border-right">
-                    <h5 class="font-italic text-left">Manage my reservations</h5>
+                <div class="pl-5 col-4 border-right pb-5">
+                    <h4 class="font-weight-bolder pb-5">Manage my reservations</h4>
                     @foreach(var reservations in @Model.ShowReservation())
                     {
                         <form method="post">
@@ -184,7 +184,7 @@ var connection = new signalR.HubConnectionBuilder()
                 </div>
 
                 <div class="pl-5 col-4 ">
-                    <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/OpeningHours.png"/>Opening Hours</h4>
+                    <h4 class="pb-5 font-weight-bolder"> <img class="img-fluid" src="/Images/OpeningHours.png"/>Opening Hours</h4>
                     <table style="width: 350px;">
                         <tr>
                             <td><strong>Day</strong></td>
