@@ -26,7 +26,6 @@ namespace myWebApp.Pages
     public string Info { get; set; }
     public string userEmail { get; set; }
 
-
     public void OnGet()
     {
     }
@@ -57,12 +56,14 @@ namespace myWebApp.Pages
     {
       int med = 7;
       int low = 2;
+      int high = 0;
       bool check = PrioritiesModel.CheckIfExist();
       if(check)
       {
         Tuple<int, int, int> getprio = PrioritiesModel.GetPriorities();
         med = getprio.Item2;
         low = getprio.Item3;
+        high = getprio.Item1;
       }
 
       DateTime convdayid = Convert.ToDateTime(reservation.Date);
@@ -106,6 +107,12 @@ namespace myWebApp.Pages
         }
         else // high priority kan altijd reserveren
         {
+          if(high != 0)
+          {
+            DateTime newdt = convdayid.AddDays(-(high));
+            if(newdt <= DateTime.Now){return true;}
+            else{return false;}
+          }
           return true;
         }
       }
