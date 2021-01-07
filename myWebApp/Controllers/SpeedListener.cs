@@ -67,7 +67,7 @@ namespace myWebApp.Controllers
         }
         public string GetAlarmList()
         {
-            string not = "";
+            var not = new List<string>();
             using var con = new NpgsqlConnection(cs);
             {
                 string query = "Select datumnu, bericht FROM notification ORDER BY datumnu DESC LIMIT 1";
@@ -83,14 +83,14 @@ namespace myWebApp.Controllers
                         {
                             string Datenow = ((DateTime) dr["datumnu"]).ToString("dd/MM/yyyy hh:mm:ss");
                             string Bericht = dr["bericht"].ToString();
-                            not = ( Datenow + ": " + Bericht);
+                            not.Add( Datenow + ": " + Bericht);
                         }
                     }
                     
                     con.Close();
                 }
             }
-            _cache.Set("notification", not);
+            _cache.Set("notification", SerializeObjectToJson(not));
             return _cache.Get("notification").ToString();
         }
         public String SerializeObjectToJson(Object notification)

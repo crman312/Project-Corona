@@ -2208,6 +2208,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Message.cshtml",
+      "TargetPath": "Pages\\Message.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Admin.cshtml",
       "TargetPath": "Pages\\Admin.cshtml",
       "FileKind": "mvc"
