@@ -49,22 +49,24 @@ namespace myWebApp.Pages
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
-            
-            // hier prio ding
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
+            
             bool check = prioCheck(reservation);
             bool check1 = CheckReservation(convdayid, userEmail);
-            if(check && check1){
+            bool check2 = CheckRoomAvailability(reservation);
+            if(check && check1 && check2){
               CreateReservation(convdayid, reservation.Room, userEmail, reservation.Location);
               this.Info = string.Format("Reservation successfully saved");
             }
             else{
-              if (check1 == false) {
-              this.Info = string.Format("You entered same date, or tried to reserve in the past, try different date");
+              if (!check1) {
+              this.Info = string.Format("You already have a reservation for this day, or you tried to reserve in the past, try a different date.");
               }
-              if(check == false)
-              { 
+              if(!check){ 
                 this.Info = string.Format("You do not have the right priority, please try a later date");
+              }
+              if(!check2){
+                this.Info = string.Format("The room you tried to reserve is full!");
               }
             }
         }
@@ -87,21 +89,24 @@ namespace myWebApp.Pages
                             l.Add(new WorkspaceModel { RoomName = dr["room"].ToString() });
                         }
                     }
-                    
                     con.Close();
                 }
             }
-
-
-
-
-
             return new JsonResult(l);
-
         }   
 
         public bool prioCheck(ReservationModel reservation)
-        {
+          {
+          int med = 7;
+          int low = 2;
+          bool check = PrioritiesModel.CheckIfExist();
+          if(check)
+          {
+          Tuple<int, int, int> getprio = PrioritiesModel.GetPriorities();
+          med = getprio.Item2;
+          low = getprio.Item3;
+          }
+
           DateTime convdayid = Convert.ToDateTime(reservation.Date);
           userEmail = HttpContext.Session.GetString("useremail");
           
@@ -131,14 +136,14 @@ namespace myWebApp.Pages
           {
             if(priority == "Low") // 2 dagen van te voren
             {
-              DateTime newdt = convdayid.AddDays(-2);
-              if(newdt >= DateTime.Now){return true;}
+              DateTime newdt = convdayid.AddDays(-(low));
+              if(newdt <= DateTime.Now){return true;}
               else{return false;}
             }
             else if(priority == "Medium") // 7 dagen van te voren
             {
-              DateTime newdt = convdayid.AddDays(-7);
-              if(newdt >= DateTime.Now){return true;}
+              DateTime newdt = convdayid.AddDays(-(med));
+              if(newdt <= DateTime.Now){return true;}
               else{return false;}
             }
             else // high priority kan altijd reserveren
@@ -204,7 +209,7 @@ namespace myWebApp.Pages
             }
             foreach(DateTime p in res)
             {
-                if (p == convdayid || p < now)
+                if (p == convdayid)
                 {
                     AmountDate++;
                     
@@ -222,7 +227,22 @@ namespace myWebApp.Pages
 
 
         }
+    public bool CheckRoomAvailability(ReservationModel reservation){
+      var cs = Database.Database.Connector();
+      using var con = new NpgsqlConnection(cs);
+      con.Open();
 
+      var sql = "SELECT COUNT(*) FROM reservations WHERE res_location = '"+reservation.Location+"' AND res_room = '"+reservation.Room+"' AND date = '"+reservation.Date+"'";
+      using var cmd = new NpgsqlCommand(sql, con);
+
+      int roomReservations = Convert.ToInt32(cmd.ExecuteScalar());
+      sql = "Select availableworkspaces FROM workspaces WHERE location = '"+reservation.Location+"' AND room = '"+reservation.Room+"'";
+      using var cmd2 = new NpgsqlCommand(sql, con);
+      int roomAvailableSpaces = Convert.ToInt32(cmd2.ExecuteScalar());
+
+      if(roomReservations < roomAvailableSpaces){ return true;}
+      else{ return false;}
+    }
 
         public void CreateReservation(DateTime convdayid, string Roomid, string Email, string Location) 
         {

@@ -23,12 +23,18 @@ namespace myWebApp.Pages
       _logger = logger;
     }
 
+    [BindProperty]
+    public List<WorkspaceModel> locations {get; set;}
+    [BindProperty]
+    public List<WorkspaceModel> rooms {get; set;}
     public string Info { get; set; }
     public string userEmail { get; set; }
 
 
     public void OnGet()
     {
+      locations = ShowLocations();
+      rooms = ShowRooms();
     }
 
     public void OnPostSubmit(ReservationModel reservation)
@@ -38,17 +44,20 @@ namespace myWebApp.Pages
 
       bool check = prioCheck(reservation);
       bool check1 = CheckReservation(convdayid, userEmail);
-      if(check && check1){
+      bool check2 = CheckRoomAvailability(reservation);
+      if(check && check1 && check2){
         CreateReservation(userEmail, convdayid, reservation.Location, reservation.Room);
         this.Info = string.Format("Sucessfully added the reservation");
       }
       else{
-        if (check1 == false) {
-        this.Info = string.Format("You entered same date, or tried to reserve in the past, try different date");
+        if (!check1) {
+        this.Info = string.Format("You already have a reservation for this day, or you tried to reserve in the past, try a different date.");
         }
-        if(check == false)
-        { 
-          this.Info = string.Format("You do not have the right priority, please try a later date");
+        if(!check) { 
+          this.Info = string.Format("You do not have the right priority, please try a later date.");
+        }
+        if(!check2) {
+          this.Info = string.Format("The room you tried to reserve is full!");
         }
       }
     }
@@ -133,6 +142,7 @@ namespace myWebApp.Pages
 
     public List<Reservations> ShowReservations()
     {
+      userEmail = HttpContext.Session.GetString("useremail");
       List<Reservations> Reservations = new List<Reservations>();
 
       var cs = Database.Database.Connector();
@@ -140,7 +150,7 @@ namespace myWebApp.Pages
       using var con = new NpgsqlConnection(cs);
       con.Open();
 
-      var sql = "SELECT res_email, date, res_location, res_room FROM reservations ORDER BY date ASC, res_location ASC";
+      var sql = "SELECT res_email, date, res_location, res_room FROM reservations WHERE res_email = '"+userEmail+"' ORDER BY date ASC, res_location ASC";
       using var cmd = new NpgsqlCommand(sql, con);
 
       NpgsqlDataReader dRead = cmd.ExecuteReader();
@@ -151,6 +161,27 @@ namespace myWebApp.Pages
       }
       return Reservations;
     }
+    public List<Workspace> ShowWorkspaces()
+    {
+      List<Workspace> Workspaces = new List<Workspace>();
+
+      var cs = Database.Database.Connector();
+
+      using var con = new NpgsqlConnection(cs);
+      con.Open();
+
+      var sql = "SELECT location, room, squaremeters, availableworkspaces, workspace_id FROM workspaces ORDER BY workspace_id ASC";
+      using var cmd = new NpgsqlCommand(sql, con);
+
+      NpgsqlDataReader dRead = cmd.ExecuteReader();
+      
+      while (dRead.Read())
+      {
+        Workspaces.Add(new Workspace(dRead[0].ToString(),dRead[1].ToString(),dRead[2].ToString(),dRead[3].ToString(),Convert.ToInt32(dRead[4])));
+      }
+      return Workspaces;
+    }
+
     public bool CheckReservation(DateTime convdayid, string Email) 
     {   
       int AmountDate = 0;
@@ -168,32 +199,118 @@ namespace myWebApp.Pages
           using (NpgsqlDataReader dr = cmd.ExecuteReader())
           {
             while (dr.Read())
-              {
-                res.Add(((DateTime) dr["date"]));
-              }        
-            }      
-          }
-        }
-
-        foreach(DateTime p in res)
-        {
-          if (p == convdayid || p < now)
-          {
-            AmountDate++;    
-          }
-        }
-
-        if (AmountDate >= 1)
-        {
-          return false;
-        }
-        else
-        {
-          return true;
+            {
+              res.Add(((DateTime) dr["date"]));
+            }        
+          }      
         }
       }
+
+      foreach(DateTime p in res)
+      {
+        if (p == convdayid)
+        {
+          AmountDate++;    
+        }
+      }
+
+      if (AmountDate >= 1)
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
+    public bool CheckRoomAvailability(ReservationModel reservation){
+      var cs = Database.Database.Connector();
+      using var con = new NpgsqlConnection(cs);
+      con.Open();
+
+      var sql = "SELECT COUNT(*) FROM reservations WHERE res_location = '"+reservation.Location+"' AND res_room = '"+reservation.Room+"' AND date = '"+reservation.Date+"'";
+      using var cmd = new NpgsqlCommand(sql, con);
+
+      int roomReservations = Convert.ToInt32(cmd.ExecuteScalar());
+      sql = "Select availableworkspaces FROM workspaces WHERE location = '"+reservation.Location+"' AND room = '"+reservation.Room+"'";
+      using var cmd2 = new NpgsqlCommand(sql, con);
+      int roomAvailableSpaces = Convert.ToInt32(cmd2.ExecuteScalar());
+
+      if(roomReservations < roomAvailableSpaces){ return true;}
+      else{ return false;}
+    }
+  public List<WorkspaceModel> ShowLocations()
+    {
+        var cs = Database.Database.Connector();
+        List<WorkspaceModel> res = new List<WorkspaceModel>();
+        using var con = new NpgsqlConnection(cs);
+        {
+            string query = "Select DISTINCT location FROM workspaces";
+            using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+            {
+                cmd.Connection = con;
+                con.Open();
+                using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        res.Add(new WorkspaceModel { LocationName = dr["location"].ToString() });
+                    }
+                }
+                con.Close();
+            }
+        }
+        return res;
+    }
+    public List<WorkspaceModel> ShowRooms()
+    {
+      var cs = Database.Database.Connector();
+      List<WorkspaceModel> res = new List<WorkspaceModel>();
+      using var con = new NpgsqlConnection(cs);
+      {
+        string query = "Select room FROM workspaces";
+        using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+        {
+          cmd.Connection = con;
+          con.Open();
+          using (NpgsqlDataReader dr = cmd.ExecuteReader())
+          {
+            while (dr.Read())
+              {
+                res.Add(new WorkspaceModel { RoomName = dr["room"].ToString() });
+              }
+            }    
+          con.Close();
+        }
+      }
+      return res;
+    }
+    public IActionResult OnPostShowRoom(string loc)
+    {
+      List<WorkspaceModel> l= new List<WorkspaceModel>();
+      var cs = Database.Database.Connector();
+      using var con = new NpgsqlConnection(cs);
+      {
+        string query = "Select room FROM workspaces WHERE location = '"+ loc +"'";
+        using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+        {
+          cmd.Connection = con;
+          con.Open();
+          using (NpgsqlDataReader dr = cmd.ExecuteReader())
+          {
+            while (dr.Read())
+            {
+              l.Add(new WorkspaceModel { RoomName = dr["room"].ToString() });
+            }
+          }
+          con.Close();
+        }
+      }
+      return new JsonResult(l);
     }
   }
+}
+
   
   public class Reservations
   {
