@@ -34,16 +34,59 @@ namespace myWebApp.Pages
 
         public string Info { get; set; }
         public string userEmail {get; set;}
+
+        public int Count {get; set;}
+        
+
+       
+        
+
+
     
         public void OnGet()
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            Count = ShowNotification();
             
             
         
         } 
+        public int ShowNotification()
+        {
+            
+            
+            var cs = Database.Database.Connector();
+            List<string> not = new List<string>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select bericht FROM counter";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        
+                        while (dr.Read())
+                        {
+                            not.Add((string) dr["bericht"]);
+                        }
+                    }
+                    
+                    con.Close();
+                }
+            }
+            
+            foreach(string x in not) {
+                
+                Count++;
+                
+            }
+            return Count;
+        }
         public void  OnPostSubmit(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
@@ -173,6 +216,19 @@ namespace myWebApp.Pages
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             con.Close();
+
+        }
+        public IActionResult OnGetRemoveCount() {
+            var cs = Database.Database.Connector();
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "TRUNCATE counter ";
+            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            return new RedirectToPageResult("Notifications");
 
         }
 

@@ -125,17 +125,39 @@ namespace myWebApp.Pages
 
         public void  OnPostSubmit(ReservationModel res)
         {
+            locations = PopulateReservations();
+            rooms = ShowRoom();
             DateTime datenow = DateTime.Now;
             CreateNotification(datenow, res.Location, res.Room);
-        
+            
         }
+
 
         public void OnPostSendmessg(NotificationModel not)
         {
+            locations = PopulateReservations();
+            rooms = ShowRoom();
             DateTime datenow = DateTime.Now;
             CreateNotification2(datenow, not.Bericht);
 
         }
+        public void CreateCount(string Bericht) {
+            var cs = Database.Database.Connector();
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+
+            var sql = "INSERT INTO Counter(bericht) VALUES(@Msg)";
+            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("Msg", Bericht);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+            
+        }
+        
 
         public void CreateNotification2(DateTime convdayid, string Bericht) 
         {
@@ -156,6 +178,7 @@ namespace myWebApp.Pages
 
             cmd.ExecuteNonQuery();
             con.Close();
+            CreateCount(Bericht);
         }
 
 
@@ -180,6 +203,7 @@ namespace myWebApp.Pages
 
             cmd.ExecuteNonQuery();
             con.Close(); 
+            CreateCount(Bericht);
         }
 
     

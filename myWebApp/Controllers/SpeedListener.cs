@@ -41,6 +41,7 @@ namespace myWebApp.Controllers
             listenCommand.ExecuteNonQuery();
             conn.Notification += PostgresNotificationReceived;
             _hubContext.Clients.All.SendAsync(this.GetAlarmList());
+            
             while (true)
             {
                 conn.Wait();
