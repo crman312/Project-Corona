@@ -7,63 +7,26 @@
 
 <div class="container-fluid">
     <div class="row h-100">
-        <div class="col-3 bg-light menuheight">
+        <div class="col-3 bg-light">
             <h4 class="text-left font-weight-bolder mt-4">Welcome Admin</h4>
             <div class="row">
                 <div class="mt-5 w-100"></div>
                 <div class="col-9">
-                    <h5 class="font-italic text-left">Menu</h5>
-                    <div class="w-100">
-                        <a asp-page="/Admin">Home</a>
-                    </div>
-                    
-                    <h5 class="font-italic text-left mt-3">Locations</h5>
-                    <div class="w-100">
-                        <a asp-page="/AddWorkspace">Add workspace</a>
-                    </div>
-                    
-                    <div class="w-100">
-                        <a asp-page="/DeleteWorkspace">Delete workspace</a>
-                    </div>
+                    <h5 class="font-italic text-left">Notifications</h5>
+                </div>
 
-                    <h5 class="font-italic text-left mt-3">Employees</h5>
-
-                    <div class="w-100">
-                        <a asp-page="/AddEmployee">Add employee</a>
-                    </div>
-                    
-                    <div class="w-100">
-                        <a asp-page="/DeleteEmployee">Delete employee</a>
-                    </div>
-                    
-                    <h5 class="font-italic text-left mt-3">Reservations</h5>
-
-                    <div class="w-100">
-                        <a class="nav-link disabled" asp-page="/AddReservation">Add reservation</a>
-                    </div>
-                    
-                    <div class="w-100">
-                        <a asp-page="/DeleteReservations">Delete reservation</a>
-                    </div>
-                    
-                    <h5 class="font-italic text-left mt-3">Settings</h5>
-
-                    <div class="w-100">
-                        <a asp-page="/ChangeName">Company Name</a>    
-                    </div>
-                    
-                    <div class="w-100">
-                        <a asp-page="/OpeningHours">Opening hours</a>    
-                    </div>
-                    
-                    <div class="w-100">
-                        <a asp-page="/Priorities">Edit Priorities</a>
-                    </div>
+                <div class="col">
+                    <div class="circle">1</div>
                 </div>
             </div>
-            
             <hr>
-            <a class="position-absolute" style="bottom: 15px;" asp-page="/Index">Logout</a>
+            <p class="mt-2 mb-2">Text Notifications</p>
+            <hr>
+
+            <div class="mt-5 w-100"></div>
+            <h5 class="font-italic text-left">Manage my reservations</h5>
+            <hr>
+            <a class="" asp-area="" asp-page="/Index">Logout</a>
         </div>
 
         <div class="col">
@@ -73,6 +36,37 @@
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Add reservation</h4>
                         <div><b>Workspace info:</b></div>
+                        <table class="table table-bordered table-responsive table-hover">
+                            <thead>
+                                <tr>
+                                    <th>location</th>
+                                    <th>room</th>
+                                    <th>squaremeters</th>
+                                    <th>availableworkspaces</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var workspace in @Model.ShowWorkspaces())
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(m => workspace.WSlocation)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => workspace.WSroom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => workspace.WSsquaremeters)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => workspace.WSavailableworkspaces)
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        <div><b>Reservations:</b></div>
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -105,33 +99,66 @@
                         <form method="post">
                             <fieldset>
                                 <div class="form-group">
-
-                                    <label>Email</label>
-                                    <input id="txtEmail" name="Email" class="form-control" type="email">
-                                </div> <!-- form-group// -->
-
-                                <div class="form-group">
-
-                                    <label>Date</label>
-                                    <input id="txtDate" name="Date" class="form-control" type="date">
+                                    <div class='input-group date' id='datetimepicker1' name="Date">
+                                        <input type='date' class="form-control" name="Date" required/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Location</label>
-                                    <input id="txtLocation" name="Location" class="form-control" type="text">
-                                </div><!-- form-group// -->  
+                                <td>Select location</td>
+                                    <div class="form-group">
+                                        <select id="locations" name="Location">
 
-                                <div class="form-group">
-                                    <label>Room</label>
-                                    <input id="txtRoom" name="Room" class="form-control" type="text">
-                                </div><!-- form-group// -->  
+                                            <option>---</option>
+                                            @foreach(var locations in @Model.ShowLocations())
+                                            {                                        
+                                                <option>@Html.DisplayFor(m => locations.LocationName)</option>
+                                            }
+                                        </select>                                       
+                                    </div>
+                                <td>Select Room</td>
+                                    <div class="form-group">
+                                        <select id="rooms" name="Room">
+                                            <option>---</option>
+                                            @foreach(var rooms in @Model.ShowRooms())
+                                            {
+                                               <option>@Html.DisplayFor(m => rooms.RoomName)</option>
+                                            }
+                                        </select>                                       
+                                    </div>
+                                    <form>
+@Html.AntiForgeryToken()
+</form>
+@section scripts{ 
+    <script>
+        $('#locations').on('change', function () {
+            var arr = [];
+        $.ajax({
+                    type: "POST",
+            url: '?handler=ShowRoom',
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: { "loc": $("#locations").val() },
+            dataType:"json"
+        }).done(function (data) {
+            $("#rooms").empty();
+            $.each(data, function (i, item) {
+                $("#rooms").append('<option> ' + item["roomName"] + ' </option>');
+            });
+           
+        });
+    });
+    </script>
+}
+                                    <div class="form-group">
+                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Submit</button>
+                                    </div> <!-- form-group// -->  
 
-                                <div class="form-group">
-                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Submit</button>
-                                </div> <!-- form-group// -->  
-
-                                @Model.Info  
-                            </fieldset>                                               
-                        </form>
+                                    @Model.Info  
+                                </fieldset>
+                            </form>
                         </article>
                     </div> <!-- card.// -->
                 </div>
