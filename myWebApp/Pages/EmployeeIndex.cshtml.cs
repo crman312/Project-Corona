@@ -35,6 +35,11 @@ namespace myWebApp.Pages
 
         public int Count {get; set;}
         
+
+       
+        
+
+
         public string Monday {get; set;}
         public string Tuesday {get; set;}
         public string Wednesday {get; set;}
@@ -388,43 +393,16 @@ namespace myWebApp.Pages
                             res.Add(new WorkspaceModel { RoomName = dr["room"].ToString() });
                         }
                     }
+                    
                     con.Close();
                 }
             }
+
+
             return res;
         }
         
-        public int ShowNotification()
-        {
-            var cs = Database.Database.Connector();
-            List<string> not = new List<string>();
-            using var con = new NpgsqlConnection(cs);
-            {
-                string query = "Select bericht FROM counter";
-                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
-                {
-                    cmd.Connection = con;
-                
-                    con.Open();
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        
-                        while (dr.Read())
-                        {
-                            not.Add((string) dr["bericht"]);
-                        }
-                    }
-                    con.Close();
-                }
-            }
-            
-            foreach(string x in not) {
-                
-                Count++;
-                
-            }
-            return Count;
-        }
+
 
 
         public List<ReservationModel> ShowReservation()

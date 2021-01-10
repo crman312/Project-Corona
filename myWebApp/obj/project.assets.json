@@ -1482,19 +1482,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\wouts\\.nuget\\packages\\": {}
+    "C:\\Users\\dvide\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\myWebApp.csproj",
+      "projectUniqueName": "C:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\myWebApp.csproj",
       "projectName": "myWebApp",
-      "projectPath": "C:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\myWebApp.csproj",
-      "packagesPath": "C:\\Users\\wouts\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\obj\\",
+      "projectPath": "C:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\myWebApp.csproj",
+      "packagesPath": "C:\\Users\\dvide\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\wouts\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dvide\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1565,7 +1565,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
       }
     }
   },
