@@ -369,3 +369,14 @@ C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\net
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\Razor\Pages\OpeningHours.cshtml.g.cs
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\staticwebassets\myWebApp.StaticWebAssets.Manifest.cache
 C:\Users\dvide\OneDrive\Documenten\GitHub\Project-Coronaa\myWebApp\obj\Debug\netcoreapp3.1\staticwebassets\myWebApp.StaticWebAssets.xml
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.csprojAssemblyReference.cache
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\staticwebassets\myWebApp.StaticWebAssets.Manifest.cache
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\staticwebassets\myWebApp.StaticWebAssets.xml
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.RazorAssemblyInfo.cache
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.RazorAssemblyInfo.cs
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.AssemblyInfoInputs.cache
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.AssemblyInfo.cs
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.dll
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.pdb
