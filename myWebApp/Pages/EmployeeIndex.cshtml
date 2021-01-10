@@ -19,45 +19,7 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
 
 <script src="~/lib/signalr.js"></script>
-
-<script type="text/javascript">
-// Start the connection.
-var connection = new signalR.HubConnectionBuilder()
-    .withUrl('/speedalarmhub')
-    .build();
-
-
-    connection.on('ReceiveMessage', function (message) {
-                
-                var encodedMsg = message;
-                
-                // Add the message to the page.
-                
-                document.getElementById("output").innerHTML = encodedMsg;
-                
-                
-
-    });
-    // Transport fallback functionality is now built into start.
-    connection.start()
-        .then(function () {
-
-            console.log('connection started');
-            connection.invoke('SendMessage');
-        })
-        .catch(error => {
-            console.error(error.message);
-        });
-</script>
-
-<div class=container>
-    <div class="alert alert-warning">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <p id="output"></p>
-    </div>
-</div>
-
-
+    
 
 <div class="container-fluid">
     <div class="row h-100">
@@ -67,14 +29,12 @@ var connection = new signalR.HubConnectionBuilder()
                 <div class="mt-5 w-100"></div>
                 <div class="col-9">
 
-                    <a asp-page="/Notifications"><h5 class="font-italic text-left">Notifications </h5></a>
+                    <a asp-page-handler="RemoveCount" ><h5 class="font-italic text-left">Notifications </h5></a>
                 </div>
                 <div class="col">
-                    <span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>
-                    <div class="noti-content">
-                        <div class="noti-top-arrow"></div>
-                        <ul id="notiContent"></ul>
-                    </div>
+                </div>
+                <div class="col">
+                    <div class="circle">@Model.Count</div>
                 </div>
             </div>            
             <hr>
