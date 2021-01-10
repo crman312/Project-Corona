@@ -7,6 +7,7 @@
 <div class="container">
     <div class="card mt-5">
         <article class="card-body">
+        <h1 class="pt-3 text-center"><strong>@Model.CompanyName</strong></h1>
         <h4 class="card-title mb-4 mt-1">Login</h4>
         <form method="post">
             <div class="form-group">
@@ -15,9 +16,9 @@
             </div> <!-- form-group// -->
             
             <div class="form-group">
-                <a class="float-right" href="#">Forgot?</a>
                 <label>Your password</label>
                 <input class="form-control" placeholder="Password" id="txtPassword" name="Password" type="password" required>
+            </div>
             
             <div class="form-group">
                 <button type="submit" id="submitBtn" value="Submit" asp-page-handler="Submit" class="btn btn-dark mt-5 btn-lg" onclick="myFunction()">Login</button>

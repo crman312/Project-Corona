@@ -7,32 +7,69 @@
 
 <div class="container-fluid">
     <div class="row h-100">
-        <div class="col-3 bg-light">
+        <div class="col-3 bg-light menuheight">
             <h4 class="text-left font-weight-bolder mt-4">Welcome Admin</h4>
             <div class="row">
                 <div class="mt-5 w-100"></div>
                 <div class="col-9">
-                    <h5 class="font-italic text-left">Notifications</h5>
-                </div>
+                    <h5 class="font-italic text-left">Menu</h5>
+                    <div class="w-100">
+                        <a asp-page="/Admin">Home</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Locations</h5>
+                    <div class="w-100">
+                        <a class="nav-link disabled" asp-page="/AddWorkspace">Add workspace</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteWorkspace">Delete workspace</a>
+                    </div>
 
-                <div class="col">
-                    <div class="circle">1</div>
+                    <h5 class="font-italic text-left mt-3">Employees</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/AddEmployee">Add employee</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteEmployee">Delete employee</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Reservations</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/AddReservation">Add reservation</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteReservations">Delete reservation</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Settings</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/ChangeName">Company Name</a>    
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/OpeningHours">Opening hours</a>    
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/Priorities">Edit Priorities</a>
+                    </div>
                 </div>
             </div>
+            
             <hr>
-            <p class="mt-2 mb-2">Text Notifications</p>
-            <hr>
-
-            <div class="mt-5 w-100"></div>
-            <h5 class="font-italic text-left">Manage my reservations</h5>
-            <hr>
-            <a class="" asp-area="" asp-page="/Index">Logout</a>
+            <a class="position-absolute" style="bottom: 15px;" asp-page="/Index">Logout</a>
         </div>
 
         <div class="col">
             <div class="row">
                 <div class="pl-5 col-8">
-                    <div class="card mt-2">
+                    <div class="card mt-3 mb-3">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Add workspace</h4>
                         <div><b>Workspace info:</b></div>
@@ -63,33 +100,34 @@
                                         </td>
                                     </tr>
                                 }
+
                             </tbody>
                         </table>
                         <form method="post">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Location</label>
-                                    <input id="txtLocationName" required name="LocationName" class="form-control" type="text">
+                                    <input id="txtLocationName" placeholder="Rotterdam" required name="LocationName" class="form-control" type="text">
                                 </div> <!-- form-group// -->
 
                                 <div class="form-group">
                                     <label>Room</label>
-                                    <input id="txtRoomName" name="RoomName" class="form-control" type="text" required>
+                                    <input id="txtRoomName" placeholder="Workroom 2" name="RoomName" class="form-control" type="text" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Number of square meters</label>
-                                    <input id="txtSquareMeters" name="SquareMeters" class="form-control" type="number" required>
+                                    <input id="txtSquareMeters" name="SquareMeters" placeholder="240" class="form-control" type="number" required>
                                 </div><!-- form-group// -->
 
                                 <div class="form-group">
-                                    <label>Length of 1 workstation</label>
-                                    <input id="txtSquareMeters" name="Lengthws" class="form-control" type="number" required>
+                                    <label>Length of 1 workstation (in meters)</label>
+                                    <input id="txtSquareMeters" name="Lengthws" placeholder="1" class="form-control" type="number" step=".01" required>
                                 </div><!-- form-group// -->
 
                                 <div class="form-group">
-                                    <label>Width of 1 workstation</label>
-                                    <input id="txtSquareMeters" name="Widthws" class="form-control" type="number" required>
+                                    <label>Width of 1 workstation (in meters)</label>
+                                    <input id="txtSquareMeters" name="Widthws" placeholder="2" class="form-control" type="number" step=".01" required>
                                 </div><!-- form-group// -->
                                 
                                 <div class="form-group">

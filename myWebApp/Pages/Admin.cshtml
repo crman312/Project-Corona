@@ -1,12 +1,13 @@
 @page
 @model AdminModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Admin";
 }
 
 <div class="container-fluid">
     <div class="row h-100">
-        <div class="col-3 bg-light">
+        <div class="col-3 bg-light menuheight">
             <h4 class="text-left font-weight-bolder mt-4">Welcome Admin</h4>
             <div class="row">
                 <div class="mt-5 w-100"></div>
@@ -23,14 +24,13 @@
             <hr>
 
             <div class="mt-5 w-100"></div>
-            <h5 class="font-italic text-left">Manage my reservations</h5>
-            <hr>
-            <a class="" asp-area="" asp-page="/Index">Logout</a>
+
+            <a class="position-absolute" style="bottom: 15px;" asp-page="/Index">Logout</a>
         </div>
         <div class="col">
             <div class="row">
                 <div class="pl-5 col-4 border-right">
-                    <h4 class="font-weight-bolder pb-5">Locations</h4>
+                    <h4 class="font-weight-bolder pt-5 pb-5">Locations</h4>
                     <div class="w-100">
                         <a asp-page="/AddWorkspace">Add workspace</a>
                     </div>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="pl-5 col-4 border-right">
-                    <h4 class="font-weight-bolder pb-5">Employees</h4>
+                    <h4 class="font-weight-bolder pt-5 pb-5">Employees</h4>
                     <div class="w-100">               
                         <a asp-page="/AddEmployee">Add employee</a>
                     </div>
@@ -51,15 +51,25 @@
                 </div>
 
                 <div class="pl-5 col-4">
-                    <h4 class="font-weight-bolder">Priorities</h4>
+                    <h4 class="font-weight-bolder pt-5 pb-5">Settings</h4>
+                    <div class="w-100">
+                        <a asp-page="/ChangeName">Company Name</a>               
+                    </div>
+                    <div class="w-100">
+                        <a asp-page="/OpeningHours">Opening hours</a>               
+                    </div>
+                    <div class="w-100">
+                        <a asp-page="/Priorities">Edit Priorities</a>
+                    </div>
+                     @Model.Info    
                 </div>
             </div>
 
             <div style="height: 100px" class="w-100"></div>
 
             <div class="row">
-                <div class="pl-5 col-8 border-right">
-                    <h4 class="font-weight-bolder">Sign up</h4>
+                <div class="pl-5 col-4 border-right">
+                    <h4 class="font-weight-bolder pb-5">Sign up</h4>
                     <div class="w-100">               
                         <a asp-page="/AddReservation">Add reservation</a>
                     </div>
@@ -67,46 +77,25 @@
                         <a asp-page="/DeleteReservations">Delete reservation</a>
                     </div>
                 </div>
-        
-                <div class="pl-5 col-4">
-                    <h4 class="font-weight-bolder">Settings</h4>
-                    <div class="w-100">
-                        <a href="" data-toggle="modal" data-target="#exampleModal">Logo</a>               
-                    </div>
-                    <div class="w-100">               
-                        <a asp-page="/Priorities">Edit Priorities</a>
-                    </div>
+
+                <div class="col-8 pl-5 ">
+                    <h4 class="font-weight-bolder pb-5">Message</h4>
+                    <form action="" method="post">
+                        <fieldset>
+                            <tr>
+                                <h6>Type message</h6>
+                                <div class="form-group w-100">
+                                    <textarea rows="4" cols="50" type="text" id="msg" name="Bericht"></textarea>
+                                </div>
+
+                                <div class="form group">
+                                    <button type="submit" id="sendButton" class="btn btn-dark btn-lg"  asp-page-handler="OnPostSubmit" >Send</button>
+                                </div>
+                            </tr>   
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form method="post" enctype="multipart/form-data">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Logo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        
-            <div class="modal-body">
-                <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" asp-for="Upload" class="custom-file-input" id="file1" name="file1">
-                        <label class="custom-file-label" for="input">Choose file</label>
-                    </div>     
-                </div>
-            </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" id="submit1" value="Submit" asp-page-handler="Submit" type="button" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
-    </form>
-  </div>
+    </div>
 </div>
