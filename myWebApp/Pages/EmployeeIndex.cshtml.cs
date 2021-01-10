@@ -28,9 +28,7 @@ namespace myWebApp.Pages
         [BindProperty]
         public List<WorkspaceModel> locations {get; set;}
         [BindProperty]
-        public List<WorkspaceModel> rooms {get; set;}
-
-        
+        public List<WorkspaceModel> rooms {get; set;}        
 
         public string Info { get; set; }
         public string userEmail {get; set;}
@@ -42,6 +40,13 @@ namespace myWebApp.Pages
         
 
 
+        public string Monday {get; set;}
+        public string Tuesday {get; set;}
+        public string Wednesday {get; set;}
+        public string Thursday {get; set;}
+        public string Friday {get; set;}
+        public string Saturday {get; set;}
+        public string Sunday {get; set;}
     
         public void OnGet()
         {
@@ -49,9 +54,30 @@ namespace myWebApp.Pages
             locations = PopulateReservations();
             rooms = ShowRoom();
             Count = ShowNotification();
+            bool Check = OpeningHoursModel.CheckIfExist();
+
+            if(Check)
+            {
+                Tuple<string, string, string, string, string, string, string> hours = OpeningHoursModel.GetOpeningHours();
+                Monday = hours.Item1;
+                Tuesday = hours.Item2;
+                Wednesday = hours.Item3;
+                Thursday = hours.Item4;
+                Friday = hours.Item5;
+                Saturday = hours.Item6;
+                Sunday = hours.Item7;
+            }
             
-            
-        
+            else
+            {
+                Monday = "Closed";
+                Tuesday = "Closed";
+                Wednesday = "Closed";
+                Thursday = "Closed";
+                Friday = "Closed";
+                Saturday = "Closed";
+                Sunday = "Closed";
+            }
         } 
         public int ShowNotification()
         {
@@ -93,6 +119,31 @@ namespace myWebApp.Pages
             locations = PopulateReservations();
             rooms = ShowRoom();
             Count = ShowNotification();
+
+            bool Check = OpeningHoursModel.CheckIfExist();
+
+            if(Check)
+            {
+                Tuple<string, string, string, string, string, string, string> hours = OpeningHoursModel.GetOpeningHours();
+                Monday = hours.Item1;
+                Tuesday = hours.Item2;
+                Wednesday = hours.Item3;
+                Thursday = hours.Item4;
+                Friday = hours.Item5;
+                Saturday = hours.Item6;
+                Sunday = hours.Item7;
+            }
+            
+            else
+            {
+                Monday = "Closed";
+                Tuesday = "Closed";
+                Wednesday = "Closed";
+                Thursday = "Closed";
+                Friday = "Closed";
+                Saturday = "Closed";
+                Sunday = "Closed";
+            }
             
             // hier prio ding
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
@@ -136,16 +187,25 @@ namespace myWebApp.Pages
                 }
             }
 
-
-
-
-
             return new JsonResult(l);
 
         }   
 
         public bool prioCheck(ReservationModel reservation)
         {
+
+            int med = 7;
+            int low = 2;
+            int high = 0;
+            bool check = PrioritiesModel.CheckIfExist();
+            if(check)
+            {
+                Tuple<int, int, int> getprio = PrioritiesModel.GetPriorities();
+                med = getprio.Item2;
+                low = getprio.Item3;
+                high = getprio.Item1;
+            }
+
           DateTime convdayid = Convert.ToDateTime(reservation.Date);
           userEmail = HttpContext.Session.GetString("useremail");
           
@@ -175,19 +235,25 @@ namespace myWebApp.Pages
           {
             if(priority == "Low") // 2 dagen van te voren
             {
-              DateTime newdt = convdayid.AddDays(-2);
-              if(newdt >= DateTime.Now){return true;}
+              DateTime newdt = convdayid.AddDays(-(low));
+              if(newdt <= DateTime.Now){return true;}
               else{return false;}
             }
             else if(priority == "Medium") // 7 dagen van te voren
             {
-              DateTime newdt = convdayid.AddDays(-7);
-              if(newdt >= DateTime.Now){return true;}
+              DateTime newdt = convdayid.AddDays(-(med));
+              if(newdt <= DateTime.Now){return true;}
               else{return false;}
             }
             else // high priority kan altijd reserveren
             {
-              return true;
+                if(high != 0)
+                {
+                    DateTime newdt = convdayid.AddDays(-(high));
+                    if(newdt <= DateTime.Now){return true;}
+                    else{return false;}
+                }
+                return true;
             }
           }
           return false;
@@ -202,6 +268,30 @@ namespace myWebApp.Pages
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             DeleteReservation(convdayid, reservation.Location);
+            bool Check = OpeningHoursModel.CheckIfExist();
+
+            if(Check)
+            {
+                Tuple<string, string, string, string, string, string, string> hours = OpeningHoursModel.GetOpeningHours();
+                Monday = hours.Item1;
+                Tuesday = hours.Item2;
+                Wednesday = hours.Item3;
+                Thursday = hours.Item4;
+                Friday = hours.Item5;
+                Saturday = hours.Item6;
+                Sunday = hours.Item7;
+            }
+            
+            else
+            {
+                Monday = "Closed";
+                Tuesday = "Closed";
+                Wednesday = "Closed";
+                Thursday = "Closed";
+                Friday = "Closed";
+                Saturday = "Closed";
+                Sunday = "Closed";
+            }
         }
 
         public void DeleteReservation(DateTime convdayid, string Location)
@@ -218,7 +308,6 @@ namespace myWebApp.Pages
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             con.Close();
-
         }
         public IActionResult OnGetRemoveCount() {
             var cs = Database.Database.Connector();
@@ -254,10 +343,7 @@ namespace myWebApp.Pages
                         {
                             res.Add(((DateTime) dr["date"]));
                         }
-                        
-                    }
-                    
-                    
+                    } 
                 }
             }
             foreach(DateTime p in res)
@@ -265,9 +351,7 @@ namespace myWebApp.Pages
                 if (p == convdayid || p < now)
                 {
                     AmountDate++;
-                    
-                }
-                
+                }   
             }
             if (AmountDate >= 1)
             {

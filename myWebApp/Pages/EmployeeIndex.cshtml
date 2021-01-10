@@ -43,25 +43,25 @@
             <hr>
             @foreach(var reservations in @Model.ShowReservation())
             {
-                                    <form method="post">
-                                        <fieldset>
-                                            <div class="form-group">
-                                                <tr>
-                                                    <img class="img-fluid" src="/Images/Reservation.png"/>
-                                                    <td>
-                                                        @Html.DisplayFor(m => reservations.Date)
-                                                        <input type="hidden" name="Date" value="@Html.DisplayFor(m => reservations.Date)"/>
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(m => reservations.Location)
-                                                        <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
-                                                    </td>
-                                                </tr>
-                                                <button type="submit" value="Submit" asp-page-handler="Remove" onclick="return confirm('Are you sure you want to delete this reservation in location: @Html.DisplayFor(m => reservations.Location) on: @Html.DisplayFor(m => reservations.Date)')" class="btn btn-dark btn-sm">X</button>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                    <hr>
+                <form method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <tr>
+                                <img class="img-fluid" src="/Images/Reservation.png"/>
+                                <td>
+                                    @Html.DisplayFor(m => reservations.Date)
+                                    <input type="hidden" name="Date" value="@Html.DisplayFor(m => reservations.Date)"/>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => reservations.Location)
+                                    <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
+                                </td>
+                            </tr>
+                            <button type="submit" value="Submit" asp-page-handler="Remove" onclick="return confirm('Are you sure you want to delete this reservation in location: @Html.DisplayFor(m => reservations.Location) on: @Html.DisplayFor(m => reservations.Date)')" class="btn btn-dark btn-sm">X</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <hr>
             }
             <hr>
             <a class="" asp-area="" asp-page="/Index">Logout</a>
@@ -74,44 +74,117 @@
                         <fieldset>
                             <tr>
                                 <td>Date</td>
-                                
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1' name="Date">
-                                            <input type='date' class="form-control" name="Date" required/>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker1' name="Date">
+                                        <input type='date' class="form-control" name="Date" required/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
                                     </div>
+                                </div>
                                 <td>Select location</td>
-                                    <div class="form-group">
-                                        <select id="locations" name="Location" class="form-control">
-
-                                            <option>---</option>
-                                            @foreach(var reservations in @Model.locations)
-                                            {                                        
-                                                <option>@Html.DisplayFor(m => reservations.LocationName)</option>
-                                                
-
-                                            }
-                                        </select>                                       
-                                    </div>
+                                <div class="form-group">
+                                    <select id="locations" name="Location">
+                                        <option>---</option>
+                                        @foreach(var reservations in @Model.locations)
+                                        {                                       
+                                            <option>@Html.DisplayFor(m => reservations.LocationName)</option>
+                                        }
+                                    </select>                                       
+                                </div>
                                 <td>Select Room</td>
-                                    <div class="form-group">
-                                        <select id="rooms" name="Room" class="form-control">
-                                            <option>---</option>
-                                            @foreach(var reservations in @Model.rooms)
+                                <div class="form-group">
+                                    <select id="rooms" name="Room">
+                                        <option>---</option>
+                                        @foreach(var reservations in @Model.rooms)
+                                        {
+                                            <option>@Html.DisplayFor(m => reservations.RoomName)</option>
+                                        }
+                                    </select>                                       
+                                </div>                        
+                                @Html.AntiForgeryToken()
+                                <div class="form group">
+                                    <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
+                                    @Model.Info
+                                </div>
+                            </tr>
+                        </fieldset>
+                    </form>         
+                </div>
 
-                                            {
-                                               <option>@Html.DisplayFor(m => reservations.RoomName)</option>
-                                                 
-                                            }
-                                        </select>                                       
-                                    </div>
+                <div class="pl-5 col-4 border-right pb-5">
+                    <h4 class="font-weight-bolder pb-5">Manage my reservations</h4>
+                    @foreach(var reservations in @Model.ShowReservation())
+                    {
+                        <form method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <tr>
+                                        <img class="img-fluid" src="/Images/Reservation.png"/>
+                                        <td>
+                                            @Html.DisplayFor(m => reservations.Date)
+                                            <input type="hidden" name="Date" value="@Html.DisplayFor(m => reservations.Date)"/>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => reservations.Location)
+                                            <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(myWebApp => reservations.Room)
+                                            <input type="hidden" name="Roon" value="@Html.DisplayFor(m => reservations.Room)"/>
+                                        </td>
+                                    </tr>
+                                    <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    }
+                </div>
 
-                                    <form>
-    @Html.AntiForgeryToken()
-</form>
+                <div class="pl-5 col-4 ">
+                    <h4 class="pb-5 font-weight-bolder"> <img class="img-fluid" src="/Images/OpeningHours.png"/>Opening Hours</h4>
+                    <table style="width: 350px;">
+                        <tr>
+                            <td><strong>Day</strong></td>
+                            <td><strong>Opening hours</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Monday</td>
+                            <td>@Model.Monday</td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>@Model.Tuesday</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>@Model.Wednesday</td>
+                        </tr>
+                        <tr>
+                            <td>Thursday</td>
+                            <td>@Model.Thursday</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td>@Model.Friday</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td>@Model.Saturday</td>
+                        </tr>
+                        <tr>
+                            <td>Sunday</td>
+                            <td>@Model.Sunday</td>
+                        </tr>
+                    </table>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @section scripts{ 
     <script>
         $('#locations').on('change', function () {
@@ -134,98 +207,3 @@
     });
     </script>
 }
-                                   
-
-                                    <div class="form group">
-                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
-                                    </div>
-                            </tr>
-                        </fieldset>
-                        @Model.Info
-                    </form>
-                </div>
-                
-                <div class="pl-5 col-4 border-right">
-
-                    
-                </div>
-
-                
-            </div>
-
-            <div style="height: 70px" class="w-100"></div>
-
-                <h5 class="font-italic text-left">Manage my reservations</h5>
-                @foreach(var reservations in @Model.ShowReservation())
-                {
-                    <form method="post">
-                        <fieldset>
-                            <div class="form-group">
-                                <tr>
-                                    <img class="img-fluid" src="/Images/Reservation.png"/>
-                                    <td>
-                                        @Html.DisplayFor(m => reservations.Date)
-                                        <input type="hidden" name="Date" value="@Html.DisplayFor(m => reservations.Date)"/>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(m => reservations.Location)
-                                        <input type="hidden" name="Location" value="@Html.DisplayFor(m => reservations.Location)"/>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(myWebApp => reservations.Room)
-                                        <input type="hidden" name="Roon" value="@Html.DisplayFor(m => reservations.Room)"/>
-                                    </td>
-                                </tr>
-                                <button type="submit" value="Submit" asp-page-handler="Remove" class="btn btn-dark btn-sm">X</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                }
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="pl-5 col-8">
-                    <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/OpeningHours.png"/>Opening Hours</h4>
-                        <table style="width: 350px;">
-                            <tr>
-                                <td><strong>Dag</strong></td>
-                                <td><strong>Openingstijden</strong></td>
-                            </tr>
-                            <tr>
-                                <td>Maandag</td>
-                                <td>09:00-17:00 uur</td>
-                            </tr>
-                            <tr>
-                                <td>Dinsdag</td>
-                                <td>09:00-17:00 uur</td>
-                            </tr>
-                            <tr>
-                                <td>Woensdag</td>
-                                <td>09:00-17:00 uur</td>
-                            </tr>
-                            <tr>
-                                <td>Donderdag</td>
-                                <td>09:00-17:00 uur</td>
-                            </tr>
-                            <tr>
-                                <td>Vrijdag</td>
-                                <td>09:00-17:00 uur</td>
-                            </tr>
-                            <tr>
-                                <td>Zaterdag</td>
-                                <td>Gesloten</td>
-                            </tr>
-                            <tr>
-                                <td>Zondag</td>
-                                <td>Gesloten</td>
-                            </tr>
-                        </table>
-
-                </div>
-            <div class="pl-5 col-4">
-                <h4 class="font-weight-bolder"> <img class="img-fluid" src="/Images/Settings.png"/>Settings</h4>
-            </div>
-        </div>
-    </div>
->
