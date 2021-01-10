@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using myWebApp.Hubs;
+
 
 
 namespace myWebApp
@@ -30,7 +30,7 @@ namespace myWebApp
             services.AddSession();
             
             services.AddControllersWithViews();
-            services.AddSignalR();
+           
             services.AddMemoryCache();
             
         }
@@ -63,13 +63,7 @@ namespace myWebApp
             });
             app.UseCookiePolicy();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=SpeedListener}/{action=Notifications}/{id?}");
-                endpoints.MapHub<speedalarmhub>("/speedalarmhub");
-            });
+            
         }
     }
 }

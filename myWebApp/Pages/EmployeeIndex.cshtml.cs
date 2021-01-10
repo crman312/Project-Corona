@@ -92,6 +92,7 @@ namespace myWebApp.Pages
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            Count = ShowNotification();
             
             // hier prio ding
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
@@ -197,6 +198,7 @@ namespace myWebApp.Pages
             locations = PopulateReservations();
             rooms = ShowRoom();
             userEmail = HttpContext.Session.GetString("useremail");
+            Count = ShowNotification();
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             DeleteReservation(convdayid, reservation.Location);
