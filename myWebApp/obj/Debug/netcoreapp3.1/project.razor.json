@@ -14397,6 +14397,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Message.cshtml",
+      "TargetPath": "Pages\\Message.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Error.cshtml",
       "TargetPath": "Pages\\Error.cshtml",
       "FileKind": "mvc"
