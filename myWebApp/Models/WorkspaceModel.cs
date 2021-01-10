@@ -20,9 +20,9 @@ namespace myWebApp.Models
         [BindProperty]
         public int SquareMeters { get; set; } = 1;
         [BindProperty]
-        public double Lengthws { get; set; } = 1;
+        public int Lengthws { get; set; } = 1;
         [BindProperty]
-        public double Widthws { get; set; } = 1;
+        public int Widthws { get; set; } = 1;
         [BindProperty]
         public int Id {get; set;}
     }
