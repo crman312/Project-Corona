@@ -4,6 +4,27 @@
     ViewData["Title"] = "Admin";
 }
 
+
+
+
+<form action="" method="post">
+    <fieldset>
+        <tr>
+            <div class="form-group">
+                <td>Send message</td>
+                <input type="text" id="msg" name="Bericht"/>
+            </div>
+
+            <div class="form group">
+                <button type="submit" id="sendButton"  asp-page-handler="Submit" >Send</button>
+            </div>
+
+        </tr>   
+    </fieldset>
+
+</form>
+
+
 <div class="container-fluid">
     <div class="row h-100">
         <div class="col-3 bg-light">
