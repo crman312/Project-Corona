@@ -34,67 +34,21 @@ namespace myWebApp.Pages
 
         public string Info { get; set; }
         public string userEmail {get; set;}
-
-        public int Count {get; set;}
-        
-
-       
-        
-
-
     
         public void OnGet()
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
-            Count = ShowNotification();
             
             
         
         } 
-        public int ShowNotification()
-        {
-            
-            
-            var cs = Database.Database.Connector();
-            List<string> not = new List<string>();
-            using var con = new NpgsqlConnection(cs);
-            {
-                string query = "Select bericht FROM counter";
-                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
-                {
-                    cmd.Connection = con;
-                
-                    con.Open();
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        
-                        while (dr.Read())
-                        {
-                            not.Add((string) dr["bericht"]);
-                        }
-                    }
-                    
-                    con.Close();
-                }
-            }
-            
-            foreach(string x in not) {
-                
-                Count++;
-                
-            }
-            return Count;
-        }
         public void  OnPostSubmit(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
-            Count = ShowNotification();
-            
-            // hier prio ding
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             
             bool check = prioCheck(reservation);
@@ -209,7 +163,6 @@ namespace myWebApp.Pages
             locations = PopulateReservations();
             rooms = ShowRoom();
             userEmail = HttpContext.Session.GetString("useremail");
-            Count = ShowNotification();
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             DeleteReservation(convdayid, reservation.Location);
@@ -229,19 +182,6 @@ namespace myWebApp.Pages
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             con.Close();
-
-        }
-        public IActionResult OnGetRemoveCount() {
-            var cs = Database.Database.Connector();
-            using var con = new NpgsqlConnection(cs);
-            con.Open();
-
-            var sql = "TRUNCATE counter ";
-            using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Prepare();
-            cmd.ExecuteNonQuery();
-            con.Close();
-            return new RedirectToPageResult("Notifications");
 
         }
 
@@ -426,7 +366,7 @@ namespace myWebApp.Pages
                         
                         while (dr.Read())
                         {
-                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("dd/MM/yyyy"), Location = dr["res_location"].ToString() });
+                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("yyyy/MM/dd"), Location = dr["res_location"].ToString() });
                         }
                     }
                     
