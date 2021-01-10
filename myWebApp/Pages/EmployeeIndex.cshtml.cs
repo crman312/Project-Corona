@@ -54,19 +54,23 @@ namespace myWebApp.Pages
             bool check = prioCheck(reservation);
             bool check1 = CheckReservation(convdayid, userEmail);
             bool check2 = CheckRoomAvailability(reservation);
-            if(check && check1 && check2){
+            bool check3 = CheckRoomOpen(convdayid);
+            if(check && check1 && check2 && check3){
               CreateReservation(convdayid, reservation.Room, userEmail, reservation.Location);
               this.Info = string.Format("Reservation successfully saved");
             }
             else{
-              if (!check1) {
-              this.Info = string.Format("You already have a reservation for this day, or you tried to reserve in the past, try a different date.");
-              }
               if(!check){ 
                 this.Info = string.Format("You do not have the right priority, please try a later date");
               }
+              if (!check1) {
+              this.Info = string.Format("You already have a reservation for this day, or you tried to reserve in the past, try a different date.");
+              }
               if(!check2){
                 this.Info = string.Format("The room you tried to reserve is full!");
+              }
+              if(!check3) {
+                this.Info = string.Format("This location is closed on this day, try another day");
               }
             }
         }
@@ -242,6 +246,24 @@ namespace myWebApp.Pages
 
       if(roomReservations < roomAvailableSpaces){ return true;}
       else{ return false;}
+    }
+    public bool CheckRoomOpen(DateTime date){
+      int Day = (int)date.DayOfWeek;
+      var cs = Database.Database.Connector();
+      using var con = new NpgsqlConnection(cs);
+      con.Open();
+
+      var sql = "Select * FROM openinghours";
+      using var cmd = new NpgsqlCommand(sql, con);
+      NpgsqlDataReader dr = cmd.ExecuteReader();
+      string open = "";
+      while(dr.Read()){
+        if(Day == 0){ open = dr[7].ToString();}
+        else{ open = dr[Day].ToString();}
+      }
+      //this.Info = string.Format($"Day = {Day} open = {open}");
+      if(open.ToLower() == "closed"){ return false;}
+      else{ return true;}
     }
 
         public void CreateReservation(DateTime convdayid, string Roomid, string Email, string Location) 

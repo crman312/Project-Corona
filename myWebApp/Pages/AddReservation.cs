@@ -45,7 +45,8 @@ namespace myWebApp.Pages
       bool check = prioCheck(reservation);
       bool check1 = CheckReservation(convdayid, userEmail);
       bool check2 = CheckRoomAvailability(reservation);
-      if(check && check1 && check2){
+      bool check3 = CheckRoomOpen(convdayid);
+      if(check && check1 && check2 && check3){
         CreateReservation(userEmail, convdayid, reservation.Location, reservation.Room);
         this.Info = string.Format("Sucessfully added the reservation");
       }
@@ -58,6 +59,9 @@ namespace myWebApp.Pages
         }
         if(!check2) {
           this.Info = string.Format("The room you tried to reserve is full!");
+        }
+        if(!check3) {
+          this.Info = string.Format("This location is closed on this day, try another day");
         }
       }
     }
@@ -196,30 +200,24 @@ namespace myWebApp.Pages
         {
           cmd.Connection = con;
           con.Open();
-          using (NpgsqlDataReader dr = cmd.ExecuteReader())
-          {
-            while (dr.Read())
-            {
+          using (NpgsqlDataReader dr = cmd.ExecuteReader()){
+            while (dr.Read()){
               res.Add(((DateTime) dr["date"]));
             }        
           }      
         }
       }
 
-      foreach(DateTime p in res)
-      {
-        if (p == convdayid)
-        {
+      foreach(DateTime p in res){
+        if (p == convdayid){
           AmountDate++;    
         }
       }
 
-      if (AmountDate >= 1)
-      {
+      if (AmountDate >= 1){
         return false;
       }
-      else
-      {
+      else{
         return true;
       }
     }
@@ -238,6 +236,24 @@ namespace myWebApp.Pages
 
       if(roomReservations < roomAvailableSpaces){ return true;}
       else{ return false;}
+    }
+    public bool CheckRoomOpen(DateTime date){
+      int Day = (int)date.DayOfWeek;
+      var cs = Database.Database.Connector();
+      using var con = new NpgsqlConnection(cs);
+      con.Open();
+
+      var sql = "Select * FROM openinghours";
+      using var cmd = new NpgsqlCommand(sql, con);
+      NpgsqlDataReader dr = cmd.ExecuteReader();
+      string open = "";
+      while(dr.Read()){
+        if(Day == 0){ open = dr[7].ToString();}
+        else{ open = dr[Day].ToString();}
+      }
+      //this.Info = string.Format($"Day = {Day} open = {open}");
+      if(open.ToLower() == "closed"){ return false;}
+      else{ return true;}
     }
   public List<WorkspaceModel> ShowLocations()
     {
@@ -325,6 +341,4 @@ namespace myWebApp.Pages
     public string Date {get; set;}
     public string Location {get; set;}
     public string Room { get; set; }
-
   }
-
