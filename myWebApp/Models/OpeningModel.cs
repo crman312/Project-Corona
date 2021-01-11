@@ -8,22 +8,28 @@ using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
-
 namespace myWebApp.Models
 {
-    public class WorkspaceModel
+    public class OpeningModel
     {
         [BindProperty]
-        public string LocationName { get; set; }
+        public string Monday { get; set; }
+        
         [BindProperty]
-        public string RoomName { get; set; } 
+        public string Tuesday { get; set; } 
+        
         [BindProperty]
-        public int SquareMeters { get; set; } = 1;
+        public string Wednesday { get; set; } 
+        
         [BindProperty]
-        public double Lengthws { get; set; } = 1;
+        public string Thursday { get; set; } 
+        
         [BindProperty]
-        public double Widthws { get; set; } = 1;
+        public string Friday { get; set; } 
+        
         [BindProperty]
-        public int Id {get; set;}
+        public string Saturday { get; set; } 
+        [BindProperty]
+        public string Sunday { get; set; } 
     }
 }

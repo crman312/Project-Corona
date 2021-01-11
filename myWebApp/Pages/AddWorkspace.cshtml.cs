@@ -36,7 +36,7 @@ namespace myWebApp.Pages
             CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters, availworkspaces);
         }
 
-        public int AvailableWorkspaces(int SquareMeters, int x, int y)
+        public int AvailableWorkspaces(int SquareMeters, double x, double y)
         {
             double X = 1.5 + x;
             double Y = 1.5 + y;

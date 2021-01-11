@@ -18,40 +18,21 @@ namespace myWebApp.Pages
     public class AdminModel : PageModel
     {
 
-        private readonly IWebHostEnvironment _he;
-
-        public AdminModel(IWebHostEnvironment he)
+        private readonly ILogger<AdminModel> _logger;
+        public AdminModel(ILogger<AdminModel> logger)
         {
-            _he = he;
+            _logger = logger;
         }
-
-        [BindProperty]
-        public IFormFile Upload { get; set; }
-
-        [BindProperty]
-        public IFormFile UploadedFile { get; set; }
 
         public void OnGet()
         {
         }
-        
-    
-
-        private readonly ILogger<AdminModel> _logger;
-
-        
-
-        
-
 
         public void  OnPostSubmit(NotificationModel notif)
         {
             DateTime datenow = DateTime.Now;
             CreateNotification(datenow, notif.Bericht);
-        
         }
-
-
         public void CreateNotification(DateTime convdayid, string Bericht) 
         {
             var cs = Database.Database.Connector();
@@ -71,41 +52,6 @@ namespace myWebApp.Pages
 
             cmd.ExecuteNonQuery();
             con.Close(); 
-        }
-
-            
-        
-
-
-        public async Task OnPostAsync()
-        {
-            var file = @"wwwroot/Images/logo" + UploadedFile.FileName;
-            using (var fileStream = new FileStream(file, FileMode.Create))
-            {
-                await UploadedFile.CopyToAsync(fileStream);
-            }
-        }
-
-        public void OnPostUpload()
-        {
-            UploadLogo(UploadedFile);
-        }
-
-        public void UploadLogo(IFormFile file)
-        {
-
-            var cs = Database.Database.Connector();
-
-            using var con = new NpgsqlConnection(cs);
-            con.Open();
-            var sql = "INSERT INTO logo(file) VALUES(@file)";
-            using var cmd = new NpgsqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("file", file);
-    
-            cmd.Prepare();
-
-            cmd.ExecuteNonQuery();
-            con.Close();  
         }
     }
 }

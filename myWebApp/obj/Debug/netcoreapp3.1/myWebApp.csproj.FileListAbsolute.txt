@@ -449,3 +449,5 @@ C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\
 C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.RazorTargetAssemblyInfo.cs
 C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.Views.pdb
 C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\myWebApp.csproj.CopyComplete
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\Razor\Pages\ChangeName.cshtml.g.cs
+C:\Users\wouts\Documents\Github\Project-Corona\myWebApp\obj\Debug\netcoreapp3.1\Razor\Pages\OpeningHours.cshtml.g.cs

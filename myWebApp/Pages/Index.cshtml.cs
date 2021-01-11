@@ -26,8 +26,10 @@ namespace myWebApp.Pages
         [BindProperty]
         public string userEmail {get; set;}
 
+        public string CompanyName {get; set;}
         public void OnGet()
         {
+            CompanyName = ChangeNameModel.GetCompanyName();
         }
 
         public string Info { get; set; }

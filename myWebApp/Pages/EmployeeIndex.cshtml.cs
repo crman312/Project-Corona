@@ -35,20 +35,70 @@ namespace myWebApp.Pages
         public string Info { get; set; }
         public string userEmail {get; set;}
     
+        
+        public string Monday {get; set;}
+        public string Tuesday {get; set;}
+        public string Wednesday {get; set;}
+        public string Thursday {get; set;}
+        public string Friday {get; set;}
+        public string Saturday {get; set;}
+        public string Sunday {get; set;}
         public void OnGet()
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
-            
-            
-        
+            bool Check = OpeningHoursModel.CheckIfExist();
+            if(Check)
+            {
+                Tuple<string, string, string, string, string, string, string> hours = OpeningHoursModel.GetOpeningHours();
+                Monday = hours.Item1;
+                Tuesday = hours.Item2;
+                Wednesday = hours.Item3;
+                Thursday = hours.Item4;
+                Friday = hours.Item5;
+                Saturday = hours.Item6;
+                Sunday = hours.Item7;
+            }
+            else
+            {
+                Monday = "Closed";
+                Tuesday = "Closed";
+                Wednesday = "Closed";
+                Thursday = "Closed";
+                Friday = "Closed";
+                Saturday = "Closed";
+                Sunday = "Closed";
+            }
         } 
         public void  OnPostSubmit(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            bool Check = OpeningHoursModel.CheckIfExist();
+            if(Check)
+            {
+                Tuple<string, string, string, string, string, string, string> hours = OpeningHoursModel.GetOpeningHours();
+                Monday = hours.Item1;
+                Tuesday = hours.Item2;
+                Wednesday = hours.Item3;
+                Thursday = hours.Item4;
+                Friday = hours.Item5;
+                Saturday = hours.Item6;
+                Sunday = hours.Item7;
+            }
+            
+            else
+            {
+                Monday = "Closed";
+                Tuesday = "Closed";
+                Wednesday = "Closed";
+                Thursday = "Closed";
+                Friday = "Closed";
+                Saturday = "Closed";
+                Sunday = "Closed";
+            }
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             
             bool check = prioCheck(reservation);
@@ -101,15 +151,17 @@ namespace myWebApp.Pages
 
         public bool prioCheck(ReservationModel reservation)
           {
-          int med = 7;
-          int low = 2;
-          bool check = PrioritiesModel.CheckIfExist();
-          if(check)
-          {
-          Tuple<int, int, int> getprio = PrioritiesModel.GetPriorities();
-          med = getprio.Item2;
-          low = getprio.Item3;
-          }
+            int med = 7;
+            int low = 2;
+            int high = 0;
+            bool check = PrioritiesModel.CheckIfExist();
+            if(check)
+            {
+                Tuple<int, int, int> getprio = PrioritiesModel.GetPriorities();
+                med = getprio.Item2;
+                low = getprio.Item3;
+                high = getprio.Item1;
+            }
 
           DateTime convdayid = Convert.ToDateTime(reservation.Date);
           userEmail = HttpContext.Session.GetString("useremail");
@@ -152,6 +204,12 @@ namespace myWebApp.Pages
             }
             else // high priority kan altijd reserveren
             {
+              if(high != 0)
+              {
+                DateTime newdt = convdayid.AddDays(-(high));
+                if(newdt <= DateTime.Now){return true;}
+                else{return false;}
+              }
               return true;
             }
           }
@@ -166,6 +224,29 @@ namespace myWebApp.Pages
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             DeleteReservation(convdayid, reservation.Location);
+            bool Check = OpeningHoursModel.CheckIfExist();
+            if(Check)
+            {
+                Tuple<string, string, string, string, string, string, string> hours = OpeningHoursModel.GetOpeningHours();
+                Monday = hours.Item1;
+                Tuesday = hours.Item2;
+                Wednesday = hours.Item3;
+                Thursday = hours.Item4;
+                Friday = hours.Item5;
+                Saturday = hours.Item6;
+                Sunday = hours.Item7;
+            }
+            
+            else
+            {
+                Monday = "Closed";
+                Tuesday = "Closed";
+                Wednesday = "Closed";
+                Thursday = "Closed";
+                Friday = "Closed";
+                Saturday = "Closed";
+                Sunday = "Closed";
+            }
         }
 
         public void DeleteReservation(DateTime convdayid, string Location)
