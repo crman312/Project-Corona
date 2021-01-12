@@ -8,11 +8,70 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
 
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-3 bg-light menuheight">
+            <h4 class="text-left font-weight-bolder mt-4">Welcome Admin</h4>
+            <div class="row">
+                <div class="mt-5 w-100"></div>
+                <div class="col-9">
+                    <h5 class="font-italic text-left">Menu</h5>
+                    <div class="w-100">
+                        <a asp-page="/Admin">Home</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Locations</h5>
+                    <div class="w-100">
+                        <a asp-page="/AddWorkspace">Add workspace</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteWorkspace">Delete workspace</a>
+                    </div>
 
+                    <h5 class="font-italic text-left mt-3">Employees</h5>
 
-<div class="container">
+                    <div class="w-100">
+                        <a asp-page="/AddEmployee">Add employee</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteEmployee">Delete employee</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Reservations</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/AddReservation">Add reservation</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a class="nav-link disabled" asp-page="/DeleteReservations">Delete reservation</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Settings</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/ChangeName">Company Name</a>    
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/OpeningHours">Opening hours</a>    
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/Priorities">Edit Priorities</a>
+                    </div>
+                </div>
+            </div>
             
-                    <div class="card mt-5">
+            <hr>
+            <a class="position-absolute" style="bottom: 15px;" asp-page="/Index">Logout</a>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="pl-5 col-8">
+                    <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Send General Message</h4>
                         <form action="" method="post">
@@ -33,15 +92,8 @@
                         </form>
                        
                         </article>
-                    </div>
-        
-</div>
 
-
-<div class="container">
-            
-            
-                    <div class="card mt-5">
+                         <div class="card mt-2">
                         <article class="card-body">
                         <h4 class="card-title mb-4 mt-1">Send Warning Update for new COVID-case</h4>
                         <form action="" method="post">
@@ -104,7 +156,7 @@
                                         <div class="form-group">                                          
                                             <button type="submit" id="sendButton"  asp-page-handler="Submit" class="btn btn-dark btn-lg">Send</button>
                                         </div>
-                                        @Model.Info
+                                        @Model.Info2
                                 </tr> 
                                 
                                 
@@ -114,5 +166,13 @@
                        
                         </article>
                     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 </div>
 
+
+
+                    

@@ -30,6 +30,7 @@ namespace myWebApp.Pages
         public List<WorkspaceModel> rooms {get; set;}
 
         public string Info {get; set;}
+        public string Info2 {get; set;}
 
         public void OnGet()
         {
@@ -131,7 +132,7 @@ namespace myWebApp.Pages
             rooms = ShowRoom();
             DateTime datenow = DateTime.Now;
             CreateNotification(datenow, res.Location, res.Room);
-            Info = "Message sent!";
+            Info2 = "Message sent!";
             
         }
 
