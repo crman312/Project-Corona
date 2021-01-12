@@ -29,6 +29,8 @@ namespace myWebApp.Pages
         [BindProperty]
         public List<WorkspaceModel> rooms {get; set;}
 
+        public string Info {get; set;}
+
         public void OnGet()
         {
             locations = PopulateReservations();
@@ -129,6 +131,7 @@ namespace myWebApp.Pages
             rooms = ShowRoom();
             DateTime datenow = DateTime.Now;
             CreateNotification(datenow, res.Location, res.Room);
+            Info = "Message sent!";
             
         }
 
@@ -139,6 +142,7 @@ namespace myWebApp.Pages
             rooms = ShowRoom();
             DateTime datenow = DateTime.Now;
             CreateNotification2(datenow, not.Bericht);
+            Info = "Message sent!";
 
         }
         public void CreateCount(string Bericht) {

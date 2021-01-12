@@ -102,7 +102,31 @@
                                         }
                                     </select>                                       
                                 </div>                        
-                                @Html.AntiForgeryToken()
+                                <form>
+                                            @Html.AntiForgeryToken()
+                                        </form>
+                                        @section scripts{ 
+                                            <script>
+                                                $('#locations').on('change', function () {
+                                                    var arr = [];
+                                                $.ajax({
+                                                            type: "POST",
+                                                    url: '?handler=ShowRoom',
+                                                    headers: {
+                                                        RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                                                    },
+                                                    data: { "loc": $("#locations").val() },
+                                                    dataType:"json"
+                                                }).done(function (data) {
+                                                    $("#rooms").empty();
+                                                    $.each(data, function (i, item) {
+                                                        $("#rooms").append('<option> ' + item["roomName"] + ' </option>');
+                                                    });
+                                                
+                                                });
+                                            });
+                                            </script>
+                                        }
                                 <div class="form group">
                                     <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
                                     @Model.Info
@@ -185,25 +209,3 @@
 
 
 
-@section scripts{ 
-    <script>
-        $('#locations').on('change', function () {
-            var arr = [];
-        $.ajax({
-                    type: "POST",
-            url: '?handler=ShowRoom',
-            headers: {
-                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
-            },
-            data: { "loc": $("#locations").val() },
-            dataType:"json"
-        }).done(function (data) {
-            $("#rooms").empty();
-            $.each(data, function (i, item) {
-                $("#rooms").append('<option> ' + item["roomName"] + ' </option>');
-            });
-           
-        });
-    });
-    </script>
-}
