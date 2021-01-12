@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
-
 namespace myWebApp.Models
 {
     public class CompanyNameModel

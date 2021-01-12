@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using myWebApp.Hubs;
 using myWebApp.Controllers;
 using myWebApp.Database;
 using myWebApp.Models;
@@ -63,26 +62,5 @@ namespace myWebApp.Pages
             }
             return not;
         }
-        private void PostgresNotificationReceived(object sender, NpgsqlNotificationEventArgs e)
-        {
-
-            string actionName = e.Payload.ToString();
-            string actionType = "";
-            if (actionName.Contains("DELETE"))
-            {
-                actionType = "Delete";
-            }
-            if (actionName.Contains("UPDATE"))
-            {
-                actionType = "Update";
-            }
-            if (actionName.Contains("INSERT"))
-            {
-                actionType = "Insert";
-            }
-            
-        }
-
-       
     }
 }

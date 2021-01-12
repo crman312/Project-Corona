@@ -13,27 +13,21 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-
-
 namespace myWebApp.Pages
 {
     public class ChangeNameModel : PageModel
     {
-
         private readonly ILogger<ChangeNameModel> _logger;
-
         public ChangeNameModel(ILogger<ChangeNameModel> logger)
         {
             _logger = logger;
         }
 
         public string CompanyName {get; set;}
-
         public void OnGet()
         {
             CompanyName = GetCompanyName();
         }
-
         public static string GetCompanyName()
         {
             bool check = CheckIfExist();
@@ -51,15 +45,11 @@ namespace myWebApp.Pages
         public static string GetName()
         {
             string companyname = "";
-
             var cs = Database.Database.Connector();
-
             using var con = new NpgsqlConnection(cs);
             con.Open();
-
             var sql = "SELECT * FROM setting";
             using var cmd = new NpgsqlCommand(sql, con);
-
             NpgsqlDataReader dRead = cmd.ExecuteReader();
             
             while (dRead.Read())
@@ -96,36 +86,28 @@ namespace myWebApp.Pages
         public void UpdateName(string Company_name, int Id)
         {
             var cs = Database.Database.Connector();
-
             using var con = new NpgsqlConnection(cs);
             con.Open();
-
             var sql = "UPDATE setting SET company_name = @Company_name WHERE id = @Id";
             using var cmd = new NpgsqlCommand(sql, con);
             
             cmd.Parameters.Add(new NpgsqlParameter("@company_name", Company_name));
             cmd.Parameters.Add(new NpgsqlParameter("@id", Id));
-
             cmd.ExecuteNonQuery();
             cmd.Dispose();  
-
             con.Close();
         }
 
         public void CreateName(string Company_name, int Id)
         {
             var cs = Database.Database.Connector();
-
             using var con = new NpgsqlConnection(cs);
             con.Open();
-
             var sql = "INSERT INTO setting(company_name, id) VALUES(@Company_name, @Id)";
             using var cmd = new NpgsqlCommand(sql, con);
             cmd.Parameters.AddWithValue("company_name", Company_name);
             cmd.Parameters.AddWithValue("id", Id);
-
             cmd.Prepare();
-
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -133,13 +115,10 @@ namespace myWebApp.Pages
         public static bool CheckIfExist()
         {
             var cs = Database.Database.Connector();
-
             using var con = new NpgsqlConnection(cs);
             con.Open();
-
             var sql = "SELECT * FROM setting";
             using var cmd = new NpgsqlCommand(sql, con);
-
             NpgsqlDataReader dRead = cmd.ExecuteReader();
             
             while (dRead.Read())

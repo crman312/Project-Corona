@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
-
 namespace myWebApp.Models
 {
     public class OpeningModel
@@ -30,7 +29,6 @@ namespace myWebApp.Models
         
         [BindProperty]
         public string Saturday { get; set; } 
-
         [BindProperty]
         public string Sunday { get; set; } 
     }
