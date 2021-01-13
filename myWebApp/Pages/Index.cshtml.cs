@@ -38,6 +38,7 @@ namespace myWebApp.Pages
 
         public IActionResult OnPostSubmit(LoginModel login)
         {
+            CompanyName = ChangeNameModel.GetCompanyName();
             string encryptedpassword = AddEmployeeModel.sha256_hash(login.Password);
             Tuple<bool, int> log = LoginCheck(login.Email, encryptedpassword);
             
