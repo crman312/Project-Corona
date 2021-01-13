@@ -491,7 +491,7 @@ namespace myWebApp.Pages
             List<ReservationModel> res = new List<ReservationModel>();
             using var con = new NpgsqlConnection(cs);
             {
-                string query = "Select date, res_location FROM reservations WHERE res_email = '"+ userEmail+"'";
+                string query = "Select date, res_location, res_room FROM reservations WHERE res_email = '"+ userEmail+"'";
                 using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
                 {
                     cmd.Connection = con;
@@ -501,7 +501,7 @@ namespace myWebApp.Pages
                         
                         while (dr.Read())
                         {
-                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("yyyy/MM/dd"), Location = dr["res_location"].ToString() });
+                            res.Add(new ReservationModel { Date = ((DateTime) dr["date"]).ToString("yyyy/MM/dd"), Location = dr["res_location"].ToString(), Room = dr["res_room"].ToString() });
                         }
                     }
                     
