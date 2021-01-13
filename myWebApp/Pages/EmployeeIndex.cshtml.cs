@@ -110,7 +110,8 @@ namespace myWebApp.Pages
             bool check1 = CheckReservation(convdayid, userEmail);
             bool check2 = CheckRoomAvailability(reservation);
             bool check3 = CheckRoomOpen(convdayid);
-            if(check && check1 && check2 && check3){
+            bool check4 = OpeningHoursModel.CheckIfExist();
+            if(check && check1 && check2 && check3 && check4){
               CreateReservation(convdayid, reservation.Room, userEmail, reservation.Location);
               this.Info = string.Format("Reservation successfully saved");
             }
@@ -124,7 +125,7 @@ namespace myWebApp.Pages
               if(!check2){
                 this.Info = string.Format("The room you tried to reserve is full!");
               }
-              if(!check3) {
+              if(!check3 || check4) {
                 this.Info = string.Format("This location is closed on this day, try another day");
               }
             }
