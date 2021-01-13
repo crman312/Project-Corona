@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 
 namespace myWebApp.Pages
@@ -23,8 +25,12 @@ namespace myWebApp.Pages
         }
 
         public string Info { get; set; }
+        public string userEmail { get; set; }
         
-        public void OnGet(){}
+        public void OnGet()
+        {
+            userEmail = HttpContext.Session.GetString("useremail");
+        }
 
         public List<Employee> ShowEmployees()
         {
@@ -51,7 +57,9 @@ namespace myWebApp.Pages
             return EmployeeNames;
         }
 
-        public void OnPostSubmit(EmployeeModel employee){
+        public void OnPostSubmit(EmployeeModel employee)
+        {
+            userEmail = HttpContext.Session.GetString("useremail");
             DeleteEmployee(employee.Email);
         }
 

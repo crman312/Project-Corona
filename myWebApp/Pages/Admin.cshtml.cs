@@ -24,12 +24,16 @@ namespace myWebApp.Pages
             _logger = logger;
         }
 
+        public string userEmail { get; set; }
+
         public void OnGet()
         {
+            userEmail = HttpContext.Session.GetString("useremail");
         }
 
         public void  OnPostSubmit(NotificationModel notif)
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             DateTime datenow = DateTime.Now;
             CreateNotification(datenow, notif.Bericht);
         }
@@ -40,14 +44,11 @@ namespace myWebApp.Pages
             using var con = new NpgsqlConnection(cs);
             con.Open();
 
-
             var sql = "INSERT INTO notification(bericht, datumnu) VALUES(@Msg, @Date)";
             using var cmd = new NpgsqlCommand(sql, con);
             cmd.Parameters.AddWithValue("Msg", Bericht);
             cmd.Parameters.AddWithValue("Date", convdayid);
             
-            
-
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();

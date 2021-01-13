@@ -377,7 +377,6 @@ namespace myWebApp.Pages
 
         public void DeleteReservation(DateTime convdayid, string Location)
         {
-            
             var cs = Database.Database.Connector();
             using var con = new NpgsqlConnection(cs);
             con.Open();

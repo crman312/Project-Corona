@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 
 namespace myWebApp.Pages
@@ -22,13 +24,17 @@ namespace myWebApp.Pages
         }
 
         public string Info { get; set; }
+        public string userEmail { get; set; }
+
  
         public void OnGet()
         {
+            userEmail = HttpContext.Session.GetString("useremail");
         }
  
         public void OnPostSubmit(WorkspaceModel workspace)
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             bool Check = LocationRoomCheck(workspace.LocationName, workspace.RoomName);
             if(Check == true)
             {

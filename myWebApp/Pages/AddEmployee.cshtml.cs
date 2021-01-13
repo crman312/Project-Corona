@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using myWebApp.Database;
 using myWebApp.Models;
 using Npgsql;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 
 namespace myWebApp.Pages
@@ -24,14 +26,19 @@ namespace myWebApp.Pages
         }
 
         public string Info { get; set; }
+        public string userEmail { get; set; }
+
  
         public void OnGet()
         {
+            userEmail = HttpContext.Session.GetString("useremail");
         }
  
         public void OnPostSubmit(EmployeeModel employee)
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             bool Check = EmailCheck(employee.Email);
+            string functie = employee.Function.ToLower();
             if(Check == true)
             {
                 this.Info = string.Format("ERROR The specified email already exists");
@@ -40,7 +47,7 @@ namespace myWebApp.Pages
             {
                 this.Info = string.Format("Successfully saved, {0}", employee.Name);
                 string emPassword = sha256_hash(employee.Password);
-                CreateEmployee(employee.Name, employee.Email, emPassword, employee.Function, employee.Priority);
+                CreateEmployee(employee.Name, employee.Email, emPassword, functie, employee.Priority);
             }
         }
 

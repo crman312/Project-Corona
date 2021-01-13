@@ -20,14 +20,18 @@ namespace myWebApp.Pages
     {
       _logger = logger;
     }
+    public string userEmail { get; set; }
+
     public void OnGet()
     {
+        userEmail = HttpContext.Session.GetString("useremail");
     }
     public string Info { get; set; }
 
 
     public void OnPostSubmit(OpeningModel hours)
     {
+        userEmail = HttpContext.Session.GetString("useremail");
         bool check = CheckIfExist();        
         int id = 1;
         if(check == false)

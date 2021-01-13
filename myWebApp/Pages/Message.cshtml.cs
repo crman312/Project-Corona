@@ -31,16 +31,19 @@ namespace myWebApp.Pages
 
         public string Info {get; set;}
         public string Info2 {get; set;}
+        public string userEmail { get; set; }
+
 
         public void OnGet()
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
-
         }
 
         public IActionResult OnPostShowRoom(string loc)
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             List<WorkspaceModel> l= new List<WorkspaceModel>();
             var cs = Database.Database.Connector();
             using var con = new NpgsqlConnection(cs);
@@ -61,13 +64,7 @@ namespace myWebApp.Pages
                     con.Close();
                 }
             }
-
-
-
-
-
             return new JsonResult(l);
-
         }   
 
         
@@ -93,8 +90,6 @@ namespace myWebApp.Pages
                     con.Close();
                 }
             }
-
-
             return res;
         }
 
@@ -116,18 +111,16 @@ namespace myWebApp.Pages
                             res.Add(new WorkspaceModel { RoomName = dr["room"].ToString() });
                         }
                     }
-                    
                     con.Close();
                 }
             }
-
-
             return res;
         }
 
 
         public void  OnPostSubmit(ReservationModel res)
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
             DateTime datenow = DateTime.Now;
@@ -201,8 +194,6 @@ namespace myWebApp.Pages
             using var cmd = new NpgsqlCommand(sql, con);
             cmd.Parameters.AddWithValue("Msg", Bericht);
             cmd.Parameters.AddWithValue("Date", convdayid);
-            
-            
 
             cmd.Prepare();
 
@@ -210,8 +201,5 @@ namespace myWebApp.Pages
             con.Close(); 
             CreateCount(Bericht);
         }
-
-    
-
     }
 }
