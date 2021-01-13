@@ -29,11 +29,41 @@ namespace myWebApp.Pages
  
         public void OnPostSubmit(WorkspaceModel workspace)
         {
-            int availworkspaces = AvailableWorkspaces(workspace.SquareMeters, workspace.Lengthws, workspace.Widthws);
+            bool Check = LocationRoomCheck(workspace.LocationName, workspace.RoomName);
+            if(Check == true)
+            {
+                this.Info = string.Format("ERROR The specified room already exists in {0}" , workspace.LocationName);
+            }
+            if(Check == false)
+            {
+                int availworkspaces = AvailableWorkspaces(workspace.SquareMeters, workspace.Lengthws, workspace.Widthws);
 
-            this.Info = string.Format("Successfully saved, {0} people can work in this room", availworkspaces);
+                this.Info = string.Format("Successfully saved, {0} people can work in this room", availworkspaces);
 
-            CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters, availworkspaces);
+                CreateWorkspace(workspace.LocationName, workspace.RoomName, workspace.SquareMeters, availworkspaces);
+            }
+        }
+
+        public bool LocationRoomCheck(string location, string room)
+        {
+            var cs = Database.Database.Connector();
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+            var sql = "SELECT * FROM workspaces";
+            using var cmd = new NpgsqlCommand(sql, con);
+            NpgsqlDataReader dRead = cmd.ExecuteReader();
+            
+            while (dRead.Read())
+            {
+                for(int i = 0; i < dRead.FieldCount; i++)
+                {
+                    if(dRead[0].ToString() == location && dRead[1].ToString() == room)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public int AvailableWorkspaces(int SquareMeters, double x, double y)
