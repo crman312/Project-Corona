@@ -17,8 +17,5 @@ namespace myWebApp.Database
             string cs = "Host=localhost;Username=postgres;Password=admin;Database=Corona kantoor app";
             return cs;
         }
-
-
     }
-
 }

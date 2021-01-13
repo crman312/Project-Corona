@@ -127,7 +127,7 @@ namespace myWebApp.Pages
               if(!check2){
                 this.Info = string.Format("The room you tried to reserve is full!");
               }
-              if(!check3 || check4) {
+              if(!check3 || !check4) {
                 this.Info = string.Format("This location is closed on this day, try another day");
               }
             }
