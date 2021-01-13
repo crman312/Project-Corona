@@ -34,6 +34,10 @@
                         <a asp-page="/DeleteEmployee">Delete employee</a>
                     </div>
 
+                    <div class="w-100">
+                        <a asp-page="/Message">Send general message</a>
+                    </div>
+
                     <h5 class="font-italic text-left mt-3">Reservations</h5>
                     <div class="w-100">
                         <a class="nav-link disabled" asp-page="/AddReservation">Add reservation</a>
@@ -55,10 +59,11 @@
                     <div class="w-100">
                         <a asp-page="/Priorities">Edit Priorities</a>
                     </div>
+
+                    <hr>
+                    <a class="mb-3 mt-5" asp-page="/Index">Logout</a>
                 </div>
             </div>
-            <hr>
-            <a class="position-absolute" style="bottom: 15px;" asp-page="/Index">Logout</a>
         </div>
 
         <div class="col">

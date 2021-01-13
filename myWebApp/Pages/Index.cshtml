@@ -16,10 +16,8 @@
             </div> <!-- form-group// -->
             
             <div class="form-group">
-                <a class="float-right" href="#">Forgot?</a>
                 <label>Your password</label>
                 <input class="form-control" placeholder="Password" id="txtPassword" name="Password" type="password" required>
-            
             <div class="form-group">
                 <button type="submit" id="submitBtn" value="Submit" asp-page-handler="Submit" class="btn btn-dark mt-5 btn-lg" onclick="myFunction()">Login</button>
             </div> <!-- form-group// -->
@@ -28,15 +26,3 @@
         </article>
     </div> <!-- card.// -->
 </div>
-
-<script>
-var button = document.getElementById("submitBtn");
-var attempts = 0;
-function pasuser(form) {
-    attempts++;
-    button.style.display = attempts === 3 ? "none" : "block";
-    
-  
-}
-    
-</script>

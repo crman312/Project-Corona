@@ -30,8 +30,15 @@ namespace myWebApp.Pages
         public NotificationsModel(ILogger<NotificationsModel> logger)
         {
             _logger = logger;
-            
         }
+
+        public string userEmail {get; set;}
+
+        public void OnGet()
+        {
+            userEmail = HttpContext.Session.GetString("useremail");
+        }
+
 
 
         public List<NotificationModel> ShowNotification()

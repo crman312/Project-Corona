@@ -45,7 +45,6 @@
                         <fieldset>
                             <tr>
                                 <td>Date</td>
-                                
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker1' name="Date">
                                             <input type='date' class="form-control" name="Date" required/>
@@ -57,25 +56,18 @@
                                 <td>Select location</td>
                                     <div class="form-group">
                                         <select id="locations" name="Location">
-
-                                            <option>---</option>
                                             @foreach(var reservations in @Model.locations)
                                             {                                        
                                                 <option>@Html.DisplayFor(m => reservations.LocationName)</option>
-                                                
-
                                             }
                                         </select>                                       
                                     </div>
                                 <td>Select Room</td>
                                     <div class="form-group">
                                         <select id="rooms" name="Room">
-                                            <option>---</option>
                                             @foreach(var reservations in @Model.rooms)
-
                                             {
                                                <option>@Html.DisplayFor(m => reservations.RoomName)</option>
-                                                 
                                             }
                                         </select>                                       
                                     </div>
