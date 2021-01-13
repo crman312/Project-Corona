@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Opening Hours";
 }
-
 <div class="container-fluid">
     <div class="row h-100">
         <div class="col-3 bg-light menuheight">
@@ -25,19 +24,17 @@
                     <div class="w-100">
                         <a asp-page="/DeleteWorkspace">Delete workspace</a>
                     </div>
-
                     <h5 class="font-italic text-left mt-3">Employees</h5>
-
                     <div class="w-100">
                         <a asp-page="/AddEmployee">Add employee</a>
                     </div>
+                    
                     
                     <div class="w-100">
                         <a asp-page="/DeleteEmployee">Delete employee</a>
                     </div>
                     
                     <h5 class="font-italic text-left mt-3">Reservations</h5>
-
                     <div class="w-100">
                         <a asp-page="/AddReservation">Add reservation</a>
                     </div>
@@ -47,7 +44,6 @@
                     </div>
                     
                     <h5 class="font-italic text-left mt-3">Settings</h5>
-
                     <div class="w-100">
                         <a asp-page="/ChangeName">Company Name</a>    
                     </div>
@@ -65,7 +61,6 @@
             <hr>
             <a class="position-absolute" style="bottom: 15px;" asp-page="/Index">Logout</a>
         </div>
-
         <div class="col">
             <div class="row">
                 <div class="pl-5 col-8">
@@ -78,32 +73,28 @@
                                     <label>Monday</label>
                                     <input id="txtMonday" placeholder="09:00-17:00" name="Monday" class="form-control" type="text" required>
                                 </div> <!-- form-group// -->
-
                                 <div class="form-group">
                                     <label>Tuesday</label>
                                     <input id="txtTuesday" name="Tuesday" placeholder="09:00-17:00" class="form-control" type="text" required>
                                 </div> <!-- form-group// -->
 
+                                
                                 <div class="form-group">
                                     <label>Wednesday</label>
                                     <input id="txtWednesday" name="Wednesday" placeholder="09:00-17:00" class="form-control" type="text" required>
                                 </div> <!-- form-group// -->
-
                                 <div class="form-group">
                                     <label>Thursday</label>
                                     <input id="txtThursday" name="Thursday" placeholder="09:00-17:00" class="form-control" type="text" required>
                                 </div> <!-- form-group// -->
-
                                  <div class="form-group">
                                     <label>Friday</label>
                                     <input id="txtFriday" name="Friday" placeholder="09:00-17:00" class="form-control" type="text" required>
                                 </div> <!-- form-group// -->
-
                                 <div class="form-group">
                                     <label>Saturday</label>
                                     <input id="txtSaturday" name="Saturday" placeholder="Closed" class="form-control" type="text" required>
                                 </div> <!-- form-group// -->
-
                                 <div class="form-group">
                                     <label>Sunday</label>
                                     <input id="txtSunday" name="Sunday" placeholder="Closed" class="form-control" type="text" required>
@@ -121,4 +112,3 @@
         </div>
   </div>
 </div>
-

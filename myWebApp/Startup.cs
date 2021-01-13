@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 
-
 namespace myWebApp
 {
     public class Startup
@@ -30,7 +29,6 @@ namespace myWebApp
             services.AddSession();
             
             services.AddControllersWithViews();
-           
             services.AddMemoryCache();
             
         }
@@ -63,7 +61,6 @@ namespace myWebApp
             });
             app.UseCookiePolicy();
 
-            
         }
     }
 }

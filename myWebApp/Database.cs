@@ -11,10 +11,14 @@ namespace myWebApp.Database
 {
     public class Database
     {
+
         public static string Connector()
         {
-            string cs = "Host=localhost;Username=postgres;Password=123456;Database=Corona kantoor app";
+            string cs = "Host=localhost;Username=postgres;Password=Wout0509;Database=Corona kantoor app";
             return cs;
         }
+
+
     }
+
 }
