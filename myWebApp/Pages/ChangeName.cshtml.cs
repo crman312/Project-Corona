@@ -24,9 +24,12 @@ namespace myWebApp.Pages
         }
 
         public string CompanyName {get; set;}
+        public string userEmail { get; set; }
+
         public void OnGet()
         {
             CompanyName = GetCompanyName();
+            userEmail = HttpContext.Session.GetString("useremail");
         }
         public static string GetCompanyName()
         {
@@ -69,6 +72,7 @@ namespace myWebApp.Pages
         
         public void OnPostSubmit(CompanyNameModel company)
         {
+            userEmail = HttpContext.Session.GetString("useremail");
             bool check = CheckIfExist();
             int id = 1;
             if(check == false)

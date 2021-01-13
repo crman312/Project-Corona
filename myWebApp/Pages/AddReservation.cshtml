@@ -166,8 +166,24 @@
                                         </select>                                       
                                     </div>
                                     <form>
-@Html.AntiForgeryToken()
-</form>
+                                        @Html.AntiForgeryToken()
+                                    </form>
+
+                                    <div class="form-group">
+                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Submit</button>
+                                    </div> <!-- form-group// -->  
+
+                                    @Model.Info  
+                                </fieldset>
+                            </form>
+                        </article>
+                    </div> <!-- card.// -->
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+
 @section scripts{ 
     <script>
         $('#locations').on('change', function () {
@@ -190,17 +206,3 @@
     });
     </script>
 }
-                                    <div class="form-group">
-                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg">Submit</button>
-                                    </div> <!-- form-group// -->  
-
-                                    @Model.Info  
-                                </fieldset>
-                            </form>
-                        </article>
-                    </div> <!-- card.// -->
-                </div>
-            </div>
-        </div>
-  </div>
-</div>
