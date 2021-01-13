@@ -14,48 +14,8 @@
 
 <script src="~/Scripts/jquery-2.2.3.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-<script src="/signalr/hubs"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
-
-<script src="~/lib/signalr.js"></script>
-
-<script type="text/javascript">
-// Start the connection.
-var connection = new signalR.HubConnectionBuilder()
-    .withUrl('/speedalarmhub')
-    .build();
-
-
-    connection.on('ReceiveMessage', function (message) {
-                
-                var encodedMsg = message;
-                
-                // Add the message to the page.
-                
-                document.getElementById("output").innerHTML = encodedMsg;
-                
-                
-
-    });
-    // Transport fallback functionality is now built into start.
-    connection.start()
-        .then(function () {
-
-            console.log('connection started');
-            connection.invoke('SendMessage');
-        })
-        .catch(error => {
-            console.error(error.message);
-        });
-</script>
-
-<div class=container>
-    <div class="alert alert-warning">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <p id="output"></p>
-    </div>
-</div>
 
 
 
@@ -67,29 +27,25 @@ var connection = new signalR.HubConnectionBuilder()
                 <div class="mt-5 w-100"></div>
                 <div class="col-9">
 
-                    <a asp-page="/Notifications"><h5 class="font-italic text-left">Notifications </h5></a>
+                    <a asp-page-handler="RemoveCount" ><h5 class="font-italic text-left">Notifications </h5></a>
                 </div>
                 <div class="col">
-                    <span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>
-                    <div class="noti-content">
-                        <div class="noti-top-arrow"></div>
-                        <ul id="notiContent"></ul>
-                    </div>
                 </div>
-            </div>            
-            <hr>
-            <div class="mt-5 w-100"></div>
+                <div class="col">
+                    <div class="circle">@Model.Count</div>
+                </div>
+            </div>    
             <a class="" asp-area="" asp-page="/Index">Logout</a>
         </div>
         <div class="col">
             <div class="row">
                 <div class="pl-5 col-4 border-right">
                     <h4 class="font-weight-bolder pb-5"> <img class="img-fluid" src="/Images/Signup.png"/> Sign up</h4>
-                    <form action="" method="post">
+                    @Model.Priodays
+                    <form class="mt-3" action="" method="post">
                         <fieldset>
                             <tr>
                                 <td>Date</td>
-                                
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker1' name="Date">
                                             <input type='date' class="form-control" name="Date" required/>
@@ -99,62 +55,31 @@ var connection = new signalR.HubConnectionBuilder()
                                         </div>
                                     </div>
                                 <td>Select location</td>
-                                    <div class="form-group">
-                                        <select id="locations" name="Location">
-
-                                            <option>---</option>
-                                            @foreach(var reservations in @Model.locations)
-                                            {                                        
-                                                <option>@Html.DisplayFor(m => reservations.LocationName)</option>
-                                                
-
-                                            }
-                                        </select>                                       
-                                    </div>
+                                <div class="form-group">
+                                    <select id="locations" name="Location">
+                                        @foreach(var reservations in @Model.locations)
+                                        {                                        
+                                            <option>@Html.DisplayFor(m => reservations.LocationName)</option>
+                                        }
+                                    </select>                                       
+                                </div>
                                 <td>Select Room</td>
-                                    <div class="form-group">
-                                        <select id="rooms" name="Room">
-                                            <option>---</option>
-                                            @foreach(var reservations in @Model.rooms)
-
-                                            {
-                                               <option>@Html.DisplayFor(m => reservations.RoomName)</option>
-                                                 
-                                            }
-                                        </select>                                       
-                                    </div>
-
-                                    <form>
-@Html.AntiForgeryToken()
-</form>
-@section scripts{ 
-    <script>
-        $('#locations').on('change', function () {
-            var arr = [];
-        $.ajax({
-                    type: "POST",
-            url: '?handler=ShowRoom',
-            headers: {
-                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
-            },
-            data: { "loc": $("#locations").val() },
-            dataType:"json"
-        }).done(function (data) {
-            $("#rooms").empty();
-            $.each(data, function (i, item) {
-                $("#rooms").append('<option> ' + item["roomName"] + ' </option>');
-            });
-           
-        });
-    });
-    </script>
-}
-                                   
-
-                                    <div class="form group">
-                                        <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
-                                    </div>
+                                <div class="form-group">
+                                    <select id="rooms" name="Room">
+                                        @foreach(var reservations in @Model.rooms)
+                                        {
+                                            <option>@Html.DisplayFor(m => reservations.RoomName)</option>
+                                        }
+                                    </select>                                       
+                                </div>
                             </tr>
+
+                            <form>
+                                @Html.AntiForgeryToken()
+                            </form>
+                            <div class="form group">
+                                <button type="submit" value="Submit" asp-page-handler="Submit" class="btn btn-dark btn-lg"> Submit</button>
+                            </div>
                         </fieldset>
                         @Model.Info
                     </form>
@@ -183,7 +108,7 @@ var connection = new signalR.HubConnectionBuilder()
                                             <input type="hidden" name="Roon" value="@Html.DisplayFor(m => reservations.Room)"/>
                                         </td>
                                     </tr>
-                                    <button type="submit" value="Submit" asp-page-handler="Remove" onclick="return confirm('Are you sure you want to delete this reservation in location: @Html.DisplayFor(m => reservations.Location) @Html.DisplayFor(m => reservations.Room) on: @Html.DisplayFor(m => reservations.Date)')" class="btn btn-dark btn-sm">X</button>
+                                    <button type="submit" value="Submit" asp-page-handler="Remove" onclick="return confirm('Are you sure you want to delete this reservation in location: @Html.DisplayFor(m => reservations.Location) on: @Html.DisplayFor(m => reservations.Date)')" class="btn btn-dark btn-sm">X</button>
                                 </div>
                             </fieldset>
                         </form>
@@ -233,4 +158,29 @@ var connection = new signalR.HubConnectionBuilder()
         </div>
     </div>
 </div>
->
+
+@section scripts{ 
+    <script>
+        $('#locations').on('change', function () {
+            var arr = [];
+        $.ajax({
+                    type: "POST",
+            url: '?handler=ShowRoom',
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: { "loc": $("#locations").val() },
+            dataType:"json"
+        }).done(function (data) {
+            $("#rooms").empty();
+            $.each(data, function (i, item) {
+                $("#rooms").append('<option> ' + item["roomName"] + ' </option>');
+            });
+           
+        });
+    });
+    </script>
+}
+
+
+

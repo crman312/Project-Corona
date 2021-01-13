@@ -1,0 +1,182 @@
+@page
+@model MessageModel
+@{
+    ViewData["Title"] = "Message";
+}
+<script src="~/Scripts/jquery-2.2.3.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
+
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-3 bg-light menuheight">
+            <h4 class="text-left font-weight-bolder mt-4">Welcome Admin</h4>
+            <div class="row">
+                <div class="mt-5 w-100"></div>
+                <div class="col-9">
+                    <h5 class="font-italic text-left">Menu</h5>
+                    <div class="w-100">
+                        <a asp-page="/Admin">Home</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Locations</h5>
+                    <div class="w-100">
+                        <a asp-page="/AddWorkspace">Add workspace</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteWorkspace">Delete workspace</a>
+                    </div>
+
+                    <h5 class="font-italic text-left mt-3">Employees</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/AddEmployee">Add employee</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteEmployee">Delete employee</a>
+                    </div>
+
+                    <div class="w-100">
+                        <a class="nav-link disabled" asp-page="/Message">Send general message</a>
+                    </div>
+
+                    <h5 class="font-italic text-left mt-3">Reservations</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/AddReservation">Add reservation</a>
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/DeleteReservations">Delete reservation</a>
+                    </div>
+                    
+                    <h5 class="font-italic text-left mt-3">Settings</h5>
+
+                    <div class="w-100">
+                        <a asp-page="/ChangeName">Company Name</a>    
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/OpeningHours">Opening hours</a>    
+                    </div>
+                    
+                    <div class="w-100">
+                        <a asp-page="/Priorities">Edit Priorities</a>
+                    </div>
+
+                    <hr>
+                    <a class="mb-3 mt-5" asp-page="/Index">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="pl-5 col-8">
+                    <div class="card mt-2">
+                        <article class="card-body">
+                        <h4 class="card-title mb-4 mt-1">Send General Message</h4>
+                        <form action="" method="post">
+                            <fieldset>
+                                <tr>
+                                    <div class="form-group">
+                                        <input type="text" id="msg" name="Bericht" class="form-control" type="text" required>
+                                    </div>
+
+                                    <div class="form group">
+                                        <button type="submit" id="sendButton"  asp-page-handler="Sendmessg" class="btn btn-dark btn-lg">Send</button>
+                                    </div>
+                                    @Model.Info
+
+                                </tr>   
+                            </fieldset>
+
+                        </form>
+                       
+                        </article>
+
+                         <div class="card mt-2">
+                        <article class="card-body">
+                        <h4 class="card-title mb-4 mt-1">Send Warning Update for new COVID-case</h4>
+                        <form action="" method="post">
+                            <fieldset>
+                                <tr>
+                                    <div class="form-group">
+                                        <label>Location of COVID-19 case</label>
+                                        
+                                        <select id="locations" name="Location" class="form-control">
+
+                                            <option>---</option>
+                                            @foreach(var reservations in @Model.locations)
+                                            {                                        
+                                                <option>@Html.DisplayFor(m => reservations.LocationName)</option>
+                                                
+
+                                            }
+                                        </select> 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Room of COVID-19 case</label>
+                                        
+                                        <select id="rooms" name="Room" class="form-control">
+                                            <option>---</option>
+                                            @foreach(var reservations in @Model.rooms)
+
+                                            {
+                                               <option>@Html.DisplayFor(m => reservations.RoomName)</option>
+                                                 
+                                            }
+                                    </div>
+                                        <form>
+                                            @Html.AntiForgeryToken()
+                                        </form>
+                                        @section scripts{ 
+                                            <script>
+                                                $('#locations').on('change', function () {
+                                                    var arr = [];
+                                                $.ajax({
+                                                            type: "POST",
+                                                    url: '?handler=ShowRoom',
+                                                    headers: {
+                                                        RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                                                    },
+                                                    data: { "loc": $("#locations").val() },
+                                                    dataType:"json"
+                                                }).done(function (data) {
+                                                    $("#rooms").empty();
+                                                    $.each(data, function (i, item) {
+                                                        $("#rooms").append('<option> ' + item["roomName"] + ' </option>');
+                                                    });
+                                                
+                                                });
+                                            });
+                                            </script>
+                                        }
+
+                                        <hr>
+                                        <div class="form-group">                                          
+                                            <button type="submit" id="sendButton"  asp-page-handler="Submit" class="btn btn-dark btn-lg">Send</button>
+                                        </div>
+                                        @Model.Info2
+                                </tr> 
+                                
+                                
+                            </fieldset>
+
+                        </form>
+                       
+                        </article>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+</div>
+
+
+
+                    

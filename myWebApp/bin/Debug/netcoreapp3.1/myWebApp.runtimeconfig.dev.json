@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\wouts\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\wouts\\.nuget\\packages"
+      "/Users/jan-jaaptencate/.dotnet/store/|arch|/|tfm|",
+      "/Users/jan-jaaptencate/.nuget/packages"
     ]
   }
 }

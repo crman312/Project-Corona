@@ -30,8 +30,15 @@ namespace myWebApp.Pages
         public NotificationsModel(ILogger<NotificationsModel> logger)
         {
             _logger = logger;
-            
         }
+
+        public string userEmail {get; set;}
+
+        public void OnGet()
+        {
+            userEmail = HttpContext.Session.GetString("useremail");
+        }
+
 
 
         public List<NotificationModel> ShowNotification()
@@ -42,7 +49,7 @@ namespace myWebApp.Pages
             List<NotificationModel> not = new List<NotificationModel>();
             using var con = new NpgsqlConnection(cs);
             {
-                string query = "Select datumnu, bericht FROM notification ORDER BY datumnu LIMIT 6";
+                string query = "Select datumnu, bericht FROM notification ORDER BY datumnu DESC LIMIT 10";
                 using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
                 {
                     cmd.Connection = con;

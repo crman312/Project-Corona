@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\myWebApp.csproj",
+  "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\myWebApp.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -14392,108 +14392,113 @@
   "RootNamespace": "myWebApp",
   "Documents": [
     {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\ChangeName.cshtml",
-      "TargetPath": "Pages\\ChangeName.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Error.cshtml",
-      "TargetPath": "Pages\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\AddWorkspace.cshtml",
-      "TargetPath": "Pages\\AddWorkspace.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\AddEmployee.cshtml",
-      "TargetPath": "Pages\\AddEmployee.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Notifications.cshtml",
-      "TargetPath": "Pages\\Notifications.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\AddReservation.cshtml",
-      "TargetPath": "Pages\\AddReservation.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\DeleteEmployee.cshtml",
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\DeleteEmployee.cshtml",
       "TargetPath": "Pages\\DeleteEmployee.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Shared\\MyViewPageLayout.cshtml",
-      "TargetPath": "Pages\\Shared\\MyViewPageLayout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\DeleteWorkspace.cshtml",
-      "TargetPath": "Pages\\DeleteWorkspace.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\_ViewImports.cshtml",
-      "TargetPath": "Pages\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\EmployeeIndex.cshtml",
-      "TargetPath": "Pages\\EmployeeIndex.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\DeleteReservations.cshtml",
-      "TargetPath": "Pages\\DeleteReservations.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Index.cshtml",
-      "TargetPath": "Pages\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\OpeningHours.cshtml",
-      "TargetPath": "Pages\\OpeningHours.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Privacy.cshtml",
-      "TargetPath": "Pages\\Privacy.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Admin.cshtml",
-      "TargetPath": "Pages\\Admin.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Priorities.cshtml",
-      "TargetPath": "Pages\\Priorities.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\SignUp.cshtml",
-      "TargetPath": "Pages\\SignUp.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\Shared\\_Layout.cshtml",
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Shared\\_Layout.cshtml",
       "TargetPath": "Pages\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\wouts\\Documents\\Github\\Project-Corona\\myWebApp\\Pages\\_ViewStart.cshtml",
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\_ViewImports.cshtml",
+      "TargetPath": "Pages\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Index.cshtml",
+      "TargetPath": "Pages\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\EmployeeIndex.cshtml",
+      "TargetPath": "Pages\\EmployeeIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Message.cshtml",
+      "TargetPath": "Pages\\Message.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Admin.cshtml",
+      "TargetPath": "Pages\\Admin.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\AddReservation.cshtml",
+      "TargetPath": "Pages\\AddReservation.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\AddEmployee.cshtml",
+      "TargetPath": "Pages\\AddEmployee.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\DeleteWorkspace.cshtml",
+      "TargetPath": "Pages\\DeleteWorkspace.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Priorities.cshtml",
+      "TargetPath": "Pages\\Priorities.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\_ViewStart.cshtml",
       "TargetPath": "Pages\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Error.cshtml",
+      "TargetPath": "Pages\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Shared\\MyViewPageLayout.cshtml",
+      "TargetPath": "Pages\\Shared\\MyViewPageLayout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\DeleteReservations.cshtml",
+      "TargetPath": "Pages\\DeleteReservations.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\AddWorkspace.cshtml",
+      "TargetPath": "Pages\\AddWorkspace.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\OpeningHours.cshtml",
+      "TargetPath": "Pages\\OpeningHours.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\ChangeName.cshtml",
+      "TargetPath": "Pages\\ChangeName.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Notifications.cshtml",
+      "TargetPath": "Pages\\Notifications.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\Privacy.cshtml",
+      "TargetPath": "Pages\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dvide\\OneDrive\\Documenten\\GitHub\\Project-Coronaa\\myWebApp\\Pages\\SignUp.cshtml",
+      "TargetPath": "Pages\\SignUp.cshtml",
       "FileKind": "mvc"
     }
   ],

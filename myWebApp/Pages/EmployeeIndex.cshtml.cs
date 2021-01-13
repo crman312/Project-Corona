@@ -34,8 +34,10 @@ namespace myWebApp.Pages
 
         public string Info { get; set; }
         public string userEmail {get; set;}
-    
-        
+        public int Count {get; set;}
+
+        public string Priodays {get; set;}
+
         public string Monday {get; set;}
         public string Tuesday {get; set;}
         public string Wednesday {get; set;}
@@ -43,11 +45,13 @@ namespace myWebApp.Pages
         public string Friday {get; set;}
         public string Saturday {get; set;}
         public string Sunday {get; set;}
+
         public void OnGet()
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            Count = ShowNotification();
             bool Check = OpeningHoursModel.CheckIfExist();
             if(Check)
             {
@@ -70,12 +74,15 @@ namespace myWebApp.Pages
                 Saturday = "Closed";
                 Sunday = "Closed";
             }
+            Priodays = GetPriodays(userEmail);
         } 
         public void  OnPostSubmit(ReservationModel reservation)
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            Count = ShowNotification();
+            Priodays = GetPriodays(userEmail);
             bool Check = OpeningHoursModel.CheckIfExist();
             if(Check)
             {
@@ -105,7 +112,8 @@ namespace myWebApp.Pages
             bool check1 = CheckReservation(convdayid, userEmail);
             bool check2 = CheckRoomAvailability(reservation);
             bool check3 = CheckRoomOpen(convdayid);
-            if(check && check1 && check2 && check3){
+            bool check4 = OpeningHoursModel.CheckIfExist();
+            if(check && check1 && check2 && check3 && check4){
               CreateReservation(convdayid, reservation.Room, userEmail, reservation.Location);
               this.Info = string.Format("Reservation successfully saved");
             }
@@ -119,7 +127,7 @@ namespace myWebApp.Pages
               if(!check2){
                 this.Info = string.Format("The room you tried to reserve is full!");
               }
-              if(!check3) {
+              if(!check3 || check4) {
                 this.Info = string.Format("This location is closed on this day, try another day");
               }
             }
@@ -147,7 +155,74 @@ namespace myWebApp.Pages
                 }
             }
             return new JsonResult(l);
-        }   
+        }
+
+        public static string GetPriodays(string userEmail)
+        {
+            string UserPrio = GetUserPrio(userEmail);
+            bool CheckForPriorities = PrioritiesModel.CheckIfExist();
+            if(CheckForPriorities == false)
+            {
+                if(UserPrio == "High")
+                {
+                    return "You can always reserve";
+                }
+                if(UserPrio == "Medium")
+                {
+                    return "You can reserve 7 days in advance";
+                }
+                if(UserPrio == "Low")
+                {
+                    return "You can reserve 2 days in advance";
+                }
+            }
+            if(CheckForPriorities == true)
+            {
+                Tuple<int, int, int> GetPrio = PrioritiesModel.GetPriorities();
+                string high = GetPrio.Item1.ToString();
+                string medium = GetPrio.Item2.ToString();
+                string low = GetPrio.Item3.ToString();
+                if(UserPrio == "High")
+                {
+                    return "You can reserve " + high +" days in advance";
+                }
+                if(UserPrio == "Medium")
+                {
+                    return "You can reserve " + medium + " days in advance";
+                }
+                if(UserPrio == "Low")
+                {
+                    return "You can reserve " + low + " days in advance";
+                }
+            }
+            return "";
+        }
+
+        public static string GetUserPrio(string userEmail)
+        {
+            var cs = Database.Database.Connector();
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "SELECT * FROM employees";
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            NpgsqlDataReader dRead = cmd.ExecuteReader();
+            
+            while (dRead.Read())
+            {
+                for(int i = 0; i < dRead.FieldCount; i++)
+                {
+                    if(dRead[1].ToString() == userEmail)
+                    {
+                        return dRead[4].ToString();
+                    }
+                }
+            }
+            return null;
+        }
+        
 
         public bool prioCheck(ReservationModel reservation)
           {
@@ -221,6 +296,9 @@ namespace myWebApp.Pages
             locations = PopulateReservations();
             rooms = ShowRoom();
             userEmail = HttpContext.Session.GetString("useremail");
+            Count = ShowNotification();
+
+            Priodays = GetPriodays(userEmail);
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             DeleteReservation(convdayid, reservation.Location);
@@ -248,6 +326,54 @@ namespace myWebApp.Pages
                 Sunday = "Closed";
             }
         }
+        public int ShowNotification()
+        {
+            
+            
+            var cs = Database.Database.Connector();
+            List<string> not = new List<string>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select bericht FROM counter";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        
+                        while (dr.Read())
+                        {
+                            not.Add((string) dr["bericht"]);
+                        }
+                    }
+                    
+                    con.Close();
+                }
+            }
+            
+            foreach(string x in not) {
+                
+                Count++;
+                
+            }
+            return Count;
+        }
+        public IActionResult OnGetRemoveCount() {
+            var cs = Database.Database.Connector();
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "TRUNCATE counter ";
+            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            return new RedirectToPageResult("Notifications");
+
+        }
+
 
         public void DeleteReservation(DateTime convdayid, string Location)
         {
