@@ -30,17 +30,22 @@ namespace myWebApp.Pages
     public string Info { get; set; }
     public string userEmail { get; set; }
 
+    public string Priodays {get; set;}
+
 
     public void OnGet()
     {
       locations = ShowLocations();
       rooms = ShowRooms();
+      userEmail = HttpContext.Session.GetString("useremail");
+      Priodays = EmployeeIndexModel.GetPriodays(userEmail);
     }
 
     public void OnPostSubmit(ReservationModel reservation)
     {
       DateTime convdayid = Convert.ToDateTime(reservation.Date);
       userEmail = HttpContext.Session.GetString("useremail");
+      Priodays = EmployeeIndexModel.GetPriodays(userEmail);
 
       bool check = prioCheck(reservation);
       bool check1 = CheckReservation(convdayid, userEmail);

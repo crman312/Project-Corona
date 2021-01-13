@@ -36,8 +36,8 @@ namespace myWebApp.Pages
         public string userEmail {get; set;}
         public int Count {get; set;}
 
-    
-        
+        public string Priodays {get; set;}
+
         public string Monday {get; set;}
         public string Tuesday {get; set;}
         public string Wednesday {get; set;}
@@ -74,6 +74,7 @@ namespace myWebApp.Pages
                 Saturday = "Closed";
                 Sunday = "Closed";
             }
+            Priodays = GetPriodays(userEmail);
         } 
         public void  OnPostSubmit(ReservationModel reservation)
         {
@@ -81,6 +82,7 @@ namespace myWebApp.Pages
             locations = PopulateReservations();
             rooms = ShowRoom();
             Count = ShowNotification();
+            Priodays = GetPriodays(userEmail);
             bool Check = OpeningHoursModel.CheckIfExist();
             if(Check)
             {
@@ -153,7 +155,74 @@ namespace myWebApp.Pages
                 }
             }
             return new JsonResult(l);
-        }   
+        }
+
+        public static string GetPriodays(string userEmail)
+        {
+            string UserPrio = GetUserPrio(userEmail);
+            bool CheckForPriorities = PrioritiesModel.CheckIfExist();
+            if(CheckForPriorities == false)
+            {
+                if(UserPrio == "High")
+                {
+                    return "You can always reserve";
+                }
+                if(UserPrio == "Medium")
+                {
+                    return "You can reserve 7 days in advance";
+                }
+                if(UserPrio == "Low")
+                {
+                    return "You can reserve 2 days in advance";
+                }
+            }
+            if(CheckForPriorities == true)
+            {
+                Tuple<int, int, int> GetPrio = PrioritiesModel.GetPriorities();
+                string high = GetPrio.Item1.ToString();
+                string medium = GetPrio.Item2.ToString();
+                string low = GetPrio.Item3.ToString();
+                if(UserPrio == "High")
+                {
+                    return "You can reserve " + high +" days in advance";
+                }
+                if(UserPrio == "Medium")
+                {
+                    return "You can reserve " + medium + " days in advance";
+                }
+                if(UserPrio == "Low")
+                {
+                    return "You can reserve " + low + " days in advance";
+                }
+            }
+            return "";
+        }
+
+        public static string GetUserPrio(string userEmail)
+        {
+            var cs = Database.Database.Connector();
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "SELECT * FROM employees";
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            NpgsqlDataReader dRead = cmd.ExecuteReader();
+            
+            while (dRead.Read())
+            {
+                for(int i = 0; i < dRead.FieldCount; i++)
+                {
+                    if(dRead[1].ToString() == userEmail)
+                    {
+                        return dRead[4].ToString();
+                    }
+                }
+            }
+            return null;
+        }
+        
 
         public bool prioCheck(ReservationModel reservation)
           {
@@ -228,6 +297,8 @@ namespace myWebApp.Pages
             rooms = ShowRoom();
             userEmail = HttpContext.Session.GetString("useremail");
             Count = ShowNotification();
+
+            Priodays = GetPriodays(userEmail);
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             DeleteReservation(convdayid, reservation.Location);
