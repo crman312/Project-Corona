@@ -31,9 +31,39 @@ namespace myWebApp.Pages
  
         public void OnPostSubmit(EmployeeModel employee)
         {
-            this.Info = string.Format("Successfully saved, {0}", employee.Name);
-            string emPassword = sha256_hash(employee.Password);
-            CreateEmployee(employee.Name, employee.Email, emPassword, employee.Function, employee.Priority);
+            bool Check = EmailCheck(employee.Email);
+            if(Check == true)
+            {
+                this.Info = string.Format("ERROR The specified email already exists");
+            }
+            if(Check == false)
+            {
+                this.Info = string.Format("Successfully saved, {0}", employee.Name);
+                string emPassword = sha256_hash(employee.Password);
+                CreateEmployee(employee.Name, employee.Email, emPassword, employee.Function, employee.Priority);
+            }
+        }
+
+        public bool EmailCheck(string email)
+        {
+            var cs = Database.Database.Connector();
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+            var sql = "SELECT * FROM employees";
+            using var cmd = new NpgsqlCommand(sql, con);
+            NpgsqlDataReader dRead = cmd.ExecuteReader();
+            
+            while (dRead.Read())
+            {
+                for(int i = 0; i < dRead.FieldCount; i++)
+                {
+                    if(dRead[1].ToString() == email)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public static string sha256_hash(string valueToEncrypt)
