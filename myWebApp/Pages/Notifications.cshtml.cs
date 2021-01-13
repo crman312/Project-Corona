@@ -53,7 +53,7 @@ namespace myWebApp.Pages
                         
                         while (dr.Read())
                         {
-                            not.Add(new NotificationModel { Datenow = ((DateTime) dr["datumnu"]).ToString("yyyy/MM/dd"), Bericht = dr["bericht"].ToString() });
+                            not.Add(new NotificationModel { Datenow = ((DateTime) dr["datumnu"]).ToString("yyyy/MM/dd hh:mm:ss"), Bericht = dr["bericht"].ToString() });
                         }
                     }
                     
