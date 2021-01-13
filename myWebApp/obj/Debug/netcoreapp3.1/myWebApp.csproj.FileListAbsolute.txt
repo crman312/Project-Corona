@@ -1128,3 +1128,10 @@ C:/Users/dvide/OneDrive/Documenten/GitHub/Project-Coronaa/myWebApp/obj/Debug/net
 /Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/myWebApp.csproj.CopyComplete
 /Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/myWebApp.dll
 /Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/obj/Debug/netcoreapp3.1/myWebApp.pdb
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/bin/Debug/netcoreapp3.1/publish/web.config
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/bin/Debug/netcoreapp3.1/publish/appsettings.Development.json
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/bin/Debug/netcoreapp3.1/publish/appsettings.json
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/bin/Debug/netcoreapp3.1/publish/myWebApp.deps.json
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/bin/Debug/netcoreapp3.1/publish/myWebApp.runtimeconfig.json
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/bin/Debug/netcoreapp3.1/publish/package-lock.json
+/Users/jan-jaaptencate/Documents/GitHub/Project-Corona/myWebApp/bin/Debug/netcoreapp3.1/publish/package.json
