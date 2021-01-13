@@ -5,24 +5,20 @@
     ViewData["Title"] = "Notifications";
 }
 
-<script src="~/lib/signalr.js"></script>
-
-
 
 <div class="container-fluid">
-        <p id ="output"></p>
-        <div class="col-3 bg-light">
-            <h5 class="font-italic text-left">Old Messages</h5>
+        <div class="col-6 bg-light">
+            <h5 class="font-italic text-left">Messages</h5>
             <hr>
             @foreach(var n in @Model.ShowNotification())
-                    {
-                                                
+                    {                      
                         <tr>
                             <img class="img-fluid" src="/Images/Reservation.png"/>
                             <td>
-                                @Html.DisplayFor(m => n.Datenow)
+                                @Html.DisplayFor(m => n.Datenow)       
                                                                 
                             </td>
+
                             <td>
                                 @Html.DisplayFor(m => n.Bericht)
                                                                     
@@ -41,4 +37,3 @@
         </div>
     </div>
 </div>
-
