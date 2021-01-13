@@ -34,6 +34,8 @@ namespace myWebApp.Pages
 
         public string Info { get; set; }
         public string userEmail {get; set;}
+        public int Count {get; set;}
+
     
         
         public string Monday {get; set;}
@@ -43,11 +45,13 @@ namespace myWebApp.Pages
         public string Friday {get; set;}
         public string Saturday {get; set;}
         public string Sunday {get; set;}
+
         public void OnGet()
         {
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            Count = ShowNotification();
             bool Check = OpeningHoursModel.CheckIfExist();
             if(Check)
             {
@@ -76,6 +80,7 @@ namespace myWebApp.Pages
             userEmail = HttpContext.Session.GetString("useremail");
             locations = PopulateReservations();
             rooms = ShowRoom();
+            Count = ShowNotification();
             bool Check = OpeningHoursModel.CheckIfExist();
             if(Check)
             {
@@ -221,6 +226,7 @@ namespace myWebApp.Pages
             locations = PopulateReservations();
             rooms = ShowRoom();
             userEmail = HttpContext.Session.GetString("useremail");
+            Count = ShowNotification();
             
             DateTime convdayid = Convert.ToDateTime(reservation.Date);
             DeleteReservation(convdayid, reservation.Location);
@@ -248,6 +254,54 @@ namespace myWebApp.Pages
                 Sunday = "Closed";
             }
         }
+        public int ShowNotification()
+        {
+            
+            
+            var cs = Database.Database.Connector();
+            List<string> not = new List<string>();
+            using var con = new NpgsqlConnection(cs);
+            {
+                string query = "Select bericht FROM counter";
+                using NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+                {
+                    cmd.Connection = con;
+                
+                    con.Open();
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        
+                        while (dr.Read())
+                        {
+                            not.Add((string) dr["bericht"]);
+                        }
+                    }
+                    
+                    con.Close();
+                }
+            }
+            
+            foreach(string x in not) {
+                
+                Count++;
+                
+            }
+            return Count;
+        }
+        public IActionResult OnGetRemoveCount() {
+            var cs = Database.Database.Connector();
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var sql = "TRUNCATE counter ";
+            using var cmd = new NpgsqlCommand(sql, con);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            return new RedirectToPageResult("Notifications");
+
+        }
+
 
         public void DeleteReservation(DateTime convdayid, string Location)
         {

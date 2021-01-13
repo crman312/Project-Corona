@@ -12,12 +12,11 @@
             <div class="row">
                 <div class="mt-5 w-100"></div>
                 <div class="col-9">
-                    <h5 class="font-italic text-left">Notifications</h5>
+                    
+                    <a asp-page="/Notifications"><h5 class="font-italic text-left">Notifications</h5></a>
                 </div>
 
-                <div class="col">
-                    <div class="circle">1</div>
-                </div>
+            
             </div>
             <hr>
             <p class="mt-2 mb-2">Text Notifications</p>
@@ -50,7 +49,11 @@
                     <div class="w-100">               
                         <a asp-page="/DeleteEmployee">Delete employee</a>
                     </div>
+                    <div class="w-100">               
+                        <a asp-page="/Message">Send global message</a>
+                    </div>
                 </div>
+
 
                 <div class="pl-5 col-4">
                     <h4 class="font-weight-bolder pt-5 pb-5">Settings</h4>

@@ -14,20 +14,8 @@
 
 <script src="~/Scripts/jquery-2.2.3.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-<script src="/signalr/hubs"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
-
-<script src="~/lib/signalr.js"></script>
-
-
-<div class=container>
-    <div class="alert alert-warning">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <p id="output"></p>
-    </div>
-</div>
-
 
 
 <div class="container-fluid">
@@ -38,15 +26,14 @@
                 <div class="mt-5 w-100"></div>
                 <div class="col-9">
 
-                    <a asp-page="/Notifications"><h5 class="font-italic text-left">Notifications </h5></a>
+                    <a asp-page-handler="RemoveCount" ><h5 class="font-italic text-left">Notifications </h5></a>
                 </div>
+               
+                
                 <div class="col">
-                    <span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>
-                    <div class="noti-content">
-                        <div class="noti-top-arrow"></div>
-                        <ul id="notiContent"></ul>
-                    </div>
+                    <div class="circle">@Model.Count</div>
                 </div>
+            </div>    
             </div>            
             <hr>
             <div class="mt-5 w-100"></div>
