@@ -18,6 +18,7 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
 
 
+
 <div class="container-fluid">
     <div class="row h-100">
         <div class="col-3 bg-light">
@@ -28,15 +29,12 @@
 
                     <a asp-page-handler="RemoveCount" ><h5 class="font-italic text-left">Notifications </h5></a>
                 </div>
-               
-                
+                <div class="col">
+                </div>
                 <div class="col">
                     <div class="circle">@Model.Count</div>
                 </div>
             </div>    
-            </div>            
-            <hr>
-            <div class="mt-5 w-100"></div>
             <a class="" asp-area="" asp-page="/Index">Logout</a>
         </div>
         <div class="col">
