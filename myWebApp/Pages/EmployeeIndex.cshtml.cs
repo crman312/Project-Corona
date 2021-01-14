@@ -468,7 +468,6 @@ namespace myWebApp.Pages
         if(Day == 0){ open = dr[7].ToString();}
         else{ open = dr[Day].ToString();}
       }
-      //this.Info = string.Format($"Day = {Day} open = {open}");
       if(open.ToLower() == "closed"){ return false;}
       else{ return true;}
     }
