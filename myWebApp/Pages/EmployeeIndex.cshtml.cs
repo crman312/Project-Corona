@@ -397,6 +397,8 @@ namespace myWebApp.Pages
             int AmountDate = 0;
             DateTime now = DateTime.Now;
            
+            if(now > convdayid){ return false;}
+            
             var cs = Database.Database.Connector();
             List<DateTime> res = new List<DateTime>();
             using var con = new NpgsqlConnection(cs);
